@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Modal from 'react-bootstrap/esm/Modal';
 import Button from 'react-bootstrap/esm/Button';
 import "./Modal.css";
@@ -15,8 +15,17 @@ import SpotifyPlayer from "react-spotify-player";
 
 function SpotifyModal(props) {
 
+  const [image, setImage] = useState();
+  const [name, setName] = useState();
+  const [uri, setUri] = useState();
 
-    console.log(props);
+  useEffect(() => {
+    if (props.item !== null) {
+      setImage(props.item.images[0].url);
+      setName(props.item.name);
+      setUri(props.item.uri);
+    }
+  }, [props]);
 
     return (
       <Modal
@@ -28,7 +37,7 @@ function SpotifyModal(props) {
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
                 <div style={{textTransform: "capitalize"}}>
-                    {props.item.name}
+                    {name}
                 </div>
           </Modal.Title>
         </Modal.Header>
@@ -37,11 +46,11 @@ function SpotifyModal(props) {
                 <div className="row">
                     <div className="col">
                     <SpotifyPlayer
-                        uri={props.item.uri}
+                        uri={uri}
                     />
                     </div>
                     <div className="col">
-                      <img className="videoGameImage" src={props.item.images[0].url} alt={props.item.name} />
+                      <img className="videoGameImage" src={image} alt={name} />
                     </div>
                 </div>
             </div>

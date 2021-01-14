@@ -1,6 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import API from "../../utils/API";
 import { useHistory } from "react-router-dom";
+import Form from 'react-bootstrap/Form';
+import Container from 'react-bootstrap/esm/Container';
+import Row from 'react-bootstrap/esm/Row';
+import Col from 'react-bootstrap/esm/Col';
+import Alert from 'react-bootstrap/Alert'
+import Button from 'react-bootstrap/Button'
 
 
 function SignUp() {
@@ -10,9 +16,10 @@ function SignUp() {
     const [values, setValues] = useState();
     const [error, setError] = useState();
 
+
     function handleChange(event) {
 		event.persist();
-		const { name, value } = event.target;
+        const { name, value } = event.target;
 		setValues({ ...values, [name]: value });
 	}
 
@@ -39,14 +46,72 @@ function SignUp() {
             });        
         }
         catch(err)  {
-            console.log(err.response.data.msg);
             setError(err.response.data.msg);
         }
     }
 
     return (
         <>
-            <div className="container-fluid">
+           
+        <Container fluid>
+            <Row>
+                <Col xs={4}></Col>
+                <Col> 
+                {error && (
+                    <>
+                        <Alert variant="danger" onClick={() => setError(null)} dismissible>
+                            <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
+                                <p>
+                                    {error}
+                                </p>
+                        </Alert>
+                    </>
+                )}
+                    <Form>
+                        <Row>
+                            <Col>
+                                <Form.Control onChange={handleChange} name="firstname" placeholder="First name" />
+                            </Col>
+                        </Row>
+                        <br></br>
+                        <Row>
+                            <Col>
+                                <Form.Control onChange={handleChange} name="lastname" placeholder="Last name" />
+                            </Col>
+                        </Row>
+                        <br></br>
+                        <Row>
+                            <Col>
+                                <Form.Control onChange={handleChange} name="email" placeholder="email" />
+                            </Col>
+                        </Row>
+                    </Form>
+                </Col>
+                <Col xs={4}></Col>
+            </Row>
+            <br></br>
+            <Row>
+                <Col xs={4}></Col>
+                <Col>
+                    <Form.Control onChange={handleChange} name="username" placeholder="Username" />
+                </Col>
+                <Col>
+                    <Form.Control onChange={handleChange} name="password" type="password" placeholder="Password" />
+                </Col>
+                <Col xs={4}></Col>
+            </Row>
+            <br></br>
+            <br></br>
+            <Row>
+                <Col xs={4}></Col>
+                <Col>
+                    <Button onClick={() => getUserData()}>Sign Up</Button>
+                </Col>
+                <Col xs={4}></Col>
+            </Row>
+        </Container>
+          
+            {/* <div className="container-fluid">
                 <div className="row">
                     <div className="col-3">
 
@@ -116,7 +181,7 @@ function SignUp() {
 
                     </div>
                 </div>
-            </div>
+            </div> */}
         </>
     )
 }

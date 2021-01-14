@@ -21,14 +21,12 @@ function Spotify(props) {
     const [spotifyResultsPlaylsit, setSpotifyResultsPlaylsit] = useState([]);
     const [mappedData, setMappedData] = useState([]);
     const [mappedDataPlaylist, setMappedDataPlaylist] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
     const [count, setCount] = useState(0);
     const [category, setCategory] = useState();
     const [modalShow, setModalShow] = useState(false);
-    const [modalData, setModalData] = useState({});
+    const [modalData, setModalData] = useState(null);
 
     useEffect(() => {
-        setIsLoading(true);
         setUrl(`https://api.spotify.com/v1/browse/new-releases`)
     }, []);
     
@@ -88,7 +86,6 @@ function Spotify(props) {
                     result.push(clonedSpotifiedResutls.splice(0, Math.ceil(clonedSpotifiedResutls.length / i)));
                 }
                 setMappedData(result);
-                setIsLoading(false);
             }
 
             if (clonedSpotifiedResutlsPlaylist !== undefined) {
@@ -97,7 +94,6 @@ function Spotify(props) {
                     result2.push(clonedSpotifiedResutlsPlaylist.splice(0, Math.ceil(clonedSpotifiedResutlsPlaylist.length / i)));
                 }
                 setMappedDataPlaylist(result2);
-                setIsLoading(false);
             }
         };
 
@@ -117,16 +113,20 @@ function Spotify(props) {
         }
     };
 
-    console.log(isLoading)
 
-
-    if (isLoading) {
+    if (mappedData.length === 0 || mappedDataPlaylist.length === 0) {
         return (
-            <Spinner animation="border" role="status">
-                <span className="sr-only">Loading...</span>
-            </Spinner>
+            <Container fluid>
+                <Row>
+                    <Col>
+                        <Spinner style={{marginLeft: "auto", marginRight: "auto", display: "block"}} animation="border" role="status">
+                            <span className="sr-only">Loading...</span>
+                        </Spinner>
+                    </Col>
+                </Row>
+            </Container>
         )
-    }  
+    }  else {
 
             return (
                 <>
@@ -135,8 +135,7 @@ function Spotify(props) {
                                 <Col xs={1}>
                                     <img onClick={() => leftArrow()} className="left-arrow" src={LeftArrow} alt="left-arrow"></img>
                                 </Col>
-                                {category && !isLoading ? mappedData[count].map((item, i) => {
-                                    console.log(item)
+                                {mappedData[0].length > 1 ? mappedData[count].map((item, i) => {
                                         return (
                                             <>
                                                 <Col>
@@ -155,16 +154,12 @@ function Spotify(props) {
                                         )
                                     })
                                     :
-                           
                                     mappedDataPlaylist[count].map((item, i) => {
-                                        console.log(item)
                                         return (
                                             <>
                                                 <Col>
                                                     <img onClick={() => {setModalShow(true); setModalData(item)}} className="image-flex" src={item.images[0].url} alt={i} />
                                                     <h3>{item.name}</h3>
-                                                    {/* <h4 style={{textAlign: "center"}}>{item.artists[0].name}</h4> */}
-                                                    {/* {item.artists[1] !== undefined ? <h4 style={{textAlign: "center"}}>{item.artists[1].name}</h4> : <div></div>} */}
                                                 </Col>
                                                 <SpotifyModal
                                                     item={modalData}
@@ -184,6 +179,7 @@ function Spotify(props) {
                 </>
             )
         }
+}
 
 
 export default Spotify;

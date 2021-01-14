@@ -50,7 +50,7 @@ function WelcomePage() {
                 </DropdownButton>
             </Row>
             <br></br>
-            {/* <Spotify spotifySelector={spotifySelector} /> */}
+            <Spotify spotifySelector={spotifySelector} />
             <br></br>
             <br></br>
          
