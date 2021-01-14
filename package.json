@@ -1,38 +1,59 @@
 {
-  "name": "coreyproject",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "react-scripts": "4.0.1",
-    "web-vitals": "^0.2.4"
+  "name": "project-3",
+  "version": "1.0.0",
+  "author": "Spencer Smith, Eric Folenta, Josh Sandberg, Crystal Han, and Amin Bouzouita",
+  "license": "MIT",
+  "description": "MERN application for inventory tracking.",
+  "engines": {
+    "node": "14.15.1",
+    "yarn": "1.22.5"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "if-env NODE_ENV=production && yarn start:prod || yarn run start:dev",
+    "start:prod": "node server.js",
+    "start:dev": "concurrently \"nodemon server.js\" \"yarn run client\"",
+    "client": "cd client && yarn start",
+    "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
+    "install": "cd client && yarn install",
+    "build": "cd client && yarn install && yarn run build",
+    "heroku-postbuild": "cd client && yarn install && yarn run build",
+    "server": "nodemon server.js"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+  "devDependencies": {
+    "concurrently": "^4.1.0",
+    "nodemon": "^1.18.7"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  }
+  "dependencies": {
+    "axios": "^0.21.0",
+    "bcrypt": "^5.0.0",
+    "bcryptjs": "^2.4.3",
+    "bootstrap": "^4.5.3",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "cors-anywhere": "^0.4.3",
+    "dotenv": "^8.2.0",
+    "env": "^0.0.2",
+    "express": "^4.17.1",
+    "express-jwt": "^6.0.0",
+    "install": "^0.13.0",
+    "json-loader": "^0.5.7",
+    "jsonwebtoken": "^8.5.1",
+    "ls": "^0.2.1",
+    "mongoose": "^5.11.11",
+    "path": "^0.12.7",
+    "react": "^17.0.1",
+    "react-bootstrap": "^1.4.0",
+    "react-dom": "^17.0.1",
+    "react-gauge-chart": "^0.2.5",
+    "react-multi-carousel": "^2.6.1",
+    "react-router-dom": "^5.2.0",
+    "react-spotify-player": "^1.0.4",
+    "react-spotify-web-playback": "^0.8.1",
+    "redux-react-session": "^2.6.1",
+    "request": "^2.88.2",
+    "serv": "^0.2.4",
+    "spotify-web-api-js": "^1.5.1",
+    "use-force-update": "^1.0.7"
+  },
+  "proxy": "http://localhost:3001"
 }

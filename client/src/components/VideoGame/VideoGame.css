@@ -1,0 +1,31 @@
+.image-flex {
+    max-width: 80%;
+    margin-right: auto;
+    margin-left: auto;
+    display: block;
+    /* display: flex;
+    align-items: center;
+    justify-content: center  */
+ 
+}
+
+h3 {
+    text-align: center;
+    text-transform: capitalize;
+}
+
+.left-arrow {
+    width: 60px;
+    padding-top: 130px;
+    margin-right: auto;
+    margin-left: auto;
+    display: block;
+}
+
+.right-arrow {
+    width: 70px;
+    padding-top: 125px;
+    margin-right: auto;
+    margin-left: auto;
+    display: block;
+}
