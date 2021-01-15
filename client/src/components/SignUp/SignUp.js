@@ -38,17 +38,21 @@ function SignUp() {
                             password: newUser.password,
                         })
                         .then(res => {
+                            console.log(res)
                             localStorage.setItem("auth-token", res.data.token)
                             // Push the entire information of the user and all its friends data
-                            history.push("/")
-                        })
-                }
+                            history.push({
+                                pathname: "/home",
+                                state: res.data.user
+                            });
+                        });
+                };
             });        
         }
         catch(err)  {
             setError(err.response.data.msg);
-        }
-    }
+        };
+    };
 
     return (
         <>

@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Navbar from 'react-bootstrap/esm/Navbar';
 import Nav from 'react-bootstrap/esm/Nav'
 import NavDropdown from 'react-bootstrap/esm/NavDropdown'
+import { NavItem } from "react-bootstrap";
 
 
-function NavBar() {
+function HomeNavBar(props) {
+
+    const [user, setUser] = useState({...props.user.location.state})
 
     return (
         <>
@@ -27,8 +30,8 @@ function NavBar() {
                     </NavDropdown>
                     </Nav>
                     <Nav>
-                    <Nav.Link><Link to="/login">Login</Link></Nav.Link>
-                    <Nav.Link><Link to="/signup">Sign Up</Link></Nav.Link>
+                    <Navbar.Brand href="#home">{user.name}</Navbar.Brand>
+                    <Nav.Link>Sign Out</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
 </Navbar>
@@ -36,4 +39,4 @@ function NavBar() {
     )
 }
 
-export default NavBar;
+export default HomeNavBar;
