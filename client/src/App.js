@@ -24,20 +24,18 @@ function App() {
   useEffect(() => isUserAuth(), [user])
 
   const isUserAuth = async () => {
-    if (user === undefined) {
       let token = localStorage.getItem("auth-token");
       if (token != undefined) {
         const decoded = jwt.verify(token, "secret");      
           try {
             const newUser = await API.getUserbyId(decoded.id);
             await setTokenUser(newUser.data);
-            await setModalShow(true);
           } catch(err) {
             console.log(err)
             }
         } 
     }
-}
+
 
   return (
 
