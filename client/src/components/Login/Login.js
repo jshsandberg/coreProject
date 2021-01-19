@@ -1,19 +1,20 @@
-import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import React, { useContext, useState, } from "react";
 import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/esm/Row';
 import Col from 'react-bootstrap/esm/Col';
 import Button from 'react-bootstrap/Button';
 import API from "../../utils/API";
-
+import SpotifyAuthModal from "../Modal/SpotifyAuthModal";
+import { UserContext } from "../../context/userContext";
 
 function Login() {
 
-    const history = useHistory();
+
+    const {user, setUser} = useContext(UserContext);
 
     const [values, setValues] = useState();
-
+    const [modalShow, setModalShow] = useState(false);
 
     function handleChange(event) {
 		event.persist();
@@ -32,10 +33,12 @@ function Login() {
                 password: newUser.password,
             })
             .then(res => {
-                history.push({
-                pathname: "/home",
-                state: res.data.user,
-                })
+                setUser(res.data.user) 
+                setModalShow(true);
+                // history.push({
+                // pathname: "/history",
+                // state: res.data.user,
+                // })
                 localStorage.setItem("auth-token", res.data.token)
             });
         } catch(err) {
@@ -66,6 +69,12 @@ function Login() {
                     <Col xs={4}></Col>
                 </Row>
             </Container>
+
+            <SpotifyAuthModal
+            show={modalShow}
+            onHide={() => setModalShow(false)}
+            user = {user}
+            />
         </>
     )
 }

@@ -99,5 +99,15 @@ module.exports = {
 		} catch (err) {
 			res.status(500).json({ error: err.message });
         }
-    }
+	},
+	findById: async (req, res) => {
+
+		try {
+			const foundUser = await db.User.findById(req.params.id)
+			 
+			res.json(foundUser)
+		} catch (err) {
+			res.status(500)
+		}
+	},
 }

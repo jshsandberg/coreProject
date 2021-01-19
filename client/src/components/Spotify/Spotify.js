@@ -139,7 +139,7 @@ function Spotify(props) {
                                         return (
                                             <>
                                                 <Col>
-                                                    <img onClick={() => {setModalShow(true); setModalData(item)}} className="image-flex" src={item.images[1].url} alt={i} />
+                                                    <img onClick={() => {setModalShow(true); setModalData(item)}} className="image-flex" src={item.images[1].url} alt={i} key={i} />
                                                     <h3>{item.name}</h3>
                                                     <h4 style={{textAlign: "center"}}>{item.artists[0].name}</h4>
                                                     {item.artists[1] !== undefined ? <h4 style={{textAlign: "center"}}>{item.artists[1].name}</h4> : <div></div>}
@@ -158,7 +158,7 @@ function Spotify(props) {
                                         return (
                                             <>
                                                 <Col>
-                                                    <img onClick={() => {setModalShow(true); setModalData(item)}} className="image-flex" src={item.images[0].url} alt={i} />
+                                                    <img onClick={() => {setModalShow(true); setModalData(item)}} className="image-flex" src={item.images[0].url} alt={i} key={i} />
                                                     <h3>{item.name}</h3>
                                                 </Col>
                                                 <SpotifyModal

@@ -7,5 +7,8 @@ export default {
     },
     loginUser: function(loginData) {
       return axios.post("/api/user/login", loginData);
-    }
+    },
+    getUserbyId: function(id) {
+      return axios.post("/api/user/" + id)
+    },
 };

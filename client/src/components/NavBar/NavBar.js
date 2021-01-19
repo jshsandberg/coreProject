@@ -15,9 +15,9 @@ function NavBar() {
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="mr-auto">
                     <Nav.Link>Friends</Nav.Link>
-                    <Nav.Link href="#pricing">Featured Reviews</Nav.Link>
-                    <Nav.Link href="#pricing">Browse</Nav.Link>
-                    <Nav.Link href="#pricing">Playlist</Nav.Link>
+                    <Nav.Link>Featured Reviews</Nav.Link>
+                    <Nav.Link>Browse</Nav.Link>
+                    <Nav.Link>Playlist</Nav.Link>
                     <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
                         <NavDropdown.Item href="#action/3.1"></NavDropdown.Item>
                         <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>

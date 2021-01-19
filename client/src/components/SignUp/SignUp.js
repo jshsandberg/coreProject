@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useContext } from "react";
 import API from "../../utils/API";
 import { useHistory } from "react-router-dom";
 import Form from 'react-bootstrap/Form';
@@ -7,11 +7,14 @@ import Row from 'react-bootstrap/esm/Row';
 import Col from 'react-bootstrap/esm/Col';
 import Alert from 'react-bootstrap/Alert'
 import Button from 'react-bootstrap/Button'
+import { UserContext } from "../../context/userContext";
 
 
 function SignUp() {
 
     const history = useHistory();
+
+    const {user, setUser} = useContext(UserContext);
 
     const [values, setValues] = useState();
     const [error, setError] = useState();
@@ -40,10 +43,11 @@ function SignUp() {
                         .then(res => {
                             console.log(res)
                             localStorage.setItem("auth-token", res.data.token)
+                            setUser(res.data.user)
+                            
                             // Push the entire information of the user and all its friends data
                             history.push({
                                 pathname: "/home",
-                                state: res.data.user
                             });
                         });
                 };

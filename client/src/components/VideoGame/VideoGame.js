@@ -72,8 +72,9 @@ function VideoGame() {
                                 return (
                                     <>
                                         <Col>
-                                            <img onClick={() => {setModalShow(true); setModalData(item)}} className="image-flex" src={item.image} alt={i} />
+                                            <img onClick={() => {setModalShow(true); setModalData(item)}} className="image-flex" src={item.image} alt={i} key={i} />
                                             <h3>{item.name}</h3>
+                                            
                                         </Col>
                                     </>
                                 )
