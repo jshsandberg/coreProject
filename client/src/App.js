@@ -24,8 +24,9 @@ function App() {
   useEffect(() => isUserAuth(), [user])
 
   const isUserAuth = async () => {
+    try {
       let token = localStorage.getItem("auth-token");
-      if (token != undefined) {
+      if (token !== undefined) {
         const decoded = jwt.verify(token, "secret");      
           try {
             const newUser = await API.getUserbyId(decoded.id);
@@ -34,6 +35,9 @@ function App() {
             console.log(err)
             }
         } 
+      } catch (err) {
+        console.log(err)
+      }
     }
 
 
@@ -49,7 +53,7 @@ function App() {
             <Route exact path="/spotify" component={Spotify} />
             <Route exact path="/home/#access_token=" component={Home} />
             <Route exact path="/home" component={Home} />
-            <Route exact path="/home/review/videogame" component={Review} />
+            <Route exact path="/review" component={Review} />
             <AuthTokenModal 
                  tokenUser={tokenUser}
                  show={modalShow}

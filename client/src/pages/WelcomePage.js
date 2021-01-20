@@ -1,17 +1,18 @@
 import React, { useState } from "react";
-import Header from "../components/Header/Header";
-import NavBar from "../components/NavBar/NavBar";
-import VideoGame from "../components/VideoGame/VideoGame";
-import DropdownButton from 'react-bootstrap/esm/DropdownButton';
-import Dropdown from 'react-bootstrap/esm/Dropdown'
+import { Link } from "react-router-dom";
+import SideNavBar from "../components/NavBar/SideNav";
+import SearchBar from "../components/SearchBar/SearchBar";
 import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/esm/Row';
-import InputGroup from 'react-bootstrap/esm/InputGroup'
 import Col from 'react-bootstrap/esm/Col';
-import TitleMedia from "../components/TitleMedia/TitleMedia";
-import Form from 'react-bootstrap/esm/Form'
-import IGDB from "../components/IGDB/IGDB";
+import Button from 'react-bootstrap/Button';
+import Corey from "../utils/Media/Corey.jpg";
+import DropdownButton from 'react-bootstrap/esm/DropdownButton';
+import Dropdown from 'react-bootstrap/esm/Dropdown'
 import Spotify from "../components/Spotify/Spotify";
+
+import "./WelcomePage.css";
+
 
 function WelcomePage() {
 
@@ -19,22 +20,84 @@ function WelcomePage() {
     const [spotifySearchTitle, setSpotifySearchTitle] = useState("New Releases")
 
     const bottomBorder = {
-        borderBottom: "double"
+        borderBottom: "double",
+        borderColor: "#db3d44"
+    }
+
+
+    const buttonStyle = {
+        float: "right", 
+        marginRight: "15px", 
+        background: "#db3d44",
+        borderColor: "#db3d44"
     }
 
     return (
         <>
-            <Header />
-            <NavBar />
+            <SideNavBar />
+            <Container fluid>
+                <Row>
+                    <Col>
+                    
+                    </Col>
+                    <Col>
+                        <br></br>
+                        <SearchBar />
+                       
+                    </Col>
+                    <Col>
+                        <br></br>
+                        <Link to="/login"><Button style={buttonStyle}>Login</Button></Link>
+                        <Link to="/signup"><Button style={buttonStyle}>Sign Up</Button></Link>
+                    </Col>
+                </Row>
+            </Container>
             <br></br>
             <br></br>
-            <Row style={bottomBorder}>
-                <h1 style={{paddingLeft: "20px"}}>Video Games</h1>
-            </Row>
+            <Container fluid>
+                <Row>
+                    <Col>
+                    
+                    </Col>
+                    <Col style={{paddingTop: "2%"}}>
+                        <h2>Our Website Suck</h2>
+                        <h6>But please, give it a shot why dont ya?</h6>
+                        <br></br>
+                        <Button style={{background: "#db3d44", borderColor: "#db3d44"}}>Creat a free account</Button>
+                    </Col>
+                    <Col>
+                        <img style={{width: "100%"}} src={Corey} alt={Corey} />
+                    </Col>
+                    <Col>
+                    
+                    </Col>
+                </Row>
+            </Container>
             <br></br>
-            <VideoGame />
             <br></br>
-            <br></br>
+            <Container fluid>
+                <Row>
+                    <Col>
+                    
+                    </Col>
+                    <Col xs={3}>
+                        <Container style={{backgroundColor: "#db3d44"}}>
+                            <p>can i please get a better friend than corey</p>
+                        </Container>
+                    </Col>
+                    <Col xs={3}>
+                        <p>can i please get a better friend than corey</p>
+                    </Col>
+                    <Col xs={3}>
+                        <p>can i please get a better friend than corey</p>
+                    </Col>
+                    <Col>
+                    
+                    </Col>
+                </Row>
+            </Container>
+            <Container fluid>
+                <br></br>
             <Row style={bottomBorder}>
                 <h1 style={{paddingLeft: "20px"}}>Music</h1>
                 <DropdownButton style={{marginTop: "3px", marginLeft: "15px"}} id="dropdown-basic-button" title={spotifySearchTitle}>
@@ -51,14 +114,9 @@ function WelcomePage() {
             </Row>
             <br></br>
             <Spotify spotifySelector={spotifySelector} />
-            <br></br>
-            <br></br>
-         
-         
-           
-
+            </Container>
         </>
     )
-}
+};
 
-export default WelcomePage
+export default WelcomePage;
