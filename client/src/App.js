@@ -9,6 +9,7 @@ import Review from "./pages/ReviewPage"
 import { UserContext } from "./context/userContext";
 import API from "./utils/API";
 import AuthTokenModal from "./components/Modal/AuthTokenModal";
+import Media from "./pages/MediaPage";
 import './App.css';
 
 function App() {
@@ -54,6 +55,7 @@ function App() {
             <Route exact path="/home/#access_token=" component={Home} />
             <Route exact path="/home" component={Home} />
             <Route exact path="/review" component={Review} />
+            <Route exact path="/media" component={Media} />
             <AuthTokenModal 
                  tokenUser={tokenUser}
                  show={modalShow}

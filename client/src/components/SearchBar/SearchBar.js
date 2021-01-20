@@ -14,13 +14,12 @@ function SearchBar() {
     const history = useHistory();
 
     const [value, setValue] = useState();
-    const [type, setType] = useState("Track");
-    const [data, setData] = useState();
+    const [type, setType] = useState("track");
+    const [name, setName] = useState("Track");
 
     const getSpotifyData = async () => {
         const returnedData = await getSpotifyAccess(value, type);
-        await setData(returnedData);
-        history.push({pathname: "/media", state: data})
+        history.push({pathname: "/media", state: returnedData})
     }
 
     const getVideoGameData = () => {
@@ -35,17 +34,17 @@ function SearchBar() {
                 <DropdownButton
                     as={InputGroup.Prepend}
                     variant="outline-secondary"
-                    title={type}
+                    title={name}
                     id="input-group-dropdown-1"
                     style={{background: "#db3d44", borderColor: "#db3d44", color: "white"}}
                 >
-                    <Dropdown.Item onClick={() => setType("Track")} name="Track">Track</Dropdown.Item>
-                    <Dropdown.Item onClick={() => setType("Artist")} name="Artist">Arist</Dropdown.Item>
-                    <Dropdown.Item onClick={() => setType("Album")} name="Album">Album</Dropdown.Item>
-                    <Dropdown.Item onClick={() => setType("Video Game")} name="Video Game">Video Game</Dropdown.Item>
+                    <Dropdown.Item onClick={() => {setType("track"); setName("Track")}}>Track</Dropdown.Item>
+                    <Dropdown.Item onClick={() => {setType("artist"); setName("Artist")}}>Arist</Dropdown.Item>
+                    <Dropdown.Item onClick={() => {setType("album"); setName("Album")}}>Album</Dropdown.Item>
+                    <Dropdown.Item onClick={() => {setType("videogame"); setName("Video Game")}}>Video Game</Dropdown.Item>
                 </DropdownButton>
                 <FormControl onChange={(e) => setValue(e.target.value)} aria-describedby="basic-addon1" />
-                <Button onClick={() => {type === "Video Game" ? getVideoGameData() : getSpotifyData()}} style={{backgroundColor: "#db3d44", borderColor: "#db3d44"}}>Search</Button>
+                <Button onClick={() => {type === "videogame" ? getVideoGameData() : getSpotifyData()}} style={{backgroundColor: "#db3d44", borderColor: "#db3d44"}}>Search</Button>
             </InputGroup>
         </>
     )
