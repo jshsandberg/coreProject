@@ -15,12 +15,19 @@ import SpotifyPlayer from "react-spotify-player";
 
 function SpotifyModal(props) {
 
+  console.log(props)
+
   const [image, setImage] = useState();
   const [name, setName] = useState();
   const [uri, setUri] = useState();
 
   useEffect(() => {
-    if (props.item !== null) {
+      if (props.track === true && props.item !== null) {
+        setImage(props.item.album.images[1].url);
+        setName(props.item.name);
+        setUri(props.item.uri)
+      }
+    else if (props.item !== null) {
       setImage(props.item.images[0].url);
       setName(props.item.name);
       setUri(props.item.uri);
@@ -50,7 +57,7 @@ function SpotifyModal(props) {
                     />
                     </div>
                     <div className="col">
-                      <img className="videoGameImage" src={image} alt={name} />
+                      {props.track !== undefined ? <h3>Friend review goes here if any</h3> : <img className="videoGameImage" src={image} alt={name} />}
                     </div>
                 </div>
             </div>

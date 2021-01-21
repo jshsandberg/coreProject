@@ -43,6 +43,7 @@ function MediaPage(props) {
                     </Col>
                 </Row>
             </Container>
+            <br></br>
             <Container>
                 <Track media={props.location.state} />
             </Container>
