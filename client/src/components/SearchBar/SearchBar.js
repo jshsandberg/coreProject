@@ -19,7 +19,7 @@ function SearchBar() {
 
     const getSpotifyData = async () => {
         const returnedData = await getSpotifyAccess(value, type);
-        history.push({pathname: "/media", state: returnedData})
+        history.push({pathname: `/media/${type}`, state: returnedData});
     }
 
     const getVideoGameData = () => {
@@ -39,7 +39,7 @@ function SearchBar() {
                     style={{background: "#db3d44", borderColor: "#db3d44", color: "white"}}
                 >
                     <Dropdown.Item onClick={() => {setType("track"); setName("Track")}}>Track</Dropdown.Item>
-                    <Dropdown.Item onClick={() => {setType("artist"); setName("Artist")}}>Arist</Dropdown.Item>
+                    <Dropdown.Item onClick={() => {setType("artist"); setName("Artist")}}>Artist</Dropdown.Item>
                     <Dropdown.Item onClick={() => {setType("album"); setName("Album")}}>Album</Dropdown.Item>
                     <Dropdown.Item onClick={() => {setType("videogame"); setName("Video Game")}}>Video Game</Dropdown.Item>
                 </DropdownButton>

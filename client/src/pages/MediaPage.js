@@ -10,7 +10,7 @@ import Corey from "../utils/Media/Corey.jpg";
 import DropdownButton from 'react-bootstrap/esm/DropdownButton';
 import Dropdown from 'react-bootstrap/esm/Dropdown'
 import Spotify from "../components/Spotify/Spotify";
-import Track from "../components/Media/Track";
+import Media from "../components/Media/Media";
 
 function MediaPage(props) {
 
@@ -45,7 +45,7 @@ function MediaPage(props) {
             </Container>
             <br></br>
             <Container>
-                <Track media={props.location.state} />
+                <Media media={props.location.state} />
             </Container>
         </>
     )

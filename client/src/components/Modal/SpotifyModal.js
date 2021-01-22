@@ -22,10 +22,20 @@ function SpotifyModal(props) {
   const [uri, setUri] = useState();
 
   useEffect(() => {
-      if (props.track === true && props.item !== null) {
+      if (props.mediaType === "track" && props.item !== null) {
         setImage(props.item.album.images[1].url);
         setName(props.item.name);
         setUri(props.item.uri)
+      }
+      else if (props.mediaType === "album" && props.item !== null) {
+        setImage(props.item.images[1].url);
+        setName(props.item.name);
+        setUri(props.item.uri);
+      }
+      else if (props.mediaType === "artist" && props.item !== null) {
+        setImage(props.item.images[1].url);
+        setName(props.item.name);
+        setUri(props.item.uri);
       }
     else if (props.item !== null) {
       setImage(props.item.images[0].url);
