@@ -18,9 +18,9 @@ function SearchBar() {
     const [name, setName] = useState("Track");
 
     const getSpotifyData = async () => {
-        const returnedData = await getSpotifyAccess(value);
+        const returnedData = await getSpotifyAccess(value, type);
         console.log(returnedData)
-        history.push({pathname: `/media`, state: returnedData});
+        // history.push({pathname: `/media/${type}`, state: returnedData});
     }
 
     const getVideoGameData = () => {
@@ -32,6 +32,18 @@ function SearchBar() {
     return (
         <>
             <InputGroup className="mb-3">
+                <DropdownButton
+                    as={InputGroup.Prepend}
+                    variant="outline-secondary"
+                    title={name}
+                    id="input-group-dropdown-1"
+                    style={{background: "#db3d44", borderColor: "#db3d44", color: "white"}}
+                >
+                    <Dropdown.Item onClick={() => {setType("track"); setName("Track")}}>Track</Dropdown.Item>
+                    <Dropdown.Item onClick={() => {setType("artist"); setName("Artist")}}>Artist</Dropdown.Item>
+                    <Dropdown.Item onClick={() => {setType("album"); setName("Album")}}>Album</Dropdown.Item>
+                    <Dropdown.Item onClick={() => {setType("videogame"); setName("Video Game")}}>Video Game</Dropdown.Item>
+                </DropdownButton>
                 <FormControl onChange={(e) => setValue(e.target.value)} aria-describedby="basic-addon1" />
                 <Button onClick={() => {type === "videogame" ? getVideoGameData() : getSpotifyData()}} style={{backgroundColor: "#db3d44", borderColor: "#db3d44"}}>Search</Button>
             </InputGroup>

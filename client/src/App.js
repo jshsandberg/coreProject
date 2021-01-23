@@ -55,9 +55,7 @@ function App() {
             <Route exact path="/home/#access_token=" component={Home} />
             <Route exact path="/home" component={Home} />
             <Route exact path="/review" component={Review} />
-            <Route exact path="/media/track" component={Media} />
-            <Route exact path="/media/artist" component={Media} />
-            <Route exact path="/media/album" component={Media} />
+            <Route exact path="/media" component={Media} />
             <AuthTokenModal 
                  tokenUser={tokenUser}
                  show={modalShow}

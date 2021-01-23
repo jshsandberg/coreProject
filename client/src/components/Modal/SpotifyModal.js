@@ -15,7 +15,6 @@ import SpotifyPlayer from "react-spotify-player";
 
 function SpotifyModal(props) {
 
-  console.log(props)
 
   const [image, setImage] = useState();
   const [name, setName] = useState();
@@ -68,6 +67,7 @@ function SpotifyModal(props) {
                     </div>
                     <div className="col">
                       {props.track !== undefined ? <h3>Friend review goes here if any</h3> : <img className="videoGameImage" src={image} alt={name} />}
+                      <br></br>
                     </div>
                 </div>
             </div>

@@ -4,14 +4,15 @@ import Row from 'react-bootstrap/esm/Row';
 import Col from 'react-bootstrap/esm/Col';
 import Card from 'react-bootstrap/Card';
 import SpotifyModal from "../Modal/SpotifyModal";
+import User from "../../utils/Media/User.png";
 
 function Media(props) {
 
-   
+   console.log(props)
 
-    const [trackProps, setTrackProps] = useState(props.media.tracks);
-    const [albumProps, setAlbumProps] = useState(props.media.albums);
-    const [artistProps, setArtistProps] = useState(props.media.artists);
+    const [trackProps, setTrackProps] = useState();
+    const [albumProps, setAlbumProps] = useState();
+    const [artistProps, setArtistProps] = useState();
     const [finalArtist, setFinalArtist] = useState();
     const [mediaType, setMediaType] = useState();
     const [mediaInfo, setMediaInfo] = useState(null);
@@ -19,103 +20,133 @@ function Media(props) {
     const [modalData, setModalData] = useState(null);
 
     useEffect(() => {
+        
+    
+        const splicedTracks = props.media.track.tracks.items.slice(0, 6);
+        setTrackProps(splicedTracks);
+
+        const splicedAlbums = props.media.albums.albums.items.slice(0, 6);
+        setAlbumProps(splicedAlbums);
+
+        
+        const splicedArtists = props.media.artist.artists.items.slice(0, 3);
+        setArtistProps(splicedArtists);
 
     }, [])
     
-    useEffect(() => {
+    // useEffect(() => {
 
-        const artist = [];
+    //     const artist = [];
 
-        console.log(artistProps)
 
-        if (artistProps !== undefined && artistProps.items !== undefined) {
-            for (let i = 0; i < artistProps.items.length; i++) {
-                if (artistProps.items[i].images.length !== 0) {
-                artist.push(artistProps.items[i]);
-                };
-            };
-            setFinalArtist(artist);
-        };   
+    //     if (artistProps !== undefined) {
+    //         for (let i = 0; i < artistProps.length; i++) {
+    //             if (artistProps[1].images.length !== 0) {
+    //             artist.push(artistProps[i]);
+    //             };
+    //         };
+    //         setFinalArtist(artist);
+    //     };   
 
         
 
-    }, [props]);
+    // }, [artistProps]);
 
-    console.log(artistProps);
 
     return (
         <>
             <Container fluid>
+                <h1>Top Choice</h1>
+            </Container>
+            <br></br>
+            <Container fluid>
                 <Row>
-                    <Col xs={9}>
-                        <Container fluid>
-                            <Row>
-                                {trackProps && trackProps.items.map((items, i) => {
-                                    return (
-                                        <>
-                                            <Col xs={3}>
-                                                <img onClick={() => {setModalShow(true); setModalData(items)}} onMouseEnter={() => setMediaInfo(items)} style={{width: "115%"}} src={items.album.images[1].url}></img>
-                                            </Col>
-                                        </>
-                                    )
-                                })}
-                                   {albumProps && albumProps.items.map((items, i) => {
-                                    return (
-                                        <>
-                                            <Col xs={3}>
-                                                <img onClick={() => {setModalShow(true); setModalData(items)}} onMouseEnter={() => setMediaInfo(items)} style={{width: "115%"}} src={items.images[1].url}></img>
-                                            </Col>
-                                        </>
-                                    )
-                                })}
-                                {finalArtist && finalArtist.map((items, i) => {
-                                    return (
-                                        <>
-                                            <Col xs={3}>
-                                               <img onClick={() => {setModalShow(true); setModalData(items)}} onMouseEnter={() => setMediaInfo(items)} style={{width: "115%"}} src={items.images[1].url}></img>
-                                            </Col>
-                                        </>
-                                    )
-                                })}
-                            </Row>
-                        </Container>
-                    </Col>
                     <Col>
-                        <Container>
-                            <Row>
-                                <Col>
-                                    <div>
-                                        {trackProps !== undefined && 
-                                        <>
-                                            <h4>Artist Name : {mediaInfo !== null ? mediaInfo.artists[0].name : <div></div>}</h4>
-                                            <br></br>
-                                            <h4>Album Name : {mediaInfo !== null ? mediaInfo.album.name : <div></div>}</h4>
-                                            <br></br>
-                                            <h4>Song Name : {mediaInfo !== null ? mediaInfo.name : <div></div>}</h4>
-                                        </>
-                                        }
-                                        {albumProps !== undefined && 
-                                        <>
-                                            <h4>Artist Name : {mediaInfo !== null ? mediaInfo.artists[0].name : <div></div>}</h4>
-                                            <br></br>
-                                            <h4>Album Name : {mediaInfo !== null ? mediaInfo.name : <div></div>}</h4>
-                                        </>
-                                        }
-                                        {artistProps !== undefined &&  
-                                        <>
-                                            <h4>Artist Name : {mediaInfo !== null ? mediaInfo.name : <div></div>}</h4>
-                                            <br></br>
-                                            <h4>Followers : {mediaInfo !== null ? mediaInfo.followers.total: <div></div>}</h4>
-                                        </>
-                                        }
-                                    </div>
-                                </Col>
-                            </Row>
-
-                        </Container>
+                        <h1>Songs</h1>
                     </Col>
                 </Row>
+                <Row>
+                    {trackProps && trackProps.map((items, i) => {
+                        return (
+                            <>
+                                <Col xs={4}>
+                                    <Container fluid>
+                                        <Row>
+                                            <Col xs={2}>
+                                            <img onClick={() => {setModalShow(true); setModalData(items)}} onMouseEnter={() => setMediaInfo(items)} style={{marginBottom: "5px"}} src={items.album.images[2].url}></img>
+
+                                            </Col>
+                                            <Col xs={10}>
+                                                <Row style={{paddingLeft: "15%"}}>
+                                                    <p style={{paddingLeft: "0px"}}>{items.name}</p>
+                                                </Row>
+                                                <Row style={{paddingLeft: "13%"}}>
+                                                        {  
+                                                items.artists.map((element, i) => {
+                                                    return (<p style={{paddingLeft: "2%"}} key={element + i}>{element.name}</p>)
+                                                })
+                                    }
+                                                </Row>
+                               
+                                            </Col>
+                                        </Row>
+                                    </Container>
+                                  
+                        
+                                </Col>
+                            </>
+                        )
+                    })}
+                </Row>
             </Container>
+            <br></br>
+            <Container fluid>
+                <Row>
+                    <Col>
+                        <h1>Artists</h1>
+                    </Col>
+                </Row>
+                <Row>
+                    {artistProps && artistProps.map((items, i) => {
+                        console.log(items)
+                        return (
+                            <>
+                                <Col style={{display: "flex", justifyContent: "center"}} xs={4}>
+                                    <img onClick={() => {setModalShow(true); setModalData(items)}} onMouseEnter={() => setMediaInfo(items)} style={{marginBottom: "5px", borderRadius: "50%"}} src={items.images.length > 0 ? items.images[2].url : User}></img>
+                                    <p>{items.name}</p>
+                                </Col>                                                                                                           
+                            </>
+                        )
+                    })}
+                </Row>
+            </Container>
+            <br></br>
+            <Container fluid>
+                <Row>
+                    <Col>
+                        <h1>Artists</h1>
+                    </Col>
+                </Row>
+                <Row>
+                    {albumProps && albumProps.map((items, i) => {
+                        console.log(items)
+                        return (
+                            <>
+                                <Col xs={4}>
+                                    <img onClick={() => {setModalShow(true); setModalData(items)}} onMouseEnter={() => setMediaInfo(items)} style={{marginBottom: "5px"}} src={items.images.length > 0 ? items.images[2].url : User}></img>
+                                    <p>{items.name}</p>
+                                </Col>                                                                                                           
+                            </>
+                        )
+                    })}
+                </Row>
+            </Container>
+
+
+
+
+
+          
             <SpotifyModal
             item={modalData}
             show={modalShow}
