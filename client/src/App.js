@@ -54,7 +54,7 @@ function App() {
             <Route exact path="/spotify" component={Spotify} />
             <Route exact path="/home/#access_token=" component={Home} />
             <Route exact path="/home" component={Home} />
-            <Route exact path="/review" component={Review} />
+            <Route exact path="/review/:name" component={Review} />
             <Route exact path="/media" component={Media} />
             <AuthTokenModal 
                  tokenUser={tokenUser}

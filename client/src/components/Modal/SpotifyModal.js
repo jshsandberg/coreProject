@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import Modal from 'react-bootstrap/esm/Modal';
 import Button from 'react-bootstrap/esm/Button';
 import "./Modal.css";
@@ -15,6 +16,9 @@ import SpotifyPlayer from "react-spotify-player";
 
 function SpotifyModal(props) {
 
+  console.log(props.item)
+
+  const history = useHistory();
 
   const [image, setImage] = useState();
   const [name, setName] = useState();
@@ -32,7 +36,7 @@ function SpotifyModal(props) {
         setUri(props.item.uri);
       }
       else if (props.mediaType === "artist" && props.item !== null) {
-        setImage(props.item.images[1].url);
+        setImage(props.item.images[1] === undefined ? <div></div> : props.item.images[1].url);
         setName(props.item.name);
         setUri(props.item.uri);
       }
@@ -68,6 +72,8 @@ function SpotifyModal(props) {
                     <div className="col">
                       {props.track !== undefined ? <h3>Friend review goes here if any</h3> : <img className="videoGameImage" src={image} alt={name} />}
                       <br></br>
+                      <br></br>
+                      <Button onClick={() => history.push({pathname: `/review/${name}`, state: { item: props.item, mediaType: props.mediaType }})}>Go to Review</Button>
                     </div>
                 </div>
             </div>

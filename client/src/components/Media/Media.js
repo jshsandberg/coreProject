@@ -8,7 +8,6 @@ import User from "../../utils/Media/User.png";
 
 function Media(props) {
 
-   console.log(props)
 
     const [trackProps, setTrackProps] = useState();
     const [albumProps, setAlbumProps] = useState();
@@ -73,10 +72,10 @@ function Media(props) {
                                     <Container fluid>
                                         <Row>
                                             <Col xs={2}>
-                                            <img onClick={() => {setModalShow(true); setModalData(items)}} onMouseEnter={() => setMediaInfo(items)} style={{marginBottom: "5px"}} src={items.album.images[2].url}></img>
+                                            <img onClick={() => {setModalShow(true); setModalData(items); setMediaType("track")}} style={{marginBottom: "5px"}} src={items.album.images[2].url}></img>
 
                                             </Col>
-                                            <Col xs={10}>
+                                            <Col onClick={() => {setModalShow(true); setModalData(items)} }xs={10}>
                                                 <Row style={{paddingLeft: "15%"}}>
                                                     <p style={{paddingLeft: "0px"}}>{items.name}</p>
                                                 </Row>
@@ -108,11 +107,10 @@ function Media(props) {
                 </Row>
                 <Row>
                     {artistProps && artistProps.map((items, i) => {
-                        console.log(items)
                         return (
                             <>
                                 <Col style={{display: "flex", justifyContent: "center"}} xs={4}>
-                                    <img onClick={() => {setModalShow(true); setModalData(items)}} onMouseEnter={() => setMediaInfo(items)} style={{marginBottom: "5px", borderRadius: "50%"}} src={items.images.length > 0 ? items.images[2].url : User}></img>
+                                    <img onClick={() => {setModalShow(true); setModalData(items); setMediaType("artist")}}style={{marginBottom: "5px", borderRadius: "50%"}} src={items.images.length > 0 ? items.images[2].url : User}></img>
                                     <p>{items.name}</p>
                                 </Col>                                                                                                           
                             </>
@@ -124,16 +122,15 @@ function Media(props) {
             <Container fluid>
                 <Row>
                     <Col>
-                        <h1>Artists</h1>
+                        <h1>Albums</h1>
                     </Col>
                 </Row>
                 <Row>
                     {albumProps && albumProps.map((items, i) => {
-                        console.log(items)
                         return (
                             <>
                                 <Col xs={4}>
-                                    <img onClick={() => {setModalShow(true); setModalData(items)}} onMouseEnter={() => setMediaInfo(items)} style={{marginBottom: "5px"}} src={items.images.length > 0 ? items.images[2].url : User}></img>
+                                    <img onClick={() => {setModalShow(true); setModalData(items); setMediaType("albums")}} style={{marginBottom: "5px"}} src={items.images.length > 0 ? items.images[2].url : User}></img>
                                     <p>{items.name}</p>
                                 </Col>                                                                                                           
                             </>
@@ -141,17 +138,11 @@ function Media(props) {
                     })}
                 </Row>
             </Container>
-
-
-
-
-
-          
             <SpotifyModal
             item={modalData}
             show={modalShow}
             onHide={() => setModalShow(false)}
-            mediaType ={trackProps !== undefined ? "track" : albumProps !== undefined ? "album" : "artist"}
+            mediaType ={mediaType}
             //token={token}
             />
 
