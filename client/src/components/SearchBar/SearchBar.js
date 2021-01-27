@@ -33,7 +33,7 @@ function SearchBar() {
         <>
             <InputGroup className="mb-3">
                 <FormControl onChange={(e) => setValue(e.target.value)} aria-describedby="basic-addon1" />
-                <Button onClick={() => {type === "videogame" ? getVideoGameData() : getSpotifyData()}} style={{backgroundColor: "#db3d44", borderColor: "#db3d44"}}>Search</Button>
+                <Button onClick={() => {type === "videogame" ? getVideoGameData() : getSpotifyData()}} style={{backgroundColor: "black", borderColor: "black"}}>Search</Button>
             </InputGroup>
         </>
     )

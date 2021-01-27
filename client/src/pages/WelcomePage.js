@@ -10,6 +10,8 @@ import Corey from "../utils/Media/Corey.jpg";
 import DropdownButton from 'react-bootstrap/esm/DropdownButton';
 import Dropdown from 'react-bootstrap/esm/Dropdown'
 import Spotify from "../components/Spotify/Spotify";
+import ReactPlayer from 'react-player';
+import VideoFile from "../utils/Media/VideoFile.mp4";
 
 import "./WelcomePage.css";
 
@@ -34,8 +36,9 @@ function WelcomePage() {
 
     return (
         <>
-            <SideNavBar />
-            <Container fluid>
+        {/* Side nav bar needs to be invisible when not clicked upon */}
+            {/* <SideNavBar /> */}
+            {/* <Container fluid>
                 <Row>
                     <Col>
                     
@@ -51,14 +54,22 @@ function WelcomePage() {
                         <Link to="/signup"><Button style={buttonStyle}>Sign Up</Button></Link>
                     </Col>
                 </Row>
-            </Container>
-            <br></br>
-            <br></br>
-            <Container fluid>
-                <Row>
-                    <Col>
+            </Container> */}
+            {/* <br></br>
+            <br></br> */}
+       
+
+                        <ReactPlayer 
+                        style={{position: "absolute"}}
+                        url={VideoFile}
+                        playing={true}
+                        muted={true}
+                        loop={true}
+                        width="100%"
+                        height="auto"
+                        />
                     
-                    </Col>
+                    {/* </Col>
                     <Col style={{paddingTop: "2%"}}>
                         <h2>Our Website Suck</h2>
                         <h6>But please, give it a shot why dont ya?</h6>
@@ -68,36 +79,38 @@ function WelcomePage() {
                     <Col>
                         <img style={{width: "100%"}} src={Corey} alt={Corey} />
                     </Col>
-                    <Col>
+                    <Col> */}
                     
-                    </Col>
-                </Row>
-            </Container>
-            <br></br>
-            <br></br>
-            <Container fluid>
+              
+                       <Container fluid>
                 <Row>
-                    <Col>
+                    <Col style={{backgroundColor: ""}}>
                     
                     </Col>
-                    <Col xs={3}>
-                        <Container style={{backgroundColor: "#db3d44"}}>
-                            <p>can i please get a better friend than corey</p>
-                        </Container>
-                    </Col>
-                    <Col xs={3}>
-                        <p>can i please get a better friend than corey</p>
-                    </Col>
-                    <Col xs={3}>
-                        <p>can i please get a better friend than corey</p>
+                    <Col style={{position: "fixed"}}>
+                        <br></br>
+                        {/* Lock to the top scrool down makes it show up */}
+                        <SearchBar />
+                       
                     </Col>
                     <Col>
-                    
+                        <br></br>
+                        <Link to="/login"><Button style={buttonStyle}>Login</Button></Link>
+                        <Link to="/signup"><Button style={buttonStyle}>Sign Up</Button></Link>
                     </Col>
                 </Row>
             </Container>
-            <Container fluid>
-                <br></br>
+      
+            <Container style={{paddingTop: "20%", paddingBottom: "20%"}}>
+                <Row>
+                    <Col align="center">
+                        {/* <h1 style={{backgroundColor: "white"}}>Welcome to COrey website, made by josh and borno</h1> */}
+                        <Button>Get Started</Button>
+                    </Col>
+                </Row>
+            </Container>
+            {/*<Container fluid>
+                 <br></br> 
             <Row style={bottomBorder}>
                 <h1 style={{paddingLeft: "20px"}}>Music</h1>
                 <DropdownButton style={{marginTop: "3px", marginLeft: "15px"}} id="dropdown-basic-button" title={spotifySearchTitle}>
@@ -108,13 +121,13 @@ function WelcomePage() {
                     <Dropdown.Item onClick={() => {setSpotifySearchTitle("Country"); setSpotifySelector("country")}}>Country</Dropdown.Item>
                     <Dropdown.Item onClick={() => {setSpotifySearchTitle("Rock"); setSpotifySelector("rock")}}>Rock</Dropdown.Item>
                     <Dropdown.Item onClick={() => {setSpotifySearchTitle("Gaming"); setSpotifySelector("gaming")}}>Gaming</Dropdown.Item>
-                    <Dropdown.Item onClick={() => {setSpotifySearchTitle("EDM / Dance"); setSpotifySelector("edm_dance")}}>EDM / Dance</Dropdown.Item>
+                    <Dropdown.Item onClick={() => {setSpotifySearchTitle("EDM / Dance"); setSpotifySelector("edm_dance")}}>EDM / Dance</Dropdown.Item> */}
                     {/* <Dropdown.Item onClick={() => {setSpotifySearchTitle("Alternative"); setSpotifySelector("alternative")}}>Alternative</Dropdown.Item> */}
-                </DropdownButton>
+                {/* </DropdownButton>
             </Row>
             <br></br>
             <Spotify spotifySelector={spotifySelector} />
-            </Container>
+            </Container> */}
         </>
     )
 };

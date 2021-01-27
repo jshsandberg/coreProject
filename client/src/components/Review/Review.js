@@ -6,14 +6,16 @@ import Button from 'react-bootstrap/Button';
 import SpotifyPlayer from "react-spotify-player";
 import { UserContext } from "../../context/userContext";
 import NoAccessModal from "../Modal/NoAccessModal";
+import { getSpotifyAccess } from "../Functions/SpotifyFree"
 import "../Functions/SpotifyFree";
 
 function Review({ item }) {
 
-    console.log(item.item)
+    //console.log(item.item)
 
     const {user, setUser} = useContext(UserContext);
     const [type, setType] = useState(item.mediaType);
+    const [artistImage, setArtistImage] = useState();
     const [image, setImage] = useState();
     const [name, setName] = useState();
     const [uri, setUri] = useState();
@@ -23,25 +25,29 @@ function Review({ item }) {
     const [modalReviewShow, setModalReviewShow] = useState(false);
     const [modalNoAccess, setModalNoAccess] = useState(false);
 
-    useEffect(() => {
+    useEffect( async () => {
 
         if (item.mediaType === "track") {
+            const results = await getSpotifyAccess(item.item.artists[0].name);
+            await setArtistImage(results.artist.artists.items[0].images[1].url);
             setName(item.item.name);
             setUri(item.item.uri);
             setArtist(item.item.artists[0].name)
         } else if (item.mediaType === "albums") {
+            const results = await getSpotifyAccess(item.item.artists[0].name);
+            await setArtistImage(results.artist.artists.items[0].images[1].url);
             setImage(item.item.images[1].url);
             setName(item.item.name);
             setUri(item.item.uri);
             setReleaseDate(item.item.release_data);
             setArtist(item.item.artists[0].name);
         } else if (item.mediaType === "artist") {
-            setImage(item.item.images[1].url)
+            setArtistImage(item.item.images[1].url)
             setName(item.item.name);
             setUri(item.item.uri);
             setGenre(item.item.genres); 
         }
-    }, [])
+    }, [{ item }])
 
     const writeReview = () => {
        if (user !== undefined) {
@@ -50,6 +56,8 @@ function Review({ item }) {
            setModalNoAccess(true);
        }
     }
+
+
 
     return (
         <>
@@ -60,14 +68,14 @@ function Review({ item }) {
                         <h3>{name}</h3>
                     </Col>
                     <Col>
-                        <img src={image} />
+                        <img src={artistImage} />
                     </Col>
                 </Row>
             </Container>
             <Container fluid>
                 <Row>
                     <Col>
-                    
+                        <img src={image} />
                     </Col>
                     <Col>
                         <SpotifyPlayer
