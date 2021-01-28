@@ -3,6 +3,7 @@ import Header from "../components/Header/Header";
 import HomeNavbar from "../components/NavBar/HomeNavBar";
 import VideoGame from "../components/VideoGame/VideoGame";
 import NoAccessModal from "../components/Modal/NoAccessModal";
+import SearchBar from "../components/SearchBar/SearchBar";
 import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/esm/Row';
 import Col from 'react-bootstrap/esm/Col';
@@ -88,6 +89,7 @@ function HomePage(props) {
     return (
         <>
             <Header />
+            <SearchBar />
             <HomeNavbar user = {props} />
             <br></br>
             <br></br>

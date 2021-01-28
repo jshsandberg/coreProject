@@ -4,9 +4,9 @@ import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/esm/Row';
 import Col from 'react-bootstrap/esm/Col';
 import Button from 'react-bootstrap/Button';
-import API from "../../utils/API";
 import SpotifyAuthModal from "../Modal/SpotifyAuthModal";
 import { UserContext } from "../../context/userContext";
+import { getUserData } from "../Functions/GetUser";
 
 function Login() {
 
@@ -22,29 +22,30 @@ function Login() {
 		setValues({ ...values, [name]: value });
     };
 
-    const getUserData = async () => {
-        try {
-            const newUser = {
-                username: values.username,
-                password: values.password,
-            }
-            API.loginUser({
-                username: newUser.username,
-                password: newUser.password,
-            })
-            .then(res => {
-                setUser(res.data.user) 
-                setModalShow(true);
-                // history.push({
-                // pathname: "/history",
-                // state: res.data.user,
-                // })
-                localStorage.setItem("auth-token", res.data.token)
-            });
-        } catch(err) {
-            console.log(err)
-        }
-    };
+
+    // const getUserData = async () => {
+    //     try {
+    //         const newUser = {
+    //             username: values.username,
+    //             password: values.password,
+    //         }
+    //         API.loginUser({
+    //             username: newUser.username,
+    //             password: newUser.password,
+    //         })
+    //         .then(res => {
+    //             setUser(res.data.user) 
+    //             setModalShow(true);
+    //             // history.push({
+    //             // pathname: "/history",
+    //             // state: res.data.user,
+    //             // })
+    //             localStorage.setItem("auth-token", res.data.token)
+    //         });
+    //     } catch(err) {
+    //         console.log(err)
+    //     }
+    // };
     
 
     return (
@@ -64,7 +65,7 @@ function Login() {
                 <Row>
                     <Col xs={4}></Col>
                     <Col>
-                        <Button onClick={() => getUserData()}>Sign Up</Button>
+                        <Button onClick={async () => setUser(await getUserData(values))}>Sign Up</Button>
                     </Col>
                     <Col xs={4}></Col>
                 </Row>

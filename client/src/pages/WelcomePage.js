@@ -84,16 +84,11 @@ function WelcomePage() {
               
                        <Container fluid>
                 <Row>
-                    <Col style={{backgroundColor: ""}}>
-                    
-                    </Col>
-                    <Col style={{position: "fixed"}}>
+    
+                    <Col style={{position: "fixed", paddingLeft: "30%", paddingRight: "30%"}}>
                         <br></br>
                         {/* Lock to the top scrool down makes it show up */}
                         <SearchBar />
-                       
-                    </Col>
-                    <Col>
                         <br></br>
                         <Link to="/login"><Button style={buttonStyle}>Login</Button></Link>
                         <Link to="/signup"><Button style={buttonStyle}>Sign Up</Button></Link>

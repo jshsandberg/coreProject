@@ -8,14 +8,16 @@ import { UserContext } from "../../context/userContext";
 import NoAccessModal from "../Modal/NoAccessModal";
 import { getSpotifyAccess } from "../Functions/SpotifyFree"
 import "../Functions/SpotifyFree";
+import ReviewModal from "../Modal/ReviewModal";
 
 function Review({ item }) {
 
-    //console.log(item.item)
+    console.log(item.item)
 
     const {user, setUser} = useContext(UserContext);
     const [type, setType] = useState(item.mediaType);
     const [artistImage, setArtistImage] = useState();
+    const [spotifyId, setSpotifyId] = useState();
     const [image, setImage] = useState();
     const [name, setName] = useState();
     const [uri, setUri] = useState();
@@ -32,7 +34,8 @@ function Review({ item }) {
             await setArtistImage(results.artist.artists.items[0].images[1].url);
             setName(item.item.name);
             setUri(item.item.uri);
-            setArtist(item.item.artists[0].name)
+            setArtist(item.item.artists[0].name);
+            setSpotifyId(item.item.id)
         } else if (item.mediaType === "albums") {
             const results = await getSpotifyAccess(item.item.artists[0].name);
             await setArtistImage(results.artist.artists.items[0].images[1].url);
@@ -41,11 +44,13 @@ function Review({ item }) {
             setUri(item.item.uri);
             setReleaseDate(item.item.release_data);
             setArtist(item.item.artists[0].name);
+            setSpotifyId(item.item.id)
         } else if (item.mediaType === "artist") {
             setArtistImage(item.item.images[1].url)
             setName(item.item.name);
             setUri(item.item.uri);
             setGenre(item.item.genres); 
+            setSpotifyId(item.item.id)
         }
     }, [{ item }])
 
@@ -92,6 +97,10 @@ function Review({ item }) {
             <NoAccessModal 
                 show={modalNoAccess}
                 onHide={() => setModalNoAccess(false)}              
+            />
+            <ReviewModal
+                show={modalReviewShow}
+                onHide={() => setModalReviewShow(false)}              
             />
         </>
     )
