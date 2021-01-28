@@ -33,23 +33,7 @@ function Media(props) {
 
     }, [])
     
-    // useEffect(() => {
 
-    //     const artist = [];
-
-
-    //     if (artistProps !== undefined) {
-    //         for (let i = 0; i < artistProps.length; i++) {
-    //             if (artistProps[1].images.length !== 0) {
-    //             artist.push(artistProps[i]);
-    //             };
-    //         };
-    //         setFinalArtist(artist);
-    //     };   
-
-        
-
-    // }, [artistProps]);
 
 
     return (
@@ -86,12 +70,9 @@ function Media(props) {
                                                 })
                                     }
                                                 </Row>
-                               
                                             </Col>
                                         </Row>
                                     </Container>
-                                  
-                        
                                 </Col>
                             </>
                         )

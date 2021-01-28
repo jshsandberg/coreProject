@@ -1,4 +1,4 @@
-import React, { useContext, useState, } from "react";
+import React, { useContext, useEffect, useState, } from "react";
 import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/esm/Row';
@@ -22,30 +22,12 @@ function Login() {
 		setValues({ ...values, [name]: value });
     };
 
-
-    // const getUserData = async () => {
-    //     try {
-    //         const newUser = {
-    //             username: values.username,
-    //             password: values.password,
-    //         }
-    //         API.loginUser({
-    //             username: newUser.username,
-    //             password: newUser.password,
-    //         })
-    //         .then(res => {
-    //             setUser(res.data.user) 
-    //             setModalShow(true);
-    //             // history.push({
-    //             // pathname: "/history",
-    //             // state: res.data.user,
-    //             // })
-    //             localStorage.setItem("auth-token", res.data.token)
-    //         });
-    //     } catch(err) {
-    //         console.log(err)
-    //     }
-    // };
+    useEffect(() => {
+        if (user) {
+            setModalShow(true);
+            console.log("re-render")
+        }
+    }, [user])
     
 
     return (
@@ -72,9 +54,9 @@ function Login() {
             </Container>
 
             <SpotifyAuthModal
-            show={modalShow}
-            onHide={() => setModalShow(false)}
-            user = {user}
+                show={modalShow}
+                onHide={() => setModalShow(false)}
+                user = {user}
             />
         </>
     )

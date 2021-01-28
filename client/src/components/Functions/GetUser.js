@@ -16,7 +16,8 @@ export const getUserData = async (values) => {
             password: newUser.password,
         })
         .then(res => {
-            foundUser["user"] = res.data.user
+            foundUser["user"] = res.data.user;
+            foundUser["modal"] = true
             localStorage.setItem("auth-token", res.data.token)
         });
 
