@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/esm/Row';
 import Col from 'react-bootstrap/esm/Col';
-import Card from 'react-bootstrap/Card';
+// import Card from 'react-bootstrap/Card';
 import SpotifyModal from "../Modal/SpotifyModal";
 import User from "../../utils/Media/User.png";
 
@@ -56,7 +56,7 @@ function Media(props) {
                                     <Container fluid>
                                         <Row>
                                             <Col xs={2}>
-                                            <img onClick={() => {setModalShow(true); setModalData(items); setMediaType("track")}} style={{marginBottom: "5px"}} src={items.album.images[2].url}></img>
+                                            <img onClick={() => {setModalShow(true); setModalData(items); setMediaType("track")}} style={{marginBottom: "5px"}} src={items.album.images[2].url} alt={i} key={i}></img>
 
                                             </Col>
                                             <Col onClick={() => {setModalShow(true); setModalData(items)} }xs={10}>
@@ -91,7 +91,7 @@ function Media(props) {
                         return (
                             <>
                                 <Col style={{display: "flex", justifyContent: "center"}} xs={4}>
-                                    <img onClick={() => {setModalShow(true); setModalData(items); setMediaType("artist")}}style={{marginBottom: "5px", borderRadius: "50%"}} src={items.images.length > 0 ? items.images[2].url : User}></img>
+                                    <img onClick={() => {setModalShow(true); setModalData(items); setMediaType("artist")}}style={{marginBottom: "5px", borderRadius: "50%"}} src={items.images.length > 0 ? items.images[2].url : User} alt={i} key={i}></img>
                                     <p>{items.name}</p>
                                 </Col>                                                                                                           
                             </>
@@ -111,7 +111,7 @@ function Media(props) {
                         return (
                             <>
                                 <Col xs={4}>
-                                    <img onClick={() => {setModalShow(true); setModalData(items); setMediaType("albums")}} style={{marginBottom: "5px"}} src={items.images.length > 0 ? items.images[2].url : User}></img>
+                                    <img onClick={() => {setModalShow(true); setModalData(items); setMediaType("albums")}} style={{marginBottom: "5px"}} src={items.images.length > 0 ? items.images[2].url : User} alt={i} key={i}></img>
                                     <p>{items.name}</p>
                                 </Col>                                                                                                           
                             </>

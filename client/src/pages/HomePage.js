@@ -4,14 +4,14 @@ import HomeNavbar from "../components/NavBar/HomeNavBar";
 import VideoGame from "../components/VideoGame/VideoGame";
 import NoAccessModal from "../components/Modal/NoAccessModal";
 import SearchBar from "../components/SearchBar/SearchBar";
-import Container from 'react-bootstrap/esm/Container';
+// import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/esm/Row';
-import Col from 'react-bootstrap/esm/Col';
+// import Col from 'react-bootstrap/esm/Col';
 import axios from "axios";
 import API from "../utils/API";
 import { UserContext } from "../context/userContext";
-import Alert from 'react-bootstrap/Alert'
-import Button from 'react-bootstrap/Button'
+// import Alert from 'react-bootstrap/Alert'
+// import Button from 'react-bootstrap/Button'
 
 
 

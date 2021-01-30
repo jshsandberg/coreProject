@@ -1,15 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import SideNavBar from "../components/NavBar/SideNav";
+// import SideNavBar from "../components/NavBar/SideNav";
 import SearchBar from "../components/SearchBar/SearchBar";
 import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/esm/Row';
 import Col from 'react-bootstrap/esm/Col';
 import Button from 'react-bootstrap/Button';
-import Corey from "../utils/Media/Corey.jpg";
-import DropdownButton from 'react-bootstrap/esm/DropdownButton';
-import Dropdown from 'react-bootstrap/esm/Dropdown'
-import Spotify from "../components/Spotify/Spotify";
+// import Corey from "../utils/Media/Corey.jpg";
+// import DropdownButton from 'react-bootstrap/esm/DropdownButton';
+// import Dropdown from 'react-bootstrap/esm/Dropdown'
+// import Spotify from "../components/Spotify/Spotify";
 import ReactPlayer from 'react-player';
 import VideoFile from "../utils/Media/VideoFile.mp4";
 
@@ -18,13 +18,13 @@ import "./WelcomePage.css";
 
 function WelcomePage() {
 
-    const [spotifySelector, setSpotifySelector] = useState("new-releases");
-    const [spotifySearchTitle, setSpotifySearchTitle] = useState("New Releases")
+    // const [spotifySelector, setSpotifySelector] = useState("new-releases");
+    // const [spotifySearchTitle, setSpotifySearchTitle] = useState("New Releases")
 
-    const bottomBorder = {
-        borderBottom: "double",
-        borderColor: "#db3d44"
-    }
+    // const bottomBorder = {
+    //     borderBottom: "double",
+    //     borderColor: "#db3d44"
+    // }
 
 
     const buttonStyle = {

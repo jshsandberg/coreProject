@@ -21,7 +21,7 @@ function SpotifyModal(props) {
 
   const [image, setImage] = useState();
   const [name, setName] = useState();
-  const [uri, setUri] = useState();
+  const [uri, setUri] = useState("0");
 
   useEffect(() => {
       if (props.mediaType === "track" && props.item !== null) {

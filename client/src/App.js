@@ -18,29 +18,37 @@ function App() {
   const [modalShow, setModalShow] = useState(false);
   const [tokenUser, setTokenUser] = useState();
 
-  const jwt = require("jsonwebtoken");
 
 
 
-  useEffect(() => isUserAuth(), [user])
+  useEffect(() => {
+    
+    const jwt = require("jsonwebtoken");
 
-  const isUserAuth = async () => {
-    try {
-      let token = localStorage.getItem("auth-token");
-      if (token !== undefined) {
-        const decoded = jwt.verify(token, "secret");      
-          try {
-            const newUser = await API.getUserbyId(decoded.id);
-            await setUser(newUser.data)
-            await setTokenUser(newUser.data);
-          } catch(err) {
-            console.log(err)
-            }
-        } 
-      } catch (err) {
-        console.log(err)
+
+    const isUserAuth = async () => {
+      try {
+        let token = localStorage.getItem("auth-token");
+        if (token !== undefined) {
+          const decoded = jwt.verify(token, "secret");      
+            try {
+              const newUser = await API.getUserbyId(decoded.id);
+              await setUser(newUser.data)
+              await setTokenUser(newUser.data);
+            } catch(err) {
+              console.log(err)
+              }
+          } 
+        } catch (err) {
+          console.log(err)
+        }
       }
-    }
+
+      isUserAuth();
+
+  }, [user])
+
+ 
 
 
   return (
