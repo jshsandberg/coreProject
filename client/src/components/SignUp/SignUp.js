@@ -114,7 +114,7 @@ function SignUp() {
             <Row>
                 <Col xs={4}></Col>
                 <Col>
-                    <Button onClick={() => console.log(saveUserData())}>Sign Up</Button>
+                    <Button onClick={() => saveUserData(values)}>Sign Up</Button>
                 </Col>
                 <Col xs={4}></Col>
             </Row>

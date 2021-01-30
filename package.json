@@ -57,5 +57,5 @@
     "spotify-web-api-js": "^1.5.1",
     "use-force-update": "^1.0.7"
   },
-  "proxy": "http://localhost:5000"
+  "proxy": "http://localhost:5000/"
 }

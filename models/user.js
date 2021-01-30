@@ -16,6 +16,21 @@ const userSchema = new Schema({
   },
   email: {
     type: String
-  }
+  },
+  // Added to this
+  reviews: []
+  
+  // [{
+  //     spotifyId: {
+  //       type: String
+  //     },
+  //     review: {
+  //       type: String
+  //     },
+  //     rating: {
+  //       type: Number
+  //     }
+    
+  // }]
 })
 module.exports = mongoose.model("user", userSchema);

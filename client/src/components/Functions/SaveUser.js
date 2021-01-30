@@ -35,8 +35,9 @@ export const saveUserData = async (values) => {
         });        
     }
     catch(err)  {
-        error["error"] = (err.response.data.msg);
-        return error;
+        console.log(err)
+        // error["error"] = (err.response.data.msg);
+        // return error;
     };
 
     return savedUser;

@@ -1,6 +1,7 @@
 const db = require("../models");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const { User } = require("../models");
 
 
 
@@ -93,9 +94,16 @@ module.exports = {
 					id: user._id,
 					name: user.name,
 					username: user.username,
-					email: user.email
-				},
-			});
+					email: user.email,
+					reviews: [
+						{
+							spotifyId: null,
+							review: null,
+							rating: null
+						}
+					]
+					}
+				});
 		} catch (err) {
 			res.status(500).json({ error: err.message });
         }
@@ -110,4 +118,39 @@ module.exports = {
 			res.status(500)
 		}
 	},
+	saveReview: async (req, res) => {
+
+		try {
+
+
+			let id = req.params.userId
+
+			await User.findOneAndUpdate({
+				_id: id
+			}, {
+				$push: {
+					reviews: {spotifyId: req.body.spotifyId, review: req.body.review, rating: req.body.rating, date: Date.now()}
+				}
+			})
+			
+			const foundUser = await db.User.findById(id)
+
+				res.json(foundUser)
+
+		} catch(err) {
+			res.status(500)
+		}
+	},
+	getReview: async (req, res) => {
+
+		try {
+			let id = req.params;
+			const foundReview = await User.find({ "reviews.spotifyId": id.spotifyId});
+			
+			res.json(foundReview);
+
+		} catch(err) {
+			res.status(500)
+		}
+	}
 }

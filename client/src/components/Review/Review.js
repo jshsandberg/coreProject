@@ -12,7 +12,7 @@ import ReviewModal from "../Modal/ReviewModal";
 
 function Review({ item }) {
 
-    console.log(item.item)
+    //console.log(item.item)
 
     const {user, setUser} = useContext(UserContext);
     const [type, setType] = useState(item.mediaType);
@@ -100,7 +100,8 @@ function Review({ item }) {
             />
             <ReviewModal
                 show={modalReviewShow}
-                onHide={() => setModalReviewShow(false)}              
+                onHide={() => setModalReviewShow(false)}  
+                item={item.item}            
             />
         </>
     )

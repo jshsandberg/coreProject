@@ -9,6 +9,12 @@ export default {
       return axios.post("/api/user/login", loginData);
     },
     getUserbyId: function(id) {
-      return axios.post("/api/user/" + id)
+      return axios.post("/api/user/" + id);
     },
+    saveReview: function(user, review) {
+      return axios.post("/api/user/review/" + user, review);
+    },
+    getReview: function(id) {
+      return axios.post("/api/user/mediaReview/" + id);
+    }
 };

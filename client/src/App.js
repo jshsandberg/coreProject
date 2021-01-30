@@ -31,6 +31,7 @@ function App() {
         const decoded = jwt.verify(token, "secret");      
           try {
             const newUser = await API.getUserbyId(decoded.id);
+            await setUser(newUser.data)
             await setTokenUser(newUser.data);
           } catch(err) {
             console.log(err)

@@ -14,7 +14,6 @@ function ReviewModal(props) {
     const {user, setUser} = useContext(UserContext);
     const [value, setValue] = useState("");
 
-    console.log(user)
 
     const buttonStyle = {
         display: "block",
@@ -37,7 +36,7 @@ function ReviewModal(props) {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-            <form onSubmit={(e) => saveReview(e, value)}>
+            <form onSubmit={(e) => saveReview(e, value, user, props.item.id)}>
                 <label>Review:
                     <input type="text" value={value} onChange={e => setValue(e.target.value)} />
                 </label>
