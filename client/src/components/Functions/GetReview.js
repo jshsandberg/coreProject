@@ -7,7 +7,7 @@ export const GetReview = async (id) => {
             // console.log(user.username + JSON.stringify(user.reviews[i]))
             let revObj = {
                 username: user.username,
-                review: JSON.stringify(user.reviews[i])
+                review: user.reviews[i]
             }
             arr.push(revObj);
         }
@@ -28,13 +28,12 @@ export const GetReview = async (id) => {
     }
 
     for(let i = 0; i < arr.length; i++) {
-        console.log(arr[i])
+        // console.log(arr[i])
         if (arr[i].review.spotifyId === id) {
-            console.log(arr[i])
-            // finalArr.push(arr[i])
+            finalArr.push(arr[i])
         }
     }
 
 
-    return data
+    return finalArr
 }
