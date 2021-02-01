@@ -10,6 +10,7 @@ import { UserContext } from "./context/userContext";
 import API from "./utils/API";
 import AuthTokenModal from "./components/Modal/AuthTokenModal";
 import Media from "./pages/MediaPage";
+import Challenge from "./pages/ChallengePage"
 import './App.css';
 
 function App() {
@@ -65,6 +66,7 @@ function App() {
             <Route exact path="/home" component={Home} />
             <Route exact path="/review/:name" component={Review} />
             <Route exact path="/media" component={Media} />
+            <Route exact path="/challenge" component={Challenge} />
             <AuthTokenModal 
                  tokenUser={tokenUser}
                  show={modalShow}

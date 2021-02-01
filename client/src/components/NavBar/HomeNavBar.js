@@ -20,7 +20,7 @@ function HomeNavBar() {
                     <Nav className="mr-auto">
                     <Nav.Link>Friends</Nav.Link>
                     <Nav.Link href="#pricing">Featured Reviews</Nav.Link>
-                    <Nav.Link href="#pricing">Browse</Nav.Link>
+                    <Nav.Link><Link to="/challenge">Create Head to Head</Link></Nav.Link>
                     <Nav.Link><Link to="/review">Create a Review</Link></Nav.Link>
                     <NavDropdown title="Create Review" id="collasible-nav-dropdown">
                         <NavDropdown.Item href="#action/3.1"></NavDropdown.Item>
@@ -31,7 +31,7 @@ function HomeNavBar() {
                     </NavDropdown>
                     </Nav>
                     <Nav>
-                    <Navbar.Brand href="#home">{user === undefined ? <div></div> : user.name}</Navbar.Brand>
+                    <Navbar.Brand>{user === undefined ? <div></div> : user.name}</Navbar.Brand>
                     <Nav.Link>Sign Out</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>

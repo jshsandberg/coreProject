@@ -9,20 +9,8 @@ function UserReview ({ item }) {
     useEffect(() => {
         const asyncReview = async () => {
             if (spotifyId) {
-                const { response } = await GetReview(spotifyId);
-                //console.log(response)
-
-                // const arr = []
-
-                // for(let i = 0; i < response.length; i++) {
-                //     let reviewObj = {
-                //         username: response[i].username,
-                //         review: 
-                //     }
-                //     arr.push(response[i])
-                // }
-
-                // console.log(arr)
+                const response = await GetReview(spotifyId);
+                setReviewArr(response)
             }   
         }
         asyncReview();
@@ -30,7 +18,13 @@ function UserReview ({ item }) {
 
     return (
         <>
-            <h1>Hello</h1>
+            {reviewArr && reviewArr.map((items, i) => {
+                return (
+                    <>
+                        <h2>{items.username}: {items.review.review}</h2>
+                    </>
+                )
+            })}
         </>
     )
 };

@@ -8,6 +8,7 @@ import User from "../../utils/Media/User.png";
 
 function Media(props) {
 
+    console.log(props)
 
     const [trackProps, setTrackProps] = useState();
     const [albumProps, setAlbumProps] = useState();
@@ -31,7 +32,7 @@ function Media(props) {
         const splicedArtists = props.media.artist.artists.items.slice(0, 3);
         setArtistProps(splicedArtists);
 
-    }, [])
+    }, [props])
     
 
 
