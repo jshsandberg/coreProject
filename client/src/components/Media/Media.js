@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/esm/Row';
 import Col from 'react-bootstrap/esm/Col';
 // import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
 import SpotifyModal from "../Modal/SpotifyModal";
 import User from "../../utils/Media/User.png";
 
 function Media(props) {
 
-    console.log(props)
+    console.log(props.challenge)
 
     const [trackProps, setTrackProps] = useState();
     const [albumProps, setAlbumProps] = useState();
@@ -19,9 +20,16 @@ function Media(props) {
     const [modalShow, setModalShow] = useState(false);
     const [modalData, setModalData] = useState(null);
 
+    const challenge = useRef(true);
+
+  
+
     useEffect(() => {
         
-    
+        if (props.challenge === false) {
+            challenge.current = false
+        }
+
         const splicedTracks = props.media.track.tracks.items.slice(0, 6);
         setTrackProps(splicedTracks);
 
@@ -35,7 +43,7 @@ function Media(props) {
     }, [props])
     
 
-
+    console.log("here", challenge)
 
     return (
         <>
@@ -119,6 +127,10 @@ function Media(props) {
                         )
                     })}
                 </Row>
+                
+
+                    <Button onClick={() => props.getChildData("hello")}>Click for Child Data</Button>
+
             </Container>
             <SpotifyModal
             item={modalData}

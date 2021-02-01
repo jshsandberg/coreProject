@@ -14,14 +14,16 @@ function ChallengeSearchBar() {
     const [type, setType] = useState("track");
     const [name, setName] = useState("Track");
     const [data, setData] = useState();
+    const [childData, setChildData] = useState();
 
     const getSpotifyData = async () => {
         const returnedData = await getSpotifyAccess(value);
         setData(returnedData)
     }
 
-  
-
+    const getChildData = (info) => {
+        console.log(info)
+    }
 
     return (
         <>
@@ -30,7 +32,7 @@ function ChallengeSearchBar() {
                 <Button onClick={() => getSpotifyData()} style={{backgroundColor: "black", borderColor: "black"}}>Search</Button>
             </InputGroup>
 
-            {data && <Media media={data} />}
+            {data && <Media media={data} getChildData={(info) => getChildData(info)} challenge={true} />}
         </>
     )
 };
