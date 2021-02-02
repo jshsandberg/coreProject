@@ -16,6 +16,7 @@ import SpotifyPlayer from "react-spotify-player";
 
 function SpotifyModal(props) {
 
+  console.log(props.item)
 
   const history = useHistory();
 
@@ -43,6 +44,10 @@ function SpotifyModal(props) {
       setImage(props.item.images[0].url);
       setName(props.item.name);
       setUri(props.item.uri);
+    } else {
+      setImage(null);
+      setName(null);
+      setUri(null);
     }
   }, [props]);
 

@@ -10,7 +10,7 @@ import Button from 'react-bootstrap/Button';
 // import DropdownButton from 'react-bootstrap/esm/DropdownButton';
 // import Dropdown from 'react-bootstrap/esm/Dropdown'
 // import Spotify from "../components/Spotify/Spotify";
-import Media from "../components/Media/Media";
+import { Media } from "../components/Media/Media";
 
 function MediaPage(props) {
 
