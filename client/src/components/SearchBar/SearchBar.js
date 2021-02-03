@@ -18,7 +18,6 @@ function SearchBar() {
 
     const getSpotifyData = async () => {
         const returnedData = await getSpotifyAccess(value);
-        console.log(returnedData)
         history.push({pathname: `/media`, state: returnedData});
     }
 

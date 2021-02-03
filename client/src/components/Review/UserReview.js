@@ -3,7 +3,7 @@ import { GetReview } from "../Functions/GetReview";
 
 function UserReview ({ item }) {
 
-    const [spotifyId, setSpotifyId] = useState(item.item.id);
+    const [spotifyId, setSpotifyId] = useState(item.id);
     const [reviewArr, setReviewArr] = useState([]);
 
     useEffect(() => {

@@ -16,7 +16,6 @@ import SpotifyPlayer from "react-spotify-player";
 
 function SpotifyModal(props) {
 
-  console.log(props.item)
 
   const history = useHistory();
 

@@ -23,7 +23,7 @@ export const getSpotifyAccess = async (song) => {
           headers: { 'Authorization' : 'Bearer ' + tokenResponse.data.access_token}
         })
         .then(res => {
-            data["track"] = res.data
+            data["track"] = res.data.tracks.items.slice(0, 6)
             })
        );
        await axios('https://accounts.spotify.com/api/token', {
@@ -41,7 +41,7 @@ export const getSpotifyAccess = async (song) => {
           headers: { 'Authorization' : 'Bearer ' + tokenResponse.data.access_token}
         })
         .then(res => {
-            data["albums"] = res.data
+            data["albums"] = res.data.albums.items.slice(0, 6)
             })
        );
        await axios('https://accounts.spotify.com/api/token', {
@@ -59,7 +59,7 @@ export const getSpotifyAccess = async (song) => {
           headers: { 'Authorization' : 'Bearer ' + tokenResponse.data.access_token}
         })
         .then(res => {
-            data["artist"] = res.data
+            data["artist"] = res.data.artists.items.slice(0, 3)
             })
        );
      return data

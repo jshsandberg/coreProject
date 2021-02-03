@@ -5,60 +5,30 @@ import Col from 'react-bootstrap/esm/Col';
 import Button from 'react-bootstrap/Button';
 import SpotifyPlayer from "react-spotify-player";
 import { UserContext } from "../../context/userContext";
-import NoAccessModal from "../Modal/NoAccessModal";
 import { getSpotifyAccess } from "../Functions/SpotifyFree"
 import "../Functions/SpotifyFree";
-import ReviewModal from "../Modal/ReviewModal";
 
 function Review({ item }) {
 
-    //console.log(item.item)
-
     const {user, setUser} = useContext(UserContext);
-    const [type, setType] = useState(item.mediaType);
     const [artistImage, setArtistImage] = useState();
-    const [spotifyId, setSpotifyId] = useState();
-    const [image, setImage] = useState();
-    const [name, setName] = useState();
-    const [uri, setUri] = useState();
-    const [genre, setGenre] = useState();
-    const [releaseData, setReleaseDate] = useState();
-    const [artist, setArtist] = useState();
-    const [modalReviewShow, setModalReviewShow] = useState(false);
-    const [modalNoAccess, setModalNoAccess] = useState(false);
 
-    useEffect( async () => {
+    useEffect(() => {
 
-        if (item.mediaType === "track") {
-            const results = await getSpotifyAccess(item.item.artists[0].name);
-            await setArtistImage(results.artist.artists.items[0].images[1].url);
-            setName(item.item.name);
-            setUri(item.item.uri);
-            setArtist(item.item.artists[0].name);
-            setSpotifyId(item.item.id)
-        } else if (item.mediaType === "albums") {
-            const results = await getSpotifyAccess(item.item.artists[0].name);
-            await setArtistImage(results.artist.artists.items[0].images[1].url);
-            setImage(item.item.images[1].url);
-            setName(item.item.name);
-            setUri(item.item.uri);
-            setReleaseDate(item.item.release_data);
-            setArtist(item.item.artists[0].name);
-            setSpotifyId(item.item.id)
-        } else if (item.mediaType === "artist") {
-            setArtistImage(item.item.images[1].url)
-            setName(item.item.name);
-            setUri(item.item.uri);
-            setGenre(item.item.genres); 
-            setSpotifyId(item.item.id)
-        }
+        const getArtistImage = async () => {
+            try {
+                const results = await getSpotifyAccess(item.artist);
+                await setArtistImage(results.artist[0].images[1].url);
+            } catch (err) {
+                console.log(err)
+            }
+        };
+        getArtistImage()
     }, [{ item }])
 
     const writeReview = () => {
        if (user !== undefined) {
-           setModalReviewShow(true)
        } else {
-           setModalNoAccess(true);
        }
     }
 
@@ -69,8 +39,8 @@ function Review({ item }) {
             <Container fluid>
                 <Row>
                     <Col align="center">
-                        <h1>{artist}</h1>
-                        <h3>{name}</h3>
+                        <h1>{item.artist}</h1>
+                        <h3>{item.name}</h3>
                     </Col>
                     <Col>
                         <img src={artistImage} />
@@ -80,11 +50,11 @@ function Review({ item }) {
             <Container fluid>
                 <Row>
                     <Col>
-                        <img src={image} />
+                        <img src={item.image} />
                     </Col>
                     <Col>
                         <SpotifyPlayer
-                            uri={uri}
+                            uri={item.uri}
                         />
                     </Col>
                     <Col>
@@ -94,15 +64,6 @@ function Review({ item }) {
                     </Col>
                 </Row>
             </Container>
-            <NoAccessModal 
-                show={modalNoAccess}
-                onHide={() => setModalNoAccess(false)}              
-            />
-            <ReviewModal
-                show={modalReviewShow}
-                onHide={() => setModalReviewShow(false)}  
-                item={item.item}            
-            />
         </>
     )
 };

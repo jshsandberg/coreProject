@@ -6,7 +6,6 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Button from 'react-bootstrap/Button';
 import { getSpotifyAccess } from "../Functions/SpotifyFree";
-import { Media } from "../Media/Media";
 
 function ChallengeSearchBar() {
 
@@ -32,7 +31,6 @@ function ChallengeSearchBar() {
                 <Button onClick={() => getSpotifyData()} style={{backgroundColor: "black", borderColor: "black"}}>Search</Button>
             </InputGroup>
 
-            {data && <Media media={data} getChildData={(info) => getChildData(info)} challenge={true} />}
         </>
     )
 };

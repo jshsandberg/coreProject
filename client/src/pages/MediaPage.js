@@ -10,7 +10,10 @@ import Button from 'react-bootstrap/Button';
 // import DropdownButton from 'react-bootstrap/esm/DropdownButton';
 // import Dropdown from 'react-bootstrap/esm/Dropdown'
 // import Spotify from "../components/Spotify/Spotify";
-import { Media } from "../components/Media/Media";
+import Track from "../components/Media/Track";
+import Album from "../components/Media/Album";
+import Artist from "../components/Media/Artist";
+
 
 function MediaPage(props) {
 
@@ -45,7 +48,9 @@ function MediaPage(props) {
             </Container>
             <br></br>
             <Container>
-                <Media media={props.location.state} />
+                <Track media={props.location.state} />
+                <Album media={props.location.state} />
+                <Artist media={props.location.state} />
             </Container>
         </>
     )
