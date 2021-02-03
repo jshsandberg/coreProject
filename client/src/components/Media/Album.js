@@ -28,7 +28,7 @@ function Album({ media }) {
                         let itemObj = {
                             uri: items.uri,
                             name: items.name,
-                            album: null,
+                            album: items.name,
                             artist: items.artists[0].name,
                             id: items.id,
                             image: items.images[1].url

@@ -28,7 +28,7 @@ function Artist({ media }) {
                         console.log(items)
                         let itemObj = {
                             uri: items.uri,
-                            name: null,
+                            name: items.name,
                             album: null,
                             artist: items.name,
                             id: items.id,

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
+import { useHistory } from "react-router-dom";
 import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/esm/Row';
 import Col from 'react-bootstrap/esm/Col';
@@ -9,6 +10,8 @@ import { getSpotifyAccess } from "../Functions/SpotifyFree"
 import "../Functions/SpotifyFree";
 
 function Review({ item }) {
+
+    const history = useHistory();
 
     const {user, setUser} = useContext(UserContext);
     const [artistImage, setArtistImage] = useState();
@@ -28,7 +31,9 @@ function Review({ item }) {
 
     const writeReview = () => {
        if (user !== undefined) {
+           history.push({pathname: `/writereview/:${item.name}`, state: item})
        } else {
+           console.log("hello")
        }
     }
 

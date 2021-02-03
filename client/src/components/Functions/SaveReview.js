@@ -1,6 +1,6 @@
 import API from "../../utils/API"
 
-export const saveReview = async (event, value, user, spotifyId, rating) => {
+export const SaveReview = async (event, value, user, spotifyId, rating) => {
     event.preventDefault();
     try {
 
