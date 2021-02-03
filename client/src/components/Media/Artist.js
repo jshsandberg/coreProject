@@ -12,8 +12,6 @@ function Artist({ media }) {
 
     const history = useHistory();
 
-    const [artistProps, setArtstProps] = useState(media.artist);
-
 
     return (
         <>
@@ -24,8 +22,8 @@ function Artist({ media }) {
                     </Col>
                 </Row>
                 <Row>
-                    {artistProps && artistProps.map((items, i) => {
-                        console.log(items)
+                    {media && media.artist.map((items, i) => {
+
                         let itemObj = {
                             uri: items.uri,
                             name: items.name,

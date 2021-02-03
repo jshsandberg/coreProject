@@ -12,8 +12,6 @@ function Album({ media }) {
 
     const history = useHistory();
 
-    const [albumProps, setAlbumProps] = useState(media.albums)
-
     return (
         <>
             <Container fluid>
@@ -23,7 +21,7 @@ function Album({ media }) {
                     </Col>
                 </Row>
                 <Row>
-                    {albumProps && albumProps.map((items, i) => {
+                    {media && media.albums.map((items, i) => {
 
                         let itemObj = {
                             uri: items.uri,

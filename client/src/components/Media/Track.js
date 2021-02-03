@@ -8,15 +8,21 @@ import Button from 'react-bootstrap/Button';
 import SpotifyModal from "../Modal/SpotifyModal";
 import User from "../../utils/Media/User.png";
 
-function Track({ media }) {
+export const Track = React.memo(function Track({ media, getChildData }) {
+
+  
 
     const history = useHistory();
 
+    const [isChallenge, setIsChallenge] = useState(false);
 
-   
-    const [trackProps, setTrackProps] = useState(media.track);
+    useEffect(() => {
+        if (getChildData !== null) {
+            setIsChallenge(true);
+        }
+    }, []);
 
-
+    console.log(isChallenge)
 
     return (
         <>
@@ -27,7 +33,7 @@ function Track({ media }) {
                     </Col>
                 </Row>
                 <Row>
-                    {trackProps && trackProps.map((items, i) => {
+                    {media && media.track.map((items, i) => {
 
                         let itemObj = {
                             uri: items.uri,
@@ -44,10 +50,10 @@ function Track({ media }) {
                                     <Container fluid>
                                         <Row>
                                             <Col xs={2}>
-                                            <img onClick={async () => {history.push({pathname: `/review/${items.name}`, state: itemObj})}} style={{marginBottom: "5px"}} src={items.album.images[2].url} alt={i} key={i}></img>
+                                            <img onClick={async () => {isChallenge ? getChildData(itemObj) : history.push({pathname: `/review/${items.name}`, state: itemObj})}} style={{marginBottom: "5px"}} src={items.album.images[2].url} alt={i} key={i}></img>
 
                                             </Col>
-                                            <Col onClick={async () => {history.push({pathname: `/review/${items.name}`, state: itemObj})}} xs={10}>
+                                            <Col onClick={async () => {isChallenge ? getChildData(itemObj) : history.push({pathname: `/review/${items.name}`, state: itemObj})}} xs={10}>
                                                 <Row style={{paddingLeft: "15%"}}>
                                                     <p style={{paddingLeft: "0px"}}>{items.name}</p>
                                                 </Row>
@@ -69,6 +75,5 @@ function Track({ media }) {
             </Container>
         </>
     )
-};
+});
 
-export default Track;
