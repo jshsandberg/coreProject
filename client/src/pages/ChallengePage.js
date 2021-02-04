@@ -5,6 +5,7 @@ import ChallengeSearchBar from "../components/SearchBar/ChallengeSearchBar";
 import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/esm/Row';
 import Col from 'react-bootstrap/esm/Col';
+import { Result } from "../components/Media/Result";
 
 function ChallengePage() {
 
@@ -30,7 +31,7 @@ function ChallengePage() {
                         <ChallengeSearchBar getChildData={getChildData}/>
                     </Col>
                     <Col>
-                        <Result ={childData}
+                        <Result childData={childData} />
                     
                     </Col>
                 </Row>

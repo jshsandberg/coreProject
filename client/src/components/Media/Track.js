@@ -10,8 +10,6 @@ import User from "../../utils/Media/User.png";
 
 export const Track = React.memo(function Track({ media, getChildData }) {
 
-  
-
     const history = useHistory();
 
     const [isChallenge, setIsChallenge] = useState(false);
@@ -21,8 +19,6 @@ export const Track = React.memo(function Track({ media, getChildData }) {
             setIsChallenge(true);
         }
     }, []);
-
-    console.log(isChallenge)
 
     return (
         <>
