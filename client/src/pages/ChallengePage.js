@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useCallback } from "react";
 import { UserContext } from "../context/userContext";
 import SideNavBar from "../components/NavBar/SideNav";
 import ChallengeSearchBar from "../components/SearchBar/ChallengeSearchBar";
@@ -8,8 +8,15 @@ import Col from 'react-bootstrap/esm/Col';
 
 function ChallengePage() {
 
-    const {user, setUser} = useContext(UserContext)
+    const {user, setUser} = useContext(UserContext);
+    const [childData, setChildData] = useState([]);
 
+
+    const getChildData = useCallback(info => {
+        setChildData(childData => [...childData, info]);
+    }, []);
+
+    
 
     return (
         <>
@@ -20,9 +27,10 @@ function ChallengePage() {
                     
                     </Col>
                     <Col>
-                        <ChallengeSearchBar />
+                        <ChallengeSearchBar getChildData={getChildData}/>
                     </Col>
                     <Col>
+                        <Result ={childData}
                     
                     </Col>
                 </Row>

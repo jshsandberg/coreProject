@@ -11,22 +11,19 @@ import { Track } from "../Media/Track";
 import Album from "../Media/Album";
 import Artist from "../Media/Artist";
 
-function ChallengeSearchBar() {
+function ChallengeSearchBar({getChildData}) {
 
     const [value, setValue] = useState();
-    const [type, setType] = useState("track");
-    const [name, setName] = useState("Track");
     const [data, setData] = useState(null);
-    const [childData, setChildData] = useState();
 
     const getSpotifyData = async () => {
         const returnedData = await getSpotifyAccess(value);
         setData(returnedData)
     }
 
-    const getChildData = useCallback(info => {
-        console.log(info)
-    }, [])
+  
+
+
 
     return (
         <>
@@ -38,8 +35,8 @@ function ChallengeSearchBar() {
                 { data &&
                     <>
                         <Track getChildData={getChildData} media={data} />
-                        <Album media={data} />
-                        <Artist media={data} />
+                        <Album getChildData={getChildData} media={data} />
+                        <Artist getChildData={getChildData} media={data} />
                     </>
                 }
             </Container>

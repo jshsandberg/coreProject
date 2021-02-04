@@ -46,11 +46,11 @@ export const Track = React.memo(function Track({ media, getChildData }) {
 
                         return (
                             <>
-                                <Col xs={4}>
+                                <Col key={items.name} xs={4}>
                                     <Container fluid>
                                         <Row>
                                             <Col xs={2}>
-                                            <img onClick={async () => {isChallenge ? getChildData(itemObj) : history.push({pathname: `/review/${items.name}`, state: itemObj})}} style={{marginBottom: "5px"}} src={items.album.images[2].url} alt={i} key={i}></img>
+                                            <img  onClick={async () => {isChallenge ? getChildData(itemObj) : history.push({pathname: `/review/${items.name}`, state: itemObj})}} style={{marginBottom: "5px"}} src={items.album.images[2].url} alt={i} key={i}></img>
 
                                             </Col>
                                             <Col onClick={async () => {isChallenge ? getChildData(itemObj) : history.push({pathname: `/review/${items.name}`, state: itemObj})}} xs={10}>
