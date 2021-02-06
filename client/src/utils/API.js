@@ -16,5 +16,8 @@ export default {
     },
     getReview: function(id) {
       return axios.post("/api/user/mediaReview/" + id);
+    },
+    getMaxRatings: function() {
+      return axios.post("api/maxRatings");
     }
 };

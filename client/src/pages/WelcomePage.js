@@ -12,6 +12,10 @@ import Button from 'react-bootstrap/Button';
 // import Spotify from "../components/Spotify/Spotify";
 import ReactPlayer from 'react-player';
 import VideoFile from "../utils/Media/VideoFile.mp4";
+import WelcomeBox from "../components/WelcomeBox/WelcomeBox";
+import Charcoal from "../utils/Media/Charcoal.jpg";
+import Footer from "../components/Footer/Footer";
+import HighestRateMedia from "../components/Media/HighestRatedMedia";
 
 import "./WelcomePage.css";
 
@@ -30,100 +34,108 @@ function WelcomePage() {
     const buttonStyle = {
         float: "right", 
         marginRight: "15px", 
-        background: "#db3d44",
-        borderColor: "#db3d44"
+        background: "#464646",
+        borderColor: "#464646"
+    }
+
+    const textOne = {
+        text: "Choose the perfect song and compete with others to see which song deserves to be put in the Pantheon",
+        title: "Competition"
+    };
+
+    const textTwo = {
+        text: "Create reviews, Showcase the songs that got you in the Pantheon, and brag to friends on who has better music taste",
+        title: "Social"
+    };
+
+    const textThree = {
+        text: "Using a Spotify API, you can choose any song to help you conquer the competition and make the path to the Pantheon easier",
+        title: "Browse"
     }
 
     return (
-        <>
-        {/* Side nav bar needs to be invisible when not clicked upon */}
-            {/* <SideNavBar /> */}
-            {/* <Container fluid>
-                <Row>
-                    <Col>
-                    
-                    </Col>
-                    <Col>
-                        <br></br>
-                        <SearchBar />
-                       
-                    </Col>
-                    <Col>
-                        <br></br>
-                        <Link to="/login"><Button style={buttonStyle}>Login</Button></Link>
-                        <Link to="/signup"><Button style={buttonStyle}>Sign Up</Button></Link>
-                    </Col>
-                </Row>
-            </Container> */}
-            {/* <br></br>
-            <br></br> */}
        
-
-                        <ReactPlayer 
-                        style={{position: "absolute"}}
-                        url={VideoFile}
-                        playing={true}
-                        muted={true}
-                        loop={true}
-                        width="100%"
-                        height="auto"
-                        />
-                    
-                    {/* </Col>
-                    <Col style={{paddingTop: "2%"}}>
-                        <h2>Our Website Suck</h2>
-                        <h6>But please, give it a shot why dont ya?</h6>
-                        <br></br>
-                        <Button style={{background: "#db3d44", borderColor: "#db3d44"}}>Creat a free account</Button>
-                    </Col>
-                    <Col>
-                        <img style={{width: "100%"}} src={Corey} alt={Corey} />
-                    </Col>
-                    <Col> */}
-                    
-              
-                       <Container fluid>
+        <div style={{backgroundImage: `url(${Charcoal})`}}> 
+            <Container fluid style={{backgroundColor: "#db3d44", opacity: 0.7, position: "fixed", zIndex: "10"}}>
                 <Row>
-    
-                    <Col style={{position: "fixed", paddingLeft: "30%", paddingRight: "30%"}}>
+                    <Col style={{paddingTop: "6%"}}>
+                        
+                    </Col>
+                </Row>
+            </Container>
+            <Container fluid style={{position: "fixed", top: "2%", zIndex: "10"}}>
+                <Row>
+                    <Col align="center" xs={3}>
+                    <h1 style={{fontFamily: "Abril Fatface", fontSize: "60px", paddingLeft: "5%"}}>Pantheon</h1>
+
+                    </Col>
+                    <Col xs={6}>
                         <br></br>
-                        {/* Lock to the top scrool down makes it show up */}
-                        <SearchBar />
-                        <br></br>
+                    <   SearchBar />
+                    </Col>
+                    <Col xs={3}>     
+                        <br></br>                
                         <Link to="/login"><Button style={buttonStyle}>Login</Button></Link>
                         <Link to="/signup"><Button style={buttonStyle}>Sign Up</Button></Link>
                     </Col>
                 </Row>
             </Container>
-      
-            <Container style={{paddingTop: "20%", paddingBottom: "20%"}}>
+            <Container fluid>
+                <Row style={{paddingBottom: "10%"}}>
+                </Row>
                 <Row>
-                    <Col align="center">
-                        {/* <h1 style={{backgroundColor: "white"}}>Welcome to COrey website, made by josh and borno</h1> */}
-                        <Button>Get Started</Button>
+                    <Col xs={1}>
+                    
+                    </Col>
+                    <Col style={{paddingTop: "5%"}} xs={4} align="center">
+                        <div style={{borderColor: "#db3d44", borderStyle: "solid", borderWidth: "6px", paddingTop: "10px", paddingRight: "10px", paddingLeft: "10px", paddingBottom: "10px"}}>
+                            <h1 style={{color: "white"}}>Head to Head competitions to see which songs are good and which suck</h1>
+                        </div>
+                        <br></br>
+                            <Button style={{background: "#db3d44", borderColor: "#db3d44"}}>Get Started</Button>
+                    </Col>
+                    <Col xs={6}>
+                        <ReactPlayer 
+                            style={{borderColor: "#db3d44", borderStyle: "solid", borderWidth: "8px", paddingTop: "10px", paddingRight: "10px", paddingLeft: "10px", paddingBottom: "10px"}}
+                            url={VideoFile}
+                            playing={true}
+                            muted={true}
+                            loop={true}
+                            width="100%"
+                            height="auto"
+                        />
                     </Col>
                 </Row>
             </Container>
-            {/*<Container fluid>
-                 <br></br> 
-            <Row style={bottomBorder}>
-                <h1 style={{paddingLeft: "20px"}}>Music</h1>
-                <DropdownButton style={{marginTop: "3px", marginLeft: "15px"}} id="dropdown-basic-button" title={spotifySearchTitle}>
-                    <Dropdown.Item onClick={() => {setSpotifySearchTitle("New Releases"); setSpotifySelector("new-releases")}}>New Releases</Dropdown.Item>
-                    <Dropdown.Item onClick={() => {setSpotifySearchTitle("Top Lists"); setSpotifySelector("toplists")}}>Top Lists</Dropdown.Item>
-                    <Dropdown.Item onClick={() => {setSpotifySearchTitle("Hip Hop"); setSpotifySelector("hiphop")}}>Hip Hop</Dropdown.Item>
-                    <Dropdown.Item onClick={() => {setSpotifySearchTitle("Pop"); setSpotifySelector("pop")}}>Pop</Dropdown.Item>
-                    <Dropdown.Item onClick={() => {setSpotifySearchTitle("Country"); setSpotifySelector("country")}}>Country</Dropdown.Item>
-                    <Dropdown.Item onClick={() => {setSpotifySearchTitle("Rock"); setSpotifySelector("rock")}}>Rock</Dropdown.Item>
-                    <Dropdown.Item onClick={() => {setSpotifySearchTitle("Gaming"); setSpotifySelector("gaming")}}>Gaming</Dropdown.Item>
-                    <Dropdown.Item onClick={() => {setSpotifySearchTitle("EDM / Dance"); setSpotifySelector("edm_dance")}}>EDM / Dance</Dropdown.Item> */}
-                    {/* <Dropdown.Item onClick={() => {setSpotifySearchTitle("Alternative"); setSpotifySelector("alternative")}}>Alternative</Dropdown.Item> */}
-                {/* </DropdownButton>
-            </Row>
             <br></br>
-            <Spotify spotifySelector={spotifySelector} />
-            </Container> */}
-        </>
+            <br></br>
+            <Container fluid>
+                <Row>
+                    <Col>
+                        <WelcomeBox text={textOne}/>
+                    </Col>
+                    <Col>
+                        <WelcomeBox text={textTwo} />
+                    </Col>
+                    <Col>
+                        <WelcomeBox text={textThree}/>
+                    </Col>
+                </Row>
+            </Container>
+            <br></br>
+            <br></br>
+            <Container fluid>
+                <Row>
+                    <Col>
+                        <HighestRateMedia />
+                    </Col>
+                </Row>
+            </Container>
+            <br></br>
+            <br></br>
+            <Footer />
+       
+        </div>
     )
 };
 

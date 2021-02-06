@@ -5,7 +5,7 @@
   "license": "MIT",
   "description": "MERN application for inventory tracking.",
   "engines": {
-    "node": "14.15.1",
+    "node": "15.8.0",
     "yarn": "1.22.5"
   },
   "scripts": {
