@@ -26,7 +26,8 @@ function Artist({ media, getChildData }) {
             <Container fluid>
                 <Row>
                     <Col>
-                        <h1>Artists</h1>
+                        <h1 style={{marginBottom: "0px"}}>Artists</h1>
+                        <hr style={{marginTop: "2px", backgroundColor: "#db3d44", height: "3px"}}></hr>
                     </Col>
                 </Row>
                 <Row>
@@ -42,11 +43,21 @@ function Artist({ media, getChildData }) {
                         }
 
                         return (
-                            <>
-                                <Col style={{display: "flex", justifyContent: "center"}} xs={4}>
+                            <><Col>
+                                        <Container>
+                                <Row>
+                                    <Col style={{display: "flex", justifyContent: "center"}} xs={4}>
                                     <img key={items.name} onClick={ async () => {isChallenge ? getChildData(itemObj) : history.push({pathname: `/review/${items.name}`, state: itemObj})}}style={{marginBottom: "5px", borderRadius: "50%"}} src={items.images.length > 0 ? items.images[2].url : User} alt={i} key={i}></img>
-                                    <p>{items.name}</p>
-                                </Col>                                                                                                           
+
+                                    </Col>
+                                    <Col>
+                                    <h4 style={{backgroundColor: "#db3d44", paddingBottom: "10px", textAlign: "center", color: "white"}}>{items.name}</h4>
+                                    </Col>
+                                </Row>
+                            </Container>
+                            </Col>
+                
+                                                                                                                     
                             </>
                         )
                     })}

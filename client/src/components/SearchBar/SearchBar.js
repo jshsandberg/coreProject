@@ -8,30 +8,32 @@ import Button from 'react-bootstrap/Button';
 import { getSpotifyAccess } from "../Functions/SpotifyFree";
 
 
-function SearchBar() {
+function SearchBar({ color }) {
 
     const history = useHistory();
 
     const [value, setValue] = useState();
-    const [type, setType] = useState("track");
-    const [name, setName] = useState("Track");
 
     const getSpotifyData = async () => {
         const returnedData = await getSpotifyAccess(value);
         history.push({pathname: `/media`, state: returnedData});
     }
 
-    const getVideoGameData = () => {
-        
+    const black = {
+        backgroundColor: "#464646", 
+        borderColor: "#464646"
     }
-    
 
+    const red = {
+        backgroundColor: "#db3d44", 
+        borderColor: "#db3d44"
+    }
 
     return (
         <>
             <InputGroup className="mb-3">
                 <FormControl onChange={(e) => setValue(e.target.value)} aria-describedby="basic-addon1" />
-                <Button onClick={() => {type === "videogame" ? getVideoGameData() : getSpotifyData()}} style={{backgroundColor: "#464646", borderColor: "#464646"}}>Search</Button>
+                <Button onClick={() => getSpotifyData()} style={color === "red" ? red : black}>Search</Button>
             </InputGroup>
         </>
     )

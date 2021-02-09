@@ -7,7 +7,6 @@ const { User } = require("../models");
 
 module.exports = {
     register: async (req, res) => {
-       
         try {
 
             let {
@@ -17,8 +16,9 @@ module.exports = {
         
 			if (!req.body.name || !req.body.email || !req.body.username || !req.body.password) {
 				return res
-					.status(400)
-					.json({ msg: "Not all fields have been entered." });
+					.status(400).json({ 
+						msg: "Not all fields have been entered." 
+					});
 			}
 
 			if (req.body.password.length < 5) {

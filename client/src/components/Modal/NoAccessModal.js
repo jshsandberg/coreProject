@@ -31,7 +31,7 @@ function NoAccessModal(props) {
         <Modal.Body>
            <Button onClick={() => history.push({pathname: "/login"})} style={buttonStyle}>Login Page</Button>
            <Button onClick={() => history.push({pathname: "/signup"})} style={buttonStyle}>Sign Up Page</Button>
-           <Button onClick={props.onHide} style={buttonStyle}>Close</Button>
+           <Button onClick={() => history.push({pathname: "/"})} style={buttonStyle}>Close</Button>
         </Modal.Body>
         <Modal.Footer>
         </Modal.Footer>

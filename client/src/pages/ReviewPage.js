@@ -4,6 +4,10 @@ import React from "react";
 import Review from "../components/Review/Review";
 import SideNavBar from "../components/NavBar/SideNav";
 import UserReview from "../components/Review/UserReview";
+import Header from "../components/Header/Header";
+import Container from "react-bootstrap/esm/Container";
+import Charcoal from "../utils/Media/Charcoal.jpg";
+
 
 
 function ReviewPage(props) {
@@ -11,9 +15,12 @@ function ReviewPage(props) {
 
     return (
         <>
-            <SideNavBar />
-            <Review item={props.location.state} />
-            <UserReview item={props.location.state} />
+            <Header />
+            <Container fluid style={{backgroundImage: `url(${Charcoal})`}}>
+                <Review item={props.location.state} />
+                <UserReview item={props.location.state} />
+            </Container>
+       
           
     
         </>

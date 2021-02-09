@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 // import SideNavBar from "../components/NavBar/SideNav";
-import SearchBar from "../components/SearchBar/SearchBar";
 import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/esm/Row';
 import Col from 'react-bootstrap/esm/Col';
@@ -16,6 +15,7 @@ import WelcomeBox from "../components/WelcomeBox/WelcomeBox";
 import Charcoal from "../utils/Media/Charcoal.jpg";
 import Footer from "../components/Footer/Footer";
 import HighestRateMedia from "../components/Media/HighestRatedMedia";
+import WelcomeHeader from "../components/Header/WelcomeHeader";
 
 import "./WelcomePage.css";
 
@@ -56,30 +56,7 @@ function WelcomePage() {
     return (
        
         <div style={{backgroundImage: `url(${Charcoal})`}}> 
-            <Container fluid style={{backgroundColor: "#db3d44", opacity: 0.7, position: "fixed", zIndex: "10"}}>
-                <Row>
-                    <Col style={{paddingTop: "6%"}}>
-                        
-                    </Col>
-                </Row>
-            </Container>
-            <Container fluid style={{position: "fixed", top: "2%", zIndex: "10"}}>
-                <Row>
-                    <Col align="center" xs={3}>
-                    <h1 style={{fontFamily: "Abril Fatface", fontSize: "60px", paddingLeft: "5%"}}>Pantheon</h1>
-
-                    </Col>
-                    <Col xs={6}>
-                        <br></br>
-                    <   SearchBar />
-                    </Col>
-                    <Col xs={3}>     
-                        <br></br>                
-                        <Link to="/login"><Button style={buttonStyle}>Login</Button></Link>
-                        <Link to="/signup"><Button style={buttonStyle}>Sign Up</Button></Link>
-                    </Col>
-                </Row>
-            </Container>
+           <WelcomeHeader />
             <Container fluid>
                 <Row style={{paddingBottom: "10%"}}>
                 </Row>

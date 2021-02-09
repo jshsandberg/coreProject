@@ -7,6 +7,7 @@ import Button from 'react-bootstrap/Button';
 import SpotifyPlayer from "react-spotify-player";
 import { UserContext } from "../../context/userContext";
 import { getSpotifyAccess } from "../Functions/SpotifyFree"
+import Charcoal from "../../utils/Media/Charcoal.jpg";
 import "../Functions/SpotifyFree";
 
 function Review({ item }) {
@@ -51,8 +52,7 @@ function Review({ item }) {
                         <img src={artistImage} />
                     </Col>
                 </Row>
-            </Container>
-            <Container fluid>
+      
                 <Row>
                     <Col>
                         <img src={item.image} />

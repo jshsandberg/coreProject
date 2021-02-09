@@ -25,7 +25,8 @@ export const Track = React.memo(function Track({ media, getChildData }) {
             <Container fluid>
                 <Row>
                     <Col>
-                        <h1>Songs</h1>
+                        <h1 style={{marginBottom: "0px"}}>Songs</h1>
+                        <hr style={{marginTop: "2px", backgroundColor: "#db3d44", height: "3px"}}></hr>
                     </Col>
                 </Row>
                 <Row>
@@ -42,21 +43,21 @@ export const Track = React.memo(function Track({ media, getChildData }) {
 
                         return (
                             <>
-                                <Col key={items.name} xs={4}>
-                                    <Container fluid>
+                                <Col onClick={async () => {isChallenge ? getChildData(itemObj) : history.push({pathname: `/review/${items.name}`, state: itemObj})}} style={{marginBottom: "1%"}} key={items.name} xs={4}>
+                                    <Container style={{backgroundColor: "#db3d44", paddingTop: "10px"}} fluid>
                                         <Row>
                                             <Col xs={2}>
-                                            <img  onClick={async () => {isChallenge ? getChildData(itemObj) : history.push({pathname: `/review/${items.name}`, state: itemObj})}} style={{marginBottom: "5px"}} src={items.album.images[2].url} alt={i} key={i}></img>
+                                            <img   style={{marginBottom: "5px"}} src={items.album.images[2].url} alt={i} key={i}></img>
 
                                             </Col>
-                                            <Col onClick={async () => {isChallenge ? getChildData(itemObj) : history.push({pathname: `/review/${items.name}`, state: itemObj})}} xs={10}>
+                                            <Col xs={10}>
                                                 <Row style={{paddingLeft: "15%"}}>
-                                                    <p style={{paddingLeft: "0px"}}>{items.name}</p>
+                                                    <p style={{paddingLeft: "0px", color: "white"}}>{items.name}</p>
                                                 </Row>
                                                 <Row style={{paddingLeft: "13%"}}>
                                                         {  
                                                 items.artists.map((element, i) => {
-                                                    return (<p style={{paddingLeft: "2%"}} key={element + i}>{element.name}</p>)
+                                                    return (<p style={{paddingLeft: "2%", color: "white"}} key={element + i}>{element.name}</p>)
                                                 })
                                     }
                                                 </Row>
@@ -64,6 +65,7 @@ export const Track = React.memo(function Track({ media, getChildData }) {
                                         </Row>
                                     </Container>
                                 </Col>
+                             
                             </>
                         )
                     })}

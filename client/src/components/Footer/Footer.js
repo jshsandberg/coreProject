@@ -10,7 +10,7 @@ export default function Footer() {
             <Container style={{backgroundColor: "#db3d44", paddingTop: "2%", paddingBottom: "2%"}} fluid>
                 <Row>
                     <Col>
-                        <h3>(c) Pantheon. Creators: Josh Sandberg Corey Johnson</h3>
+                        <h3>(c) Pantheon. Creator: Josh Sandberg</h3>
                     </Col>
                 </Row>
             </Container>

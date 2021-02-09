@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
+import { useHistory } from "react-router-dom";
 import Header from "../components/Header/Header";
 import HomeNavbar from "../components/NavBar/HomeNavBar";
 import VideoGame from "../components/VideoGame/VideoGame";
@@ -19,6 +20,9 @@ import { UserContext } from "../context/userContext";
   
 
 function HomePage(props) {
+
+    const history = useHistory();
+
 
     const {user, setUser} = useContext(UserContext);
     const [token, setToken] = useState();
@@ -89,8 +93,8 @@ function HomePage(props) {
     return (
         <>
             <Header />
-            <SearchBar />
             <HomeNavbar user = {props} />
+            <SearchBar />
             <br></br>
             <br></br>
             <Row style={bottomBorder}>
@@ -101,6 +105,8 @@ function HomePage(props) {
             <NoAccessModal
               show={modalShow}
               onHide={() => setModalShow(false)}
+              backdrop="static"
+              keyboard={false}
             />
         </>
     )
