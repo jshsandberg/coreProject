@@ -7,6 +7,7 @@ import UserReview from "../components/Review/UserReview";
 import Header from "../components/Header/Header";
 import Container from "react-bootstrap/esm/Container";
 import Charcoal from "../utils/Media/Charcoal.jpg";
+import Footer from "../components/Footer/Footer";
 
 
 
@@ -19,7 +20,10 @@ function ReviewPage(props) {
             <Container fluid style={{backgroundImage: `url(${Charcoal})`}}>
                 <Review item={props.location.state} />
                 <UserReview item={props.location.state} />
+                <br></br>
+                <br></br>
             </Container>
+            <Footer />
        
           
     

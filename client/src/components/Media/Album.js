@@ -15,7 +15,7 @@ function Album({ media, getChildData }) {
     const [isChallenge, setIsChallenge] = useState(false);
 
     useEffect(() => {
-        if (getChildData !== null) {
+        if (getChildData !== undefined) {
             setIsChallenge(true);
         }
     }, []);

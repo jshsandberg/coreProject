@@ -16,13 +16,12 @@ import { Track } from "../components/Media/Track";
 import Album from "../components/Media/Album";
 import Artist from "../components/Media/Artist";
 import { UserContext } from "../context/userContext";
+import Footer from "../components/Footer/Footer";
 
 
 function MediaPage(props) {
 
     const {user, setUser} = useContext(UserContext);
-
-    console.log(user)
 
     const buttonStyle = {
         float: "right", 
@@ -36,33 +35,36 @@ function MediaPage(props) {
             <Header />
             <Container fluid style={{backgroundImage: `url(${Charcoal})`}}>
                 <Container fluid>
-                <Row>
-                    <Col>
-                    
-                    </Col>
-                    <Col>
-                        <br></br>
-                        <SearchBar color={"red"} />
-                       
-                    </Col>
-                    <Col>
-                        <br></br>
-                        {user === undefined &&
-                            <>
-                                <Link to="/login"><Button style={buttonStyle}>Login</Button></Link>
-                                <Link to="/signup"><Button style={buttonStyle}>Sign Up</Button></Link>
-                            </>
-                        }
-                    </Col>
-                </Row>
+                    <Row>
+                        <Col>
+                        
+                        </Col>
+                        <Col>
+                            <br></br>
+                            <SearchBar color={"red"} />
+                        
+                        </Col>
+                        <Col>
+                            <br></br>
+                            {user === undefined &&
+                                <>
+                                    <Link to="/login"><Button style={buttonStyle}>Login</Button></Link>
+                                    <Link to="/signup"><Button style={buttonStyle}>Sign Up</Button></Link>
+                                </>
+                            }
+                        </Col>
+                    </Row>
+                </Container>
+                <br></br>
+                <Container>
+                    <Track media={props.location.state} getChildData={null} />
+                    <Album media={props.location.state} />
+                    <Artist media={props.location.state} />
+                </Container>
+                <br></br>
+                <br></br>
             </Container>
-            <br></br>
-            <Container>
-                <Track media={props.location.state} getChildData={null} />
-                <Album media={props.location.state} />
-                <Artist media={props.location.state} />
-            </Container>
-            </Container>
+            <Footer />
         </>
     )
 };
