@@ -8,6 +8,7 @@ import SpotifyPlayer from "react-spotify-player";
 import { UserContext } from "../../context/userContext";
 import { getSpotifyAccess } from "../Functions/SpotifyFree"
 import { getArtistAlbums } from "../Functions/GetArtistAlbums";
+import CarouselComponent from "../Carousel/CarouselComponent";
 import "../Functions/SpotifyFree";
 
 function Review({ item }) {
@@ -26,13 +27,10 @@ function Review({ item }) {
         const getArtistImage = async () => {
             try {
                 const results = await getSpotifyAccess(item.artist);
-                console.log("rerender")
                 await setArtistImage(results.artist[0].images[1].url);
                 const artistAlbums = await getArtistAlbums(results.artist[0].id);
-                await console.log(albumImages)
                 await setAlbumImages(artistAlbums);
                 await setIsLoading(false);
-                console.log(albumImages)
 
       
             } catch (err) {
@@ -50,7 +48,7 @@ function Review({ item }) {
        }
     }
 
-    console.log(albumImages)
+
 
 
 
@@ -79,22 +77,12 @@ function Review({ item }) {
                     </Row>
                     <br></br>
                     <Row>
-                        <Col xs={1}>
-                            <Button onClick={() => setCount(count < 4 ? 0 : count - 4)}></Button>
-                        </Col>
-                        {albumImages && albumImages.albums.map((item, i) => {
-                            if(preCount < i < count)
-                                return (
-                                    <Col>
-                                        <h3>{i}</h3>
-                                        <img src={item.images[1].url} />
-                                    </Col>
-                                )
-                            })
-                        }
-                        <Col xs={1}>
-                            <Button onClick={() => setCount(count > albumImages.length ? albumImages.length : count + 4)}></Button>
-                        </Col>
+          
+                        <CarouselComponent arr={albumImages.albums} />
+
+                
+      
+           
                         
                      
                         </Row>
