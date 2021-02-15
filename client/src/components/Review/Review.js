@@ -17,7 +17,8 @@ function Review({ item }) {
     const {user, setUser} = useContext(UserContext);
     const [artistImage, setArtistImage] = useState(null);
     const [albumImages, setAlbumImages] = useState([]);
-    const [count, setCount] = useState(0);
+    const [count, setCount] = useState(5);
+    const [preCount, setPreCount] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
@@ -31,6 +32,7 @@ function Review({ item }) {
                 await console.log(albumImages)
                 await setAlbumImages(artistAlbums);
                 await setIsLoading(false);
+                console.log(albumImages)
 
       
             } catch (err) {
@@ -47,6 +49,8 @@ function Review({ item }) {
            console.log("hello")
        }
     }
+
+    console.log(albumImages)
 
 
 
@@ -74,32 +78,27 @@ function Review({ item }) {
                         </Col>
                     </Row>
                     <br></br>
-                    {albumImages &&
-                        <Row>
-                            <Col xs={1}>
-                       
-                            </Col>
-                            <Col>
-                
-                                <img src={albumImages.albums[count].images[1].url} />
-                            </Col>
-                            {/* <Col>
-                            <img src={albumImages.albums[count + 1].images[1].url} />
-
-                            </Col>
-                            <Col>
-                            <img src={albumImages.albums[count + 2].images[1].url} />
-
-                            </Col>
-                            <Col>
-                            <img src={albumImages.albums[count + 3].images[1].url} />
-
-                            </Col> */}
-                            <Col xs={1}>
-                            
-                            </Col>
+                    <Row>
+                        <Col xs={1}>
+                            <Button onClick={() => setCount(count < 4 ? 0 : count - 4)}></Button>
+                        </Col>
+                        {albumImages && albumImages.albums.map((item, i) => {
+                            if(preCount < i < count)
+                                return (
+                                    <Col>
+                                        <h3>{i}</h3>
+                                        <img src={item.images[1].url} />
+                                    </Col>
+                                )
+                            })
+                        }
+                        <Col xs={1}>
+                            <Button onClick={() => setCount(count > albumImages.length ? albumImages.length : count + 4)}></Button>
+                        </Col>
+                        
+                     
                         </Row>
-                    }
+                    
                 </Container>
 }
         </>
