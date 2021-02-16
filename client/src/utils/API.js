@@ -19,5 +19,8 @@ export default {
     },
     getMaxRatings: function() {
       return axios.post("api/maxRatings");
+    },
+    addFriend: function(username, friendUsername) {
+      return axios.post("api/user/addFriend/" + username, friendUsername);
     }
 };

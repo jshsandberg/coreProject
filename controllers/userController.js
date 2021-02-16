@@ -152,5 +152,12 @@ module.exports = {
 		} catch(err) {
 			res.status(500)
 		}
+	},
+	addFriend: async (req, res) => {
+		console.log(req.params);
+
+		
+		const value = (Object.keys(req.body));
+	
 	}
 }

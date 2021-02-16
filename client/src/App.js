@@ -13,6 +13,8 @@ import Media from "./pages/MediaPage";
 import Challenge from "./pages/ChallengePage"
 import WriteReview from "./pages/WriteReviewPage";
 import './App.css';
+import ProfilePage from "./pages/ProfilePage";
+import FriendsPage from "./pages/FriendsPage";
 
 function App() {
 
@@ -69,6 +71,8 @@ function App() {
             <Route exact path="/media" component={Media} />
             <Route exact path="/challenge" component={Challenge} />
             <Route exact path="/writereview/:name" component={WriteReview} />
+            <Route exact path="/profile" component={ProfilePage} />
+            <Route exact path="/friends" component={FriendsPage} />
             <AuthTokenModal 
                  tokenUser={tokenUser}
                  show={modalShow}

@@ -14,10 +14,7 @@ function HomeNavBar() {
 
     const {user, setUser} = useContext(UserContext);
 
-    const signOut = () => {
-        window.localStorage.removeItem("auth-token");
-        history.push({pathname: "/"})
-    }
+ 
 
     return (
         <>
@@ -32,7 +29,6 @@ function HomeNavBar() {
                     </Nav>
                     <Nav>
                     <Navbar.Brand>{user === undefined ? <div></div> : user.name}</Navbar.Brand>
-                    <Nav.Link onClick={() => signOut()}>Sign Out</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
 </Navbar>

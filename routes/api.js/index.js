@@ -7,4 +7,5 @@ const mediaController = require("../../controllers/mediaController");
 router.use("/user", userRoute);
 router.route("/maxRatings").post(mediaController.getHighestRating);
 
+
 module.exports = router;

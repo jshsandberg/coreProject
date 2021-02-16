@@ -7,11 +7,15 @@ import NoAccessModal from "../components/Modal/NoAccessModal";
 import SearchBar from "../components/SearchBar/SearchBar";
 import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/esm/Row';
+import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/esm/Col';
 import axios from "axios";
 import API from "../utils/API";
 import { UserContext } from "../context/userContext";
 import Box from "../components/Box/Box";
+import Charcoal from "../utils/Media/Charcoal.jpg";
+import Footer from "../components/Footer/Footer";
+
 // import Alert from 'react-bootstrap/Alert'
 // import Button from 'react-bootstrap/Button'
 
@@ -22,6 +26,7 @@ import Box from "../components/Box/Box";
 
 function HomePage(props) {
 
+    const history = useHistory();
 
 
     const {user, setUser} = useContext(UserContext);
@@ -30,31 +35,62 @@ function HomePage(props) {
 
     const jwt = require("jsonwebtoken");
 
+    const black = {
+        backgroundColor: "#464646", 
+        borderColor: "#464646"
+    }
 
-
-
-
-
-    const bottomBorder = {
-        borderBottom: "double"
+    const signOut = () => {
+        window.localStorage.removeItem("auth-token");
+        history.push({pathname: "/"})
     }
 
     return (
         <>
             <Header />
-            <HomeNavbar user = {props} />
-            <SearchBar />
-            <Container>
+            <Container fluid style={{backgroundImage: `url(${Charcoal})`}}>
                 <Row>
                     <Col>
-                        <Box text="Pantheon" />
+                    <br></br>
+                        <SearchBar />
                     </Col>
                     <Col>
-                        <Box text="Profile Settings" />
+                    <br></br>
+                    <Row>
+                        <Col>
+                            <h3>{user.name}</h3>
+                        </Col>
+                        <Col>
+                            <Button style={black} onClick={() => signOut()}>Sign Out</Button>
+                        </Col>
+                    </Row>
                     </Col>
                 </Row>
-
             </Container>
+            <Container fluid style={{backgroundImage: `url(${Charcoal})`}}>
+                <br></br>
+                <Container>
+                    <Row>
+                        <Col>
+                            <Box text="Pantheon" />
+                        </Col>
+                        <Col onClick={() => history.push({pathname: "/profile"})}>
+                            <Box text="Profile Settings" />
+                        </Col>
+                    </Row>
+                    <br></br>
+                    <Row>
+                        <Col onClick={() => history.push({pathname: "/friends"})}>
+                            <Box text="Friends" />
+                        </Col>
+                        <Col>
+
+                        </Col>
+                    </Row>
+                </Container>
+            </Container>
+            <Footer />
+
         </>
     )
 }
