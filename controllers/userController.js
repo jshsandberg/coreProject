@@ -192,8 +192,8 @@ module.exports = {
 	getFriends: async (req, res) => {
 		try {
 			const foundUser = await db.User.findById(req.params.userId)
-			 
-			return (foundUser.friend);
+		
+			return res.json(foundUser.friend);
 			
 		} catch (err) {
 			res.status(500)

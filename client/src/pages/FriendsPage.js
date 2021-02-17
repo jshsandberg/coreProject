@@ -12,58 +12,76 @@ export default function FriendsPage() {
 
     const {user, setUser} = useContext(UserContext);
     const [value, setValue] = useState();
+    const [friendArr, setFriendArr] = useState({});
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        if (user !== undefined) {
-            GetFriends(user._id)
-        console.log("render")
+        const foundFriends = async () => {
+            const arrFriends = await GetFriends(user._id);
+            await setFriendArr(arrFriends);
+            await setIsLoading(false)
         }
+        foundFriends();
     }, [])
+
+   
 
     const saveFriend = async (username, friendUsername) => {
         const savedFriend = await AddFriend(username, friendUsername)
         console.log(savedFriend.msg)
     }
 
+    
 
     return (
         <> 
-            <Header />
-            <Container fluid style={{backgroundImage: `url(${Charcoal})`}}>
-                <Row>
-                    <Col>
-                    <br></br>
-                        <Container>
-                            <Row>
-                                <Col xs={2}>
-                                
-                                </Col>
-                                <Col style={{backgroundColor: "white"}}>
-                                    <h3>Friend List</h3>
-                                </Col>
-                                <Col xs={2}>
-                                
-                                </Col>
-                            </Row>
-                            <Row>
-                                <Col xs={2}>
-                                
-                                </Col>
-                                <Col style={{backgroundColor: "white"}}>
-                                    <h3>Friend List</h3>
-                                </Col>
-                                <Col xs={2}>
-                                
-                                </Col>
-                            </Row>
-                        </Container>
-                    </Col>
-                    <Col>
-                        <Button onClick={() => saveFriend(user.username, value)}>Add a Friend</Button>
-                        <input onChange={(e) => setValue(e.target.value)} type="text" />
-                    </Col>
-                </Row>
-            </Container>
+            {!isLoading &&
+                <>
+                    <Header />
+                    <Container fluid style={{backgroundImage: `url(${Charcoal})`}}>
+                        <Row>
+                            <Col>
+                            <br></br>
+                                <Container>
+                                    <Row>
+                                        <Col xs={2}>
+                                        
+                                        </Col>
+                                        <Col style={{backgroundColor: "white"}}>
+                                            <h3>Friend List</h3>
+                                        </Col>
+                                        <Col xs={2}>
+                                        
+                                        </Col>
+                                    </Row>
+                                    <Row>
+                                        <Col xs={2}>
+                                        
+                                        </Col>
+                                        <Col style={{backgroundColor: "white"}}>
+                                            {friendArr.friends.map((item, i) => {
+                                                console.log(item)
+                                                return (
+                                                    <Row>
+                                                        <h3 >{item.friendsUsername[0]}</h3>
+                                                    </Row>
+                                                )
+                                            })}
+                                        </Col>
+                                        <Col xs={2}>
+                                        
+                                        </Col>
+                                    </Row>
+                                </Container>
+                            </Col>
+                            <Col>
+                                <Button onClick={() => saveFriend(user.username, value)}>Add a Friend</Button>
+                                <input onChange={(e) => setValue(e.target.value)} type="text" />
+                            </Col>
+                        </Row>
+                    </Container>
+                </>
+            }
         </>
     )
 }

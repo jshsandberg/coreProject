@@ -3,10 +3,13 @@ import API from "../../utils/API";
 
 export const GetFriends = async (userId) => {
 
+    const response = {}
+
     try {
 
-        await API.getFriends(userId).then(res => console.log(res));
+        await API.getFriends(userId).then(res => response["friends"] = res.data);
 
+        return response
     } catch (err) {
         console.log(err)
     }
