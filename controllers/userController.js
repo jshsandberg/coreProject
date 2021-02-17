@@ -153,11 +153,50 @@ module.exports = {
 			res.status(500)
 		}
 	},
-	addFriend: async (req, res) => {
-		console.log(req.params);
-
+	addFriend: async (req, res, err) => {
 		
-		const value = (Object.keys(req.body));
+		try {
+			const value = (Object.keys(req.body));
+			const params = req.params.username;
+
+			const foundUser = await db.User.find({
+				username: value
+			})
+
+			if (foundUser.length === 0) {
+				return res.send("No username was found with the given username")
+			} 
+			// else if (foundUser.friends) { Can add friends multiple times, gonna need to make an algorith to stop this
+
+			// } 
+			else {
+				await User.findOneAndUpdate({
+					username: params
+				}, {
+					$push: {
+						friend: {friendsUsername: value}
+					}
+				});
+				return res.send("Friend Added")
+			}
+
+
+			
+
+
+		} catch (err) {
+			console.log("we messed up")
+		}
+	},
 	
+	getFriends: async (req, res) => {
+		try {
+			const foundUser = await db.User.findById(req.params.userId)
+			 
+			return (foundUser.friend);
+			
+		} catch (err) {
+			res.status(500)
+		}
 	}
 }

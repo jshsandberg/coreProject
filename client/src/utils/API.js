@@ -22,5 +22,8 @@ export default {
     },
     addFriend: function(username, friendUsername) {
       return axios.post("api/user/addFriend/" + username, friendUsername);
+    },
+    getFriends: function(userId) {
+      return axios.post("api/user/getFriends/" + userId);
     }
 };

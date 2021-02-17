@@ -18,7 +18,9 @@ const userSchema = new Schema({
     type: String
   },
   // Added to this
-  reviews: []
+  reviews: [],
+
+  friend: []
   
   // [{
   //     spotifyId: {
