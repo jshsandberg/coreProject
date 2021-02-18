@@ -15,6 +15,13 @@ export default function PantheonPage() {
         numberPlayers: 1,
         category: null
     });
+    const [arenaArr, setArenaArr] = useState([]);
+
+    const getArenaArr = useCallback((data) => {
+        setArenaArr(arenaInfo => ([
+            ...arenaInfo, data
+        ]))
+    }, []);
 
     const getArenaData = useCallback((name, data) => {
         setArenaInfo(arenaInfo => ({
@@ -35,13 +42,13 @@ export default function PantheonPage() {
                             <FormComponent getArenaData={getArenaData} />
                         </Col>
                         <Col>
-                            <AddingFriends getArenaData={getArenaData} />
+                            <AddingFriends getArenaArr={getArenaArr} />
                         </Col>
                     </Row>
                     <br></br>
                     <Row>
                         <Col>
-                            <Arena data={arenaInfo} />
+                            <Arena data={arenaInfo} arr={arenaArr} />
                         </Col>
                     </Row>
                 </Container>

@@ -6,7 +6,7 @@ import { GetFriends } from "../Functions/GetFriends";
 
 
 
-export default function AddingFriends({ getArenaData }) {
+export default function AddingFriends({ getArenaArr }) {
 
     const {user, setUser} = useContext(UserContext);
     const [value, setValue] = useState();
@@ -45,7 +45,7 @@ export default function AddingFriends({ getArenaData }) {
                                                                     <h3 >{item.friendsUsername[0]}</h3>
                                                                 </Col>
                                                                 <Col>
-                                                                    <Button onClick={() => getArenaData(i, item.friendsUsername[0])}>Add Friends</Button>
+                                                                    <Button onClick={() => getArenaArr(item.friendsUsername[0])}>Add Friends</Button>
                                                                 </Col>
                                                             </Row>
                                                         )
