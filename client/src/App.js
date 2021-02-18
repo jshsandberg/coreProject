@@ -15,6 +15,7 @@ import WriteReview from "./pages/WriteReviewPage";
 import './App.css';
 import ProfilePage from "./pages/ProfilePage";
 import FriendsPage from "./pages/FriendsPage";
+import PantheonPage from "./pages/PantheonPage";
 
 function App() {
 
@@ -73,6 +74,7 @@ function App() {
             <Route exact path="/writereview/:name" component={WriteReview} />
             <Route exact path="/profile" component={ProfilePage} />
             <Route exact path="/friends" component={FriendsPage} />
+            <Route exact path="/pantheon" component={PantheonPage} />
             <AuthTokenModal 
                  tokenUser={tokenUser}
                  show={modalShow}

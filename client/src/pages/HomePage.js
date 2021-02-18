@@ -71,7 +71,7 @@ function HomePage(props) {
                 <br></br>
                 <Container>
                     <Row>
-                        <Col>
+                        <Col onClick={() => history.push({pathname: "/pantheon"})}>
                             <Box text="Pantheon" />
                         </Col>
                         <Col onClick={() => history.push({pathname: "/profile"})}>
