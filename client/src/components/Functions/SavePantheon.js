@@ -2,7 +2,7 @@
 
 export const SavePatheon = async (data) => {
     try {
-        API.savePantheon(data).then(res => console.log(res));
+        await API.savePantheon(data).then(res => console.log(res));
 
     } catch (err) {
         console.log("err", err)

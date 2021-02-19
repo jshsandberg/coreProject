@@ -27,7 +27,6 @@ export default {
       return axios.post("api/user/getFriends/" + userId);
     },
     savePantheon: function(data) {
-      console.log("api frontend", data)
-      return axios.post("api/pantheon", data);
+      return axios.post("/api/pantheon", data);
     }
 };

@@ -2,10 +2,11 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const pantheonSchema = new Schema({
-  name: {
-    type: String
+  data: {
+    type: Object
     //required:true,
     //unique:true
   },
+  players: []
 })
-module.exports = mongoose.model("pantheon", pantheonSchema);
+module.exports = mongoose.model("Pantheon", pantheonSchema);
