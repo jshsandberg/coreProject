@@ -1,4 +1,5 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect, useContext } from "react";
+import { useHistory } from "react-router-dom";
 import Header from "../components/Header/Header";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import Charcoal from "../utils/Media/Charcoal.jpg";
@@ -6,16 +7,30 @@ import FormComponent from "../components/Pantheon/Form";
 import AddingFriends from "../components/Pantheon/AddingFriends";
 import Arena from "../components/Pantheon/Arena";
 import Footer from "../components/Footer/Footer";
+import { UserContext } from "../context/userContext";
+
 
 
 
 export default function PantheonPage() {
+
+    const history = useHistory();
+
+
+    const {user, setUser} = useContext(UserContext);
+
 
     const [arenaInfo, setArenaInfo] = useState({
         numberPlayers: 1,
         category: null
     });
     const [arenaArr, setArenaArr] = useState([]);
+
+    useEffect(() => {
+        if (user === null) {
+            history.push({pathname: "/"})
+        }
+    }, [arenaInfo, arenaArr])
 
     const getArenaArr = useCallback((data) => {
         setArenaArr(arenaInfo => ([

@@ -7,6 +7,8 @@ const pantheonSchema = new Schema({
     //required:true,
     //unique:true
   },
-  players: []
+  players: {
+    type: Array
+  }
 })
 module.exports = mongoose.model("Pantheon", pantheonSchema);

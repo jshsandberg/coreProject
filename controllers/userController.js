@@ -199,21 +199,6 @@ module.exports = {
 		} catch (err) {
 			res.status(500)
 		}
-	},
-
-	pantheonSave: async (req, res) => {
-		try {
-			await console.log("here")
-
-			const newPantheon = new db.Pantheon ({
-					data: req.body.data,
-					players: req.body.players
-			});
-		
-
-			console.log(newPantheon)
-		} catch (err) {
-			console.log(err)
-		}
 	}
+
 }

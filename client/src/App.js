@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, useHistory } from "react-router-dom";
 import Spotify from "./pages/SpotifyPage";
 import Welcome from "./pages/WelcomePage";
 import Login from "./pages/LoginPage";
@@ -19,9 +19,10 @@ import PantheonPage from "./pages/PantheonPage";
 
 function App() {
 
-  const [user, setUser] = useState();
-  const [modalShow, setModalShow] = useState(false);
-  const [tokenUser, setTokenUser] = useState();
+  const history = useHistory();
+
+  const [user, setUser] = useState(null);
+
 
 
 
@@ -38,14 +39,16 @@ function App() {
           const decoded = jwt.verify(token, "secret");      
             try {
               const newUser = await API.getUserbyId(decoded.id);
-              await setUser(newUser.data)
-              await setTokenUser(newUser.data);
+              await setUser(newUser.data);
+              await history.push({pathname: "/home"})
             } catch(err) {
               console.log(err)
               }
-          } 
+          } else {
+            await setUser(null)
+          }
         } catch (err) {
-          console.log(err)
+          await setUser(null);
         }
       }
 
@@ -53,37 +56,31 @@ function App() {
 
   }, [])
 
+
  
-
-
-  return (
-
-    
-    <>
-      <Router>
-        <UserContext.Provider value={{ user, setUser }}>
-            <Route exact path="/" component={Welcome} />
-            <Route exact path="/signup" component={SignUp} />
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/spotify" component={Spotify} />
-            <Route exact path="/home/#access_token=" component={Home} />
-            <Route exact path="/home" component={Home} />
-            <Route exact path="/review/:name" component={Review} />
-            <Route exact path="/media" component={Media} />
-            <Route exact path="/challenge" component={Challenge} />
-            <Route exact path="/writereview/:name" component={WriteReview} />
-            <Route exact path="/profile" component={ProfilePage} />
-            <Route exact path="/friends" component={FriendsPage} />
-            <Route exact path="/pantheon" component={PantheonPage} />
-            <AuthTokenModal 
-                 tokenUser={tokenUser}
-                 show={modalShow}
-                 onHide={() => setModalShow(false)}
-            />
-          </UserContext.Provider>
-      </Router>
-    </>
-  );
-}
+  
+      return (
+        <>
+          <Router>
+            <UserContext.Provider value={{ user, setUser }}>
+              <Route exact path="/" component={Welcome} />
+              <Route exact path="/signup" component={SignUp} />
+              <Route exact path="/login" component={Login} />
+              <Route exact path="/spotify" component={Spotify} />
+              <Route exact path="/home/#access_token=" component={Home} />
+              <Route exact path="/home" component={Home} />
+              <Route exact path="/review/:name" component={Review} />
+              <Route exact path="/media" component={Media} />
+              <Route exact path="/challenge" component={Challenge} />
+              <Route exact path="/writereview/:name" component={WriteReview} />
+              <Route exact path="/profile" component={ProfilePage} />
+              <Route exact path="/friends" component={FriendsPage} />
+              <Route exact path="/pantheon" component={PantheonPage} />
+              </UserContext.Provider>
+          </Router>
+        </>
+      );
+      
+ }
 
 export default App;

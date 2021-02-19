@@ -1,15 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { SavePatheon } from "../Functions/SavePantheon";
 
 export default function Arena({ data, arr }) {
-
-    const [pantheon, setPantheon] = useState({
-        data: null,
-        players: []
-    });
-
-    
 
     return (
         <>
@@ -33,7 +26,7 @@ export default function Arena({ data, arr }) {
                 </Row>
                 <Row>
                     <Col>
-                        <Button onClick={ async () => {await setPantheon({data: data, players: arr}); await SavePatheon(pantheon)}}>Start</Button>
+                        <Button onClick={ async () => await SavePatheon({data: data, players: arr})}>Start</Button>
                     </Col>
                 </Row>
             </Container>
