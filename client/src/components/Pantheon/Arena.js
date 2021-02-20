@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useContext }  from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { SavePatheon } from "../Functions/SavePantheon";
+import { UserContext } from "../../context/userContext";
+
 
 export default function Arena({ data, arr }) {
+
+    const {user, setUser} = useContext(UserContext);
+
 
     return (
         <>
@@ -16,6 +21,9 @@ export default function Arena({ data, arr }) {
                     </Col>
                 </Row>
                 <Row>
+                    <Col xs={1}>
+                        <h3>{user.username}</h3>
+                    </Col>
                     {arr.map((item, i) => {
                         return (
                             <Col xs={1}>
@@ -26,7 +34,7 @@ export default function Arena({ data, arr }) {
                 </Row>
                 <Row>
                     <Col>
-                        <Button onClick={ async () => await SavePatheon({data: data, players: arr})}>Start</Button>
+                        <Button onClick={ async () => await SavePatheon({data: data, creator: user.username, players: arr})}>Start</Button>
                     </Col>
                 </Row>
             </Container>

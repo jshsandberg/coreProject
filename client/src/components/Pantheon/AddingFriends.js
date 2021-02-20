@@ -23,6 +23,7 @@ export default function AddingFriends({ getArenaArr }) {
             await setFriendArr(arrFriends);
             await setIsLoading(false)
         };
+        foundFriends();
 
     }, [])
 

@@ -20,19 +20,9 @@ const userSchema = new Schema({
   // Added to this
   reviews: [],
 
-  friend: []
-  
-  // [{
-  //     spotifyId: {
-  //       type: String
-  //     },
-  //     review: {
-  //       type: String
-  //     },
-  //     rating: {
-  //       type: Number
-  //     }
-    
-  // }]
+  friend: [],
+
+  pantheon: [{ type: Schema.Types.ObjectId, ref: 'Pantheon' }]
+
 })
 module.exports = mongoose.model("user", userSchema);

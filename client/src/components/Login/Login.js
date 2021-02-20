@@ -27,7 +27,6 @@ function Login() {
 
     useEffect(() => {
         if (user) {
-            setModalShow(true);
             history.push({pathname: "/home"})
         }
     }, [user])

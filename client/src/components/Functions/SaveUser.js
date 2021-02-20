@@ -33,5 +33,5 @@ export const saveUserData = async (values) => {
         return error["mes"] = err.response.data.msg
     };
 
-    return savedUser;
+    return savedUser.user;
 };

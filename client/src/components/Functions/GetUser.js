@@ -17,11 +17,10 @@ export const getUserData = async (values) => {
         })
         .then(res => {
             foundUser["user"] = res.data.user;
-            foundUser["modal"] = true
             localStorage.setItem("auth-token", res.data.token)
         });
 
-        return foundUser;
+        return foundUser.user;
 
     } catch(err) {
         console.log(err)

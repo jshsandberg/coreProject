@@ -33,8 +33,12 @@ export default function ProfilePage() {
                                 </Col>
                             </Row>
                             <br></br>
-                            
-                                {user.reviews.map((item, i) => {
+                            {user.reviews === undefined ? 
+                                <Col>
+                                    <h3>No Reviews</h3>
+                                </Col>
+                                :
+                                user.reviews.map((item, i) => {
                                     return (
                                         // <Row>
                                             <Col xs={6}>
@@ -42,8 +46,8 @@ export default function ProfilePage() {
                                             </Col>
                                         //</Row>
                                     )
-                                })}
-                       
+                                })
+                            }
                         </Container>
                     </Col>
                 </Row>

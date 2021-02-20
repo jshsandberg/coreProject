@@ -9,6 +9,13 @@ const pantheonSchema = new Schema({
   },
   players: {
     type: Array
+  },
+  creator: {
+    type: String
+  },
+  acceptedPlayers: {
+    type: Array
   }
-})
+});
+
 module.exports = mongoose.model("Pantheon", pantheonSchema);

@@ -14,7 +14,9 @@ import API from "../utils/API";
 import { UserContext } from "../context/userContext";
 import Box from "../components/Box/Box";
 import Charcoal from "../utils/Media/Charcoal.jpg";
+import WhiteBox from "../components/Box/WhiteBox";
 import Footer from "../components/Footer/Footer";
+import { GetPantheon } from "../components/Functions/GetPantheon";
 
 // import Alert from 'react-bootstrap/Alert'
 // import Button from 'react-bootstrap/Button'
@@ -30,8 +32,23 @@ function HomePage(props) {
 
 
     const {user, setUser} = useContext(UserContext);
-    const [token, setToken] = useState();
-    const [modalShow, setModalShow] = useState(false);
+    const [pantheonShow, setPantheonShow] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
+    const [pantheonData, setPantheonData] = useState([]);
+
+    useEffect(() => {
+
+        const checkPantheon = async () => {
+            if (user === null || undefined) {
+                history.push({pathname: "/"})
+            } else {
+                const gotPantheon = await GetPantheon(user.username);
+                await setPantheonData(gotPantheon)
+                await setIsLoading(false)
+            }
+        }
+        checkPantheon();
+    }, []);
 
     const jwt = require("jsonwebtoken");
 
@@ -47,6 +64,8 @@ function HomePage(props) {
 
     return (
         <>
+            {!isLoading &&
+            <>
             <Header />
             <Container fluid style={{backgroundImage: `url(${Charcoal})`}}>
                 <Row>
@@ -72,7 +91,7 @@ function HomePage(props) {
                 <Container>
                     <Row>
                         <Col onClick={() => history.push({pathname: "/pantheon"})}>
-                            <Box text="Pantheon" />
+                            <Box text="Create Pantheon" />
                         </Col>
                         <Col onClick={() => history.push({pathname: "/profile"})}>
                             <Box text="Profile Settings" />
@@ -83,14 +102,25 @@ function HomePage(props) {
                         <Col onClick={() => history.push({pathname: "/friends"})}>
                             <Box text="Friends" />
                         </Col>
-                        <Col>
-
+                        <Col onClick={() => pantheonShow ? setPantheonShow(false) : setPantheonShow(true)}>
+                            <Box text="Pantheon Invites" number={pantheonData.length} />
                         </Col>
                     </Row>
                 </Container>
+                <br></br>
+                {pantheonShow &&
+                    <Container fluid>
+                        <Row>
+                            <Col>
+                                <WhiteBox data={pantheonData} user={user} />
+                            </Col>
+                        </Row>
+                    </Container>
+                }
             </Container>
             <Footer />
-
+            </>
+            }
         </>
     )
 }

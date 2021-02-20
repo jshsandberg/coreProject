@@ -28,5 +28,11 @@ export default {
     },
     savePantheon: function(data) {
       return axios.post("api/pantheon", data);
+    },
+    getPantheon: function(username) {
+      return axios.post("api/pantheon/" + username);
+    },
+    acceptPantheon: function(id, username) {
+      return axios.post("api/user/pantheon/" + id, username)
     }
 };

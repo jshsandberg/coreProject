@@ -40,7 +40,6 @@ function App() {
             try {
               const newUser = await API.getUserbyId(decoded.id);
               await setUser(newUser.data);
-              await history.push({pathname: "/home"})
             } catch(err) {
               console.log(err)
               }
@@ -57,7 +56,7 @@ function App() {
   }, [])
 
 
- 
+  
   
       return (
         <>
@@ -76,6 +75,7 @@ function App() {
               <Route exact path="/profile" component={ProfilePage} />
               <Route exact path="/friends" component={FriendsPage} />
               <Route exact path="/pantheon" component={PantheonPage} />
+              <button onClick={() => console.log(user)}></button>
               </UserContext.Provider>
           </Router>
         </>

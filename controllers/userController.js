@@ -102,7 +102,8 @@ module.exports = {
 							review: null,
 							rating: null
 						}
-					]
+					],
+					friend: [null]
 					}
 				});
 		} catch (err) {
@@ -198,6 +199,42 @@ module.exports = {
 			
 		} catch (err) {
 			res.status(500)
+		}
+	},
+
+	acceptPantheon: async (req, res) => {
+		try {
+			const username = (Object.keys(req.body));
+			const pantheonId = req.params;
+
+			const testIfPantheon = await db.User.find({ username: username});
+
+			for (let i = 0; i < testIfPantheon[0].pantheon.length; i++) {
+				if (testIfPantheon[0].pantheon[i] == pantheonId.id) {
+					return res.send("Challenge has already been accepted")
+				} else {
+					const findUser = await db.User.findOneAndUpdate({ 
+						username: username
+					}, {
+						$push: {
+							pantheon: [pantheonId.id]
+						}
+					});
+					const updatePantheon = await db.Pantheon.findOneAndUpdate({
+						_id: pantheonId.id
+					}, {
+						$push: {
+							acceptedPlayers: username[0]
+						}
+					});
+
+				}
+			}
+			
+			return res.send("Challenge has been accepted")
+			
+		} catch (err) {
+			console.log(err)
 		}
 	}
 
