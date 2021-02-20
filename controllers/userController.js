@@ -209,10 +209,15 @@ module.exports = {
 
 			const testIfPantheon = await db.User.find({ username: username});
 
+
 			for (let i = 0; i < testIfPantheon[0].pantheon.length; i++) {
 				if (testIfPantheon[0].pantheon[i] == pantheonId.id) {
+					console.log("here")
+
 					return res.send("Challenge has already been accepted")
 				} else {
+					console.log("here in else")
+
 					const findUser = await db.User.findOneAndUpdate({ 
 						username: username
 					}, {
@@ -228,12 +233,15 @@ module.exports = {
 						}
 					});
 
+					return res.send("Challenge has been accepted")
+
+
 				}
 			}
 			
-			return res.send("Challenge has been accepted")
 			
 		} catch (err) {
+			console.log("there is an error")
 			console.log(err)
 		}
 	}

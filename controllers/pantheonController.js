@@ -24,10 +24,32 @@ module.exports = {
 
             const foundPantheon = await db.Pantheon.find({ players: req.params.username });
 
-            res.json(foundPantheon)
+            const response = [];
+
+            foundPantheon.forEach(item => {
+                if (item.acceptedPlayers.includes(req.params.username)){
+                    
+                } else {
+                    response.push(item)
+                }
+            });
+            
+            res.json(response);
 
         } catch (err) {
             console.log(err)
         }
     }
+    //  Find with no requirements
+    // find: async (req, res) => {
+    //     try {
+
+    //         const foundPantheon = await db.Pantheon.find({ players: req.params.username });
+
+    //         res.json(foundPantheon)
+
+    //     } catch (err) {
+    //         console.log(err)
+    //     }
+    // }
 }
