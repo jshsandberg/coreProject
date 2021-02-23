@@ -19,7 +19,8 @@ export default function AddingFriends({ getArenaArr }) {
     useEffect(() => {
 
         const foundFriends = async () => {
-            const arrFriends = await GetFriends(user._id);
+            const arrFriends = await GetFriends(user.id);
+            console.log(arrFriends)
             await setFriendArr(arrFriends);
             await setIsLoading(false)
         };

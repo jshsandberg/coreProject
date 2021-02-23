@@ -17,7 +17,8 @@ export default function FriendsPage() {
 
     useEffect(() => {
         const foundFriends = async () => {
-            const arrFriends = await GetFriends(user._id);
+            // not sure if its user.id or user._id
+            const arrFriends = await GetFriends(user.id);
             await setFriendArr(arrFriends);
             await setIsLoading(false)
         }
@@ -60,7 +61,6 @@ export default function FriendsPage() {
                                         </Col>
                                         <Col style={{backgroundColor: "white"}}>
                                             {friendArr.friends.map((item, i) => {
-                                                console.log(item)
                                                 return (
                                                     <Row>
                                                         <h3 >{item.friendsUsername[0]}</h3>

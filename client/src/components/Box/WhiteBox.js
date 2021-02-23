@@ -8,6 +8,7 @@ import Button from 'react-bootstrap/Button';
 
 export default function WhiteBox({ data, user }) {
 
+
     // const [filteredInvites, setFilteredInvites] = useState([]);
     // const [acceptedInvites, setAcceptedInvites] = useState([]);
     // const [invites, setInvites] = useState([]);

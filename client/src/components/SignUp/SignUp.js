@@ -28,12 +28,12 @@ function SignUp() {
 	}
 
     const saveUser = async (values) => {
-            const user = await saveUserData(values);
+            const savedUser = await saveUserData(values);
             if (typeof user === "string") {
                 setError(user);
             } else {
-                setUser(user);
-                history.push({pathname: "/home"});
+                await setUser(savedUser);
+                await history.push({pathname: "/home"});
             }
 
     }

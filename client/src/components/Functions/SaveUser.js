@@ -15,15 +15,15 @@ export const saveUserData = async (values) => {
             name: values.firstname + " " + values.lastname || null,
             email: values.email || null
         };
-        await API.saveuser(newUser).then( res => {
+        await API.saveuser(newUser).then( async res => {
             if (res.stats !== 200) {
-                API.loginUser({
+                await API.loginUser({
                         username: newUser.username,
                         password: newUser.password,
                     })
-                    .then(res => {
-                        localStorage.setItem("auth-token", res.data.token)
-                        savedUser["user"] = res.data.user        
+                    .then(async res => {
+                        await localStorage.setItem("auth-token", res.data.token)
+                        savedUser["user"] = res.data.user;       
                     });
             };
         });        
@@ -32,6 +32,7 @@ export const saveUserData = async (values) => {
         console.log(err.response.data.msg)
         return error["mes"] = err.response.data.msg
     };
-
-    return savedUser.user;
+   
+        return savedUser.user;
+    
 };

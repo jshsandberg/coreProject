@@ -15,6 +15,9 @@ const pantheonSchema = new Schema({
   },
   acceptedPlayers: {
     type: Array
+  },
+  status: {
+    type: Array
   }
 });
 

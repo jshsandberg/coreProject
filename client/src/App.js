@@ -16,6 +16,7 @@ import './App.css';
 import ProfilePage from "./pages/ProfilePage";
 import FriendsPage from "./pages/FriendsPage";
 import PantheonPage from "./pages/PantheonPage";
+import ActivePantheonPage from "./pages/ActivePantheonPage";
 
 function App() {
 
@@ -39,7 +40,17 @@ function App() {
           const decoded = jwt.verify(token, "secret");      
             try {
               const newUser = await API.getUserbyId(decoded.id);
-              await setUser(newUser.data);
+              const modifiedUser = {
+                email: newUser.data.email,
+                friend: newUser.data.friend,
+                name: newUser.data.name,
+                pantheon: newUser.data.pantheon,
+                password: newUser.data.password,
+                reviews: newUser.data.reviews,
+                id: newUser.data._id,
+                username: newUser.data.username
+              }
+              await setUser(modifiedUser);
             } catch(err) {
               console.log(err)
               }
@@ -75,6 +86,7 @@ function App() {
               <Route exact path="/profile" component={ProfilePage} />
               <Route exact path="/friends" component={FriendsPage} />
               <Route exact path="/pantheon" component={PantheonPage} />
+              <Route exact path="/activePantheon" component={ActivePantheonPage} />
               <button onClick={() => console.log(user)}></button>
               </UserContext.Provider>
           </Router>

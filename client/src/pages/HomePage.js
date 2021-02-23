@@ -17,6 +17,7 @@ import Charcoal from "../utils/Media/Charcoal.jpg";
 import WhiteBox from "../components/Box/WhiteBox";
 import Footer from "../components/Footer/Footer";
 import { GetPantheon } from "../components/Functions/GetPantheon";
+import PantheonBox from "../components/Box/PantheonBox";
 
 // import Alert from 'react-bootstrap/Alert'
 // import Button from 'react-bootstrap/Button'
@@ -39,7 +40,7 @@ function HomePage(props) {
     useEffect(() => {
 
         const checkPantheon = async () => {
-            if (user === null || undefined) {
+            if (user === null || user === undefined) {
                 history.push({pathname: "/"})
             } else {
                 const gotPantheon = await GetPantheon(user.username);
@@ -87,6 +88,10 @@ function HomePage(props) {
                 </Row>
             </Container>
             <Container fluid style={{backgroundImage: `url(${Charcoal})`}}>
+                <br></br>
+                <Container>
+                    <PantheonBox />
+                </Container>
                 <br></br>
                 <Container>
                     <Row>

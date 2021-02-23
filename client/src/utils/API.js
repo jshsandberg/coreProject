@@ -34,5 +34,11 @@ export default {
     },
     acceptPantheon: function(id, username) {
       return axios.post("api/user/pantheon/" + id, username)
+    },
+    getActivePantheon: function(id) {
+      return axios.post("api/pantheon/creator/" + id);
+    },
+    startArena: function (item) {
+      return axios.post("api/arena", item);
     }
 };
