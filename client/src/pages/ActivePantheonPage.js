@@ -6,6 +6,8 @@ import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/esm/Col';
 import Charcoal from "../utils/Media/Charcoal.jpg";
 import ActivePantheons from "../components/Pantheon/ActivePantheons";
+import Footer from "../components/Footer/Footer";
+import InProgressPantheons from "../components/Pantheon/InProgressPantheon";
 
 
 export default function ActivePantheonPage() {
@@ -15,7 +17,10 @@ export default function ActivePantheonPage() {
             <Header />
             <Container fluid style={{backgroundImage: `url(${Charcoal})`}}>
                 <ActivePantheons />
+                <br></br>
+                <InProgressPantheons />
             </Container>
+            <Footer />
         </>
     )
 };

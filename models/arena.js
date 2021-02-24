@@ -8,6 +8,14 @@ const arenaSchema = new Schema({
     //unique:true
   },
 
+  completed: {
+    type: Boolean
+  },
+
+  pantheonId: {
+    type: String
+  },
+
   battles: [{ type: Schema.Types.ObjectId, ref: 'Battle' }]
 
 });

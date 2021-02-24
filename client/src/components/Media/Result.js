@@ -10,10 +10,10 @@ export const Result = (function Result({ childData }) {
         <>
             <Container>
                 <Row>
-                    <Col>
+                    <Col onClick={() => console.log("hello")}>
                         <img src={childData[0] ? childData[0].image : null}/>
                     </Col>
-                    <Col>
+                    <Col onClick={() => console.log("hello")}>
                         <img src={childData[1] ? childData[1].image : null}/>
                     </Col>
                 </Row>

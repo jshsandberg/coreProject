@@ -6,7 +6,7 @@ const battleSchema = new Schema({
         type: Object
     },
 
-    fighter1: {
+    fighter2: {
         type: Object
     },
 
@@ -16,7 +16,20 @@ const battleSchema = new Schema({
 
     votesForFighter2: {
         type: Number
+    },
+
+    arenaId : {
+        type: String
+    },
+
+    pantheonId : {
+        type: String
+    },
+
+    status: {
+        type: String
     }
+
 
 
 })

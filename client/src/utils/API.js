@@ -40,5 +40,11 @@ export default {
     },
     startArena: function (item) {
       return axios.post("api/arena", item);
+    },
+    getArena: function (username) {
+      return axios.post("api/arena/find/" + username)
+    },
+    submitBattle: function (obj, username) {
+      return axios.post("api/battle/" + username, obj)
     }
 };
