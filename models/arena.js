@@ -12,11 +12,14 @@ const arenaSchema = new Schema({
     type: Boolean
   },
 
-  pantheonId: {
-    type: String
+  rounds: {
+    type: Number
   },
 
-  battles: [{ type: Schema.Types.ObjectId, ref: 'Battle' }]
+  battles: [{ type: Schema.Types.ObjectId, ref: 'Battle' }],
+
+  pantheon: [{ type: Schema.Types.ObjectId, ref: 'Pantheon' }],
+
 
 });
 

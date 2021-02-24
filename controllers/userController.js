@@ -176,7 +176,7 @@ module.exports = {
 					username: params
 				}, {
 					$push: {
-						friend: {friendsUsername: value}
+						friend: value
 					}
 				});
 				return res.send("Friend Added")
@@ -212,7 +212,7 @@ module.exports = {
 
 			if (testIfPantheon[0].pantheon.length === 0) {
 				
-				const findUser0 = await db.User.findOneAndUpdate({ 
+				const findUser = await db.User.findOneAndUpdate({ 
 					username: username
 				}, {
 					$push: {

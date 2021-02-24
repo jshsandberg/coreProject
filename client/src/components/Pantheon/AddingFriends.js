@@ -48,10 +48,10 @@ export default function AddingFriends({ getArenaArr }) {
                                                         return (
                                                             <Row>
                                                                 <Col>
-                                                                    <h3 >{item.friendsUsername[0]}</h3>
+                                                                    <h3 >{item}</h3>
                                                                 </Col>
                                                                 <Col>
-                                                                    <Button onClick={() => getArenaArr(item.friendsUsername[0])}>Add Friends</Button>
+                                                                    <Button onClick={() => getArenaArr(item)}>Add Friends</Button>
                                                                 </Col>
                                                             </Row>
                                                         )

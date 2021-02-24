@@ -54,7 +54,7 @@ export default function ActivePantheons() {
                                     <h3>{item.data.category}</h3>
                                     <h4>{item.creator}</h4>
                                     <h2>{item.acceptedPlayers.length} / {item.players.length}</h2>
-                                    {item.acceptedPlayers.length === item.players.length ? <Button onClick={() => StartArena(item)}>Start</Button> : <Button style={{backgroundColor: "gray"}} onClick={ async () => { await StartArena(item); await setRerender(true)}}>Start</Button>}
+                                    {item.acceptedPlayers.length === item.players.length ? <Button onClick={ async () => { await StartArena(item); await setRerender(true)}}>Start</Button> : <Button style={{backgroundColor: "gray"}} onClick={ async () => { await StartArena(item); await setRerender(true)}}>Start</Button>}
                                 </Col>
                             )
                         })}

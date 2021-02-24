@@ -6,6 +6,7 @@ module.exports = {
     register: async (req, res) => {
         try {
 
+
             const newPantheon = new Pantheon ({
                 data: req.body.data,
                 players: req.body.players,
@@ -14,6 +15,8 @@ module.exports = {
             });
 
             const savedPantheon = await newPantheon.save();
+
+            console.log(savedPantheon)
             res.json(savedPantheon);
 
         } catch (err) {

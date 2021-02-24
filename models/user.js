@@ -22,7 +22,9 @@ const userSchema = new Schema({
 
   friend: [],
 
-  pantheon: [{ type: Schema.Types.ObjectId, ref: 'Pantheon' }]
+  pantheon: [{ type: Schema.Types.ObjectId, ref: 'Pantheon' }],
+
+  arena: [{ type: Schema.Types.ObjectId, ref: 'Arena' }]
 
 })
 module.exports = mongoose.model("user", userSchema);

@@ -21,6 +21,7 @@ export default function InProgressPantheon() {
 
         const findArena = async () => {
             const foundArena = await GetArena(user);
+            console.log(foundArena)
             await setArenas(foundArena);
             await setIsLoading(false);
         }

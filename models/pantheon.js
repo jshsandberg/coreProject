@@ -18,7 +18,10 @@ const pantheonSchema = new Schema({
   },
   status: {
     type: Array
-  }
+  },
+
+  arena: [{ type: Schema.Types.ObjectId, ref: 'Arena' }]
+
 });
 
 module.exports = mongoose.model("Pantheon", pantheonSchema);
