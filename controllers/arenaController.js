@@ -53,9 +53,15 @@ module.exports = {
 
             const findArena = await db.Arena.find({ players: req.params.username });
 
+            
+
             const response = [];
 
             for (let i = 0; i < findArena.length; i++) {
+
+                if (findArena[i].completed === true) {
+
+                } else {
                 const findPantheon = await db.Pantheon.find({ _id: findArena[i].pantheonId });
 
 
@@ -72,6 +78,7 @@ module.exports = {
                 response.push(data);
     
             };
+        }
             
             res.json(response);
 

@@ -46,5 +46,8 @@ export default {
     },
     submitBattle: function (obj, username) {
       return axios.post("api/battle/" + username, obj)
+    },
+    getVotingArena: function (username) {
+      return axios.post("api/battle/voting/" + username);
     }
 };
