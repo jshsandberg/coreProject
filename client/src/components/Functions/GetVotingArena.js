@@ -4,7 +4,11 @@ export const GetVotingArena = async (user) => {
 
     try {
 
-        await API.getVotingArena(user.username).then(res => console.log(res))
+        const response = {};
+
+        await API.getVotingArena(user.username).then(res => response["res"] = res.data)
+
+        return response.res
 
     } catch (err) {
         console.log(err)

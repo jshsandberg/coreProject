@@ -1,6 +1,7 @@
 const db = require("../models");
 const { Battle } = require("../models");
 const { Arena } = require("../models");
+const { User } = require("../models");
 
 
 module.exports = {
@@ -43,19 +44,29 @@ module.exports = {
             } else if (checkForBattles[0]._id == req.body.arenaId && checkForBattles[0].pantheonId == req.body.pantheonId) {
                 const battleId = checkForBattles[0].battles[1]
 
-                console.log(req.body.item)
+                const checkIfFighterHasAlreadySubmitted = await db.Battle.find({ _id: battleId});
 
-                const updateBattle = await db.Battle.findByIdAndUpdate({
-                    _id: battleId
-                }, {
-                    $set: { "fighter2" : { username: req.params.username, music: req.body.item}}
-                });
+                // console.log(checkIfFighterHasAlreadySubmitted[0]);
 
-                const updateArenaStatus = await db.Arena.findByIdAndUpdate({
-                    _id: req.body.arenaId
-                }, {
-                    $set: { "completed" : true}
-                })
+                if (checkIfFighterHasAlreadySubmitted[0].fighter1.username === req.params.username || checkIfFighterHasAlreadySubmitted[0].fighter2.username === req.params.username  ) {
+                    res.send("Already submitted a song")
+                } else {             
+
+
+                    const updateBattle = await db.Battle.findByIdAndUpdate({
+                        _id: battleId
+                    }, {
+                        $set: { "fighter2" : { username: req.params.username, music: req.body.item}}
+                    });
+
+                    const updateArenaStatus = await db.Arena.findByIdAndUpdate({
+                        _id: req.body.arenaId
+                    }, {
+                        $set: { "completed" : true}
+                    });
+
+                    res.send("Submitted the song")
+                }
             }
 
          
@@ -70,22 +81,27 @@ module.exports = {
 
         try {
 
-// Doesnt make sense, other people will be able to vote on battles they are nto a part of, need to make teh users keep track of the arena and patheon ids
-            const findVotingArena1 = await db.Battle.find(
-                { "fighter1.username": req.params.username }
-            );
+            const findUser = await db.User.find({ username: req.params.username});
 
-            const findVotingArena2 = await db.Battle.find(
-                { "fighter2.username": req.params.username }
-            );
+            const checkStatus = []
 
-            if (findVotingArena1.length === 1) {
-                res.json(findVotingArena1)
-            } else if (findVotingArena2.length === 1) {
-                res.json(findVotingArena2)
-            } else {
-                console.log("err findArenaReadyVote")
-            }
+            for (let i = 0; i < findUser[0].arena.length; i++) {
+                const checkArenaStatus = await db.Arena.find({ _id: findUser[0].arena[i] })
+                await checkStatus.push(checkArenaStatus)
+            };
+
+            for (let i = 0; i < checkStatus.length; i++) {
+
+
+                if (checkStatus[i][0].completed === true) {
+                    checkStatus[i][0].battles.forEach( async (item) => {
+                    const findBattle = await db.Battle.find({ _id: item })
+                    if (findBattle.length !== 0) {
+                        res.json(findBattle)
+                    }
+                })
+                }
+            };
 
         } catch (err) {
             console.log(err)
