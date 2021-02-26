@@ -14,6 +14,7 @@ module.exports = {
                     creator: req.body.creator,
                     status: "Waiting",
                     numOfPlayers: 4,
+                    arenaId: []
                 });
     
                 const savedPantheon = await newPantheon.save();

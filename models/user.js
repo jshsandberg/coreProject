@@ -24,7 +24,10 @@ const userSchema = new Schema({
 
   pantheon: [{ type: Schema.Types.ObjectId, ref: 'Pantheon' }],
 
-  arena: [{ type: Schema.Types.ObjectId, ref: 'Arena' }]
+  arena: [{ type: Schema.Types.ObjectId, ref: 'Arena' }],
+
+  battles: [{ type: Schema.Types.ObjectId, ref: 'Battles' }]
+
 
 })
 module.exports = mongoose.model("user", userSchema);

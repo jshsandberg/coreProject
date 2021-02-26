@@ -24,7 +24,7 @@ const pantheonSchema = new Schema({
     type: Number
   },
 
-  arena: { type: Schema.Types.ObjectId, ref: 'Arena' }
+  arenaId: [{ type: Schema.Types.ObjectId, ref: 'Arena' }]
 
 });
 
