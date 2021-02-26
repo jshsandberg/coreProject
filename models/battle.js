@@ -11,11 +11,11 @@ const battleSchema = new Schema({
     },
 
     votesForFighter1: {
-        type: Number
+        type: Array
     },
 
     votesForFighter2: {
-        type: Number
+        type: Array
     },
 
     arenaId : {
@@ -28,6 +28,10 @@ const battleSchema = new Schema({
 
     status: {
         type: String
+    },
+
+    playersWhoVoted: {
+        type: Array
     }
 
 

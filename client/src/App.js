@@ -18,6 +18,7 @@ import FriendsPage from "./pages/FriendsPage";
 import PantheonPage from "./pages/PantheonPage";
 import ActivePantheonPage from "./pages/ActivePantheonPage";
 import ArenaPage from "./pages/ArenaPage";
+import VotingPage from "./pages/VotingPage";
 
 function App() {
 
@@ -89,6 +90,7 @@ function App() {
               <Route exact path="/pantheon" component={PantheonPage} />
               <Route exact path="/activePantheon" component={ActivePantheonPage} />
               <Route exact path="/arena" component={ArenaPage} />
+              <Route exact path="/voting" component={VotingPage} />
               <button onClick={() => console.log(user)}></button>
               </UserContext.Provider>
           </Router>

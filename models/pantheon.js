@@ -17,10 +17,14 @@ const pantheonSchema = new Schema({
     type: Array
   },
   status: {
-    type: Array
+    type: String
   },
 
-  arena: [{ type: Schema.Types.ObjectId, ref: 'Arena' }]
+  numOfPlayers: {
+    type: Number
+  },
+
+  arena: { type: Schema.Types.ObjectId, ref: 'Arena' }
 
 });
 

@@ -7,17 +7,24 @@ module.exports = {
         try {
 
 
-            const newPantheon = new Pantheon ({
-                data: req.body.data,
-                players: req.body.players,
-                creator: req.body.creator,
-                status: ["Waiting"]
-            });
+            if (req.body.players.length === 3) {
+                const newPantheon = new Pantheon ({
+                    data: req.body.data,
+                    players: req.body.players,
+                    creator: req.body.creator,
+                    status: "Waiting",
+                    numOfPlayers: 4,
+                });
+    
+                const savedPantheon = await newPantheon.save();
+    
+                res.send("Pantheon created");
 
-            const savedPantheon = await newPantheon.save();
+            } else {
+                res.send("You need to invite 3 of your friends to create a Pantheon")
+            }
 
-            console.log(savedPantheon)
-            res.json(savedPantheon);
+   
 
         } catch (err) {
             console.log(err)

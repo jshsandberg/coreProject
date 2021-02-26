@@ -3,6 +3,8 @@ const db = require("../models");
 const { Arena } = require("../models");
 const { Pantheon } = require("../models");
 const { User } = require("../models");
+const { Battle } = require("../models");
+
 
 
 
@@ -11,57 +13,112 @@ module.exports = {
     register: async (req, res) => {
         try {
          
-            console.log("here")
-
             const playerArr = req.body.players;
 
             await playerArr.push(req.body.creator);
 
-            const newArena = new Arena ({
-                players: playerArr,
-                // come back to make sure rounds makes sense for more players
-                rounds: ((req.body.players.length) / 2),
-                battles: [null],
-                pantheon: req.body._id,
-                completed: false
-            });
+            if (playerArr.length === 4) {
 
-            const saveNewArena = await newArena.save();
-
-
-                const updatePantheon = await db.Pantheon.findOneAndUpdate({
-                    _id: req.body._id
-                }, {
-                    $set: {
-                        status: "In-Progress"
-                    },
-                    $push: {
-                        arena: [saveNewArena._id]
+                const getShuffledArr = arr => {
+                    const newArr = arr.slice()
+                    for (let i = newArr.length - 1; i > 0; i--) {
+                        const rand = Math.floor(Math.random() * (i + 1));
+                        [newArr[i], newArr[rand]] = [newArr[rand], newArr[i]];
                     }
-                    
+                    return newArr
+                };
+
+                const shuffledArr = getShuffledArr(playerArr)
+
+                
+                const firstBattle = new Battle ({
+                    fighter1: {
+                        username: shuffledArr[1],
+                        music: null
+                    },
+                    fighter2: {
+                        username: shuffledArr[2],
+                        music: null
+                    },
+                    votesForFighter1: null,              
+                    votesForFighter2: null,               
+                    arenaId: null,                
+                    pantheonId: null,                
+                    status: "In-Progress",
+                    playersWhoVoted: null
+
                 });
 
-                // const updateUserCreator = await db.User.findOneAndUpdate({
-                //     username: req.body.creator
-                // }, {
-                //     $push: {
-                //         pantheon: [req.body._id],
-                //         arena: [saveNewArena._id]
-                //     }
+                const secondBattle = new Battle ({
+                    fighter1: {
+                        username: shuffledArr[3],
+                        music: null
+                    },
+                    fighter2: {
+                        username: shuffledArr[4],
+                        music: null
+                    },
+                    votesForFighter1: null,              
+                    votesForFighter2: null,               
+                    arenaId: null,                
+                    pantheonId: null,                
+                    status: "In-Progress",
+                    playersWhoVoted: null
+
+                });
+
+
+                console.log(firstBattle, secondBattle)
+                
+                // const newArena = new Arena ({
+                //     players: playerArr,
+                //     // come back to make sure rounds makes sense for more players
+                //     rounds: ((playerArr.length / 2) + 1),
+                //     battles: [],
+                //     pantheon: req.body._id,
+                //     completed: false
                 // });
 
-                for (let i = 0; i < playerArr.length; i++) {
-                    const updateUserPlayers = await db.User.findOneAndUpdate({
-                        username: playerArr[i]
-                    }, {
-                        $push: {
-                            pantheon: [req.body._id],
-                            arena: [saveNewArena._id]
-                        }
-                    });
-                }
+            }
 
-            res.json(saveNewArena);
+       
+
+            // const saveNewArena = await newArena.save();
+
+
+            //     const updatePantheon = await db.Pantheon.findOneAndUpdate({
+            //         _id: req.body._id
+            //     }, {
+            //         $set: {
+            //             status: "In-Progress"
+            //         },
+            //         $set: {
+            //             arena: saveNewArena._id
+            //         }
+                    
+            //     });
+
+            //     // const updateUserCreator = await db.User.findOneAndUpdate({
+            //     //     username: req.body.creator
+            //     // }, {
+            //     //     $push: {
+            //     //         pantheon: [req.body._id],
+            //     //         arena: [saveNewArena._id]
+            //     //     }
+            //     // });
+
+            //     for (let i = 0; i < playerArr.length; i++) {
+            //         const updateUserPlayers = await db.User.findOneAndUpdate({
+            //             username: playerArr[i]
+            //         }, {
+            //             $push: {
+            //                 pantheon: [req.body._id],
+            //                 arena: [saveNewArena._id]
+            //             }
+            //         });
+            //     }
+
+            // res.send("Arena was created!");
 
 
         } catch (err) {

@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
+import { useHistory } from "react-router-dom";
 import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/esm/Row';
 import Button from 'react-bootstrap/Button';
@@ -8,6 +9,8 @@ import { UserContext } from "../../context/userContext";
 
 
 export default function VoteBox() {
+
+    const history = useHistory();
 
     const {user, setUser} = useContext(UserContext);
     const [votingArr, setVotingArr] = useState([]);
@@ -33,9 +36,9 @@ export default function VoteBox() {
                         {votingArr.map((item, i) => {
                             return (
                                 <>
-                                    <Col align="center">
+                                    <Col key={i} align="center">
                                         <h3>{item.fighter1.username} vs {item.fighter2.username}</h3>
-                                        <Button>Vote</Button>
+                                        <Button onClick={() => history.push({pathname: "/voting", state: item})}>Vote</Button>
                                     </Col>
                                 </>
                             )

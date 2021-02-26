@@ -9,7 +9,6 @@ module.exports = {
 
         try {
 
-
             const checkForBattles = await db.Arena.find({ _id: req.body.arenaId });
 
 
@@ -20,8 +19,8 @@ module.exports = {
                         music: req.body.item
                     },
                     fighter2: null,
-                    votesForFighter1: null,
-                    votesForFighter2: null,
+                    votesForFighter1: [],
+                    votesForFighter2: [],
                     arenaId: req.body.arenaId,
                     pantheonId: req.body.pantheonId,
                     status: "In Progress"
@@ -46,9 +45,9 @@ module.exports = {
 
                 const checkIfFighterHasAlreadySubmitted = await db.Battle.find({ _id: battleId});
 
-                // console.log(checkIfFighterHasAlreadySubmitted[0]);
-
-                if (checkIfFighterHasAlreadySubmitted[0].fighter1.username === req.params.username || checkIfFighterHasAlreadySubmitted[0].fighter2.username === req.params.username  ) {
+                if (checkIfFighterHasAlreadySubmitted[0].fighter1.username === req.params.username || checkIfFighterHasAlreadySubmitted[0].fighter2 !== null 
+                    // checkIfFighterHasAlreadySubmitted[0].fighter2.username === req.params.username  
+                    ) {
                     res.send("Already submitted a song")
                 } else {             
 
@@ -102,6 +101,46 @@ module.exports = {
                 })
                 }
             };
+
+        } catch (err) {
+            console.log(err)
+        }
+    },
+
+    saveVotes: async (req, res) => {
+
+        try {
+
+            console.log(req.body)
+
+            const findBattle = await db.Battle.find({ _id: req.body.state._id });
+
+            console.log(findBattle);
+
+            if (findBattle[0].playersWhoVoted.includes(req.body.username)) {
+                res.send("You have already Voted")
+            } else if (findBattle[0].fighter1.username === req.body.fighter.username) {
+                const updateFighter1 = await db.Battle.findOneAndUpdate({
+                    _id: findBattle[0].id
+                }, {
+                    $push: { votesForFighter1 : req.body.username, playersWhoVoted: req.body.username },
+                    // $push: { playersWhoVoted: req.body.username }
+                });
+
+                res.send("Your vote has been counted. You voted for Fighter 1")
+
+            } else if (findBattle[0].fighter2.username === req.body.fighter.username) {
+                const updateFighter2 = await db.Battle.findOneAndUpdate({
+                    _id: findBattle[0].id
+                }, {
+                    $push: { votesForFighter2 : req.body.username, playersWhoVoted: req.body.username }
+                    // $push: { playersWhoVoted: req.body.username }
+                });
+
+                res.send("Your vote has been counted. You voted for Fighter 2")
+
+            }
+
 
         } catch (err) {
             console.log(err)
