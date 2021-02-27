@@ -9,7 +9,7 @@ const arenaSchema = new Schema({
   },
 
   completed: {
-    type: Boolean
+    type: Array
   },
 
   battles: [{ type: Schema.Types.ObjectId, ref: 'Battle' }],

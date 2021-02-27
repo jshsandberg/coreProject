@@ -78,7 +78,7 @@ module.exports = {
                     players: playerArr,
                     battles: [savedBattle1._id, savedBattle2],
                     pantheon: req.body._id,
-                    completed: false
+                    completed: []
                 });
 
                 const saveNewArena = await newArena.save();
@@ -179,15 +179,26 @@ module.exports = {
 
             const foundBattle = [];
 
+            const checkBattle = [];
+
             const foundArena = [];
 
             for (let i = 0; i < findUser[0].battles.length; i++) {
                 const findBattle = await db.Battle.find({ _id: findUser[0].battles[i]});
 
-                if (findBattle[0].status === "In-Progress") {
-                    foundBattle.push(findBattle[i])
-                }
+                if (findBattle[i].status === "In-Progress") {
+                    checkBattle.push(findBattle[i])
+                } 
             }
+
+            
+
+            for (let i = 0; i < checkBattle.length; i++) {
+                if (checkBattle[i].fighter1.music === null || checkBattle[i].fighter2.music === null) {
+                    foundBattle.push(checkBattle[i])
+                } 
+            }
+
 
             for (let i = 0; i < foundBattle.length; i++) {
                 const findArena = await db.Arena.find({ battles: foundBattle[i]._id});
@@ -200,6 +211,7 @@ module.exports = {
 
                 } else {
                     const findPantheon = await db.Pantheon.find({ _id: foundArena[i][0].pantheon });
+
 
                     const data = {
                                     arenaId: foundArena[i][0].id,

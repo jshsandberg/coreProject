@@ -1,6 +1,6 @@
 import API from "../../utils/API";
 
-export const SubmitBattle = async (item, user, pantheonId, arenaId) => {
+export const SubmitBattle = async (item, user, pantheonId, arenaId, battleId) => {
     
 
     try {
@@ -8,6 +8,7 @@ export const SubmitBattle = async (item, user, pantheonId, arenaId) => {
         const obj = {
             pantheonId: pantheonId,
             arenaId: arenaId,
+            battleId: battleId,
             item: item
         }
 

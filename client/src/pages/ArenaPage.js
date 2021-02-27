@@ -26,8 +26,8 @@ export default function ArenaPage({ location }) {
         setChildData(childData => [...childData, info]);
     }, []);
 
-    const submitBattle = async (item, user, pantheonId, arenaId) => {
-        const battle = await SubmitBattle(item.slice(-1)[0], user, pantheonId, arenaId);
+    const submitBattle = async (item, user, pantheonId, arenaId, battleId) => {
+        const battle = await SubmitBattle(item.slice(-1)[0], user, pantheonId, arenaId, battleId);
     }
 
     return (
@@ -37,7 +37,7 @@ export default function ArenaPage({ location }) {
                 <br></br>
                         <Row>
                             <Col xs={2}>
-                                <Button onClick={() => submitBattle(childData, user, location.state.pantheonId, location.state.arenaId)}>Sumbit Challenger</Button>
+                                <Button onClick={() => submitBattle(childData, user, location.state.pantheonId, location.state.arenaId, location.state.battle._id)}>Sumbit Challenger</Button>
                             </Col>
                             <Col align="center">
                                 <Box text={location.state.category}/>
@@ -61,7 +61,7 @@ export default function ArenaPage({ location }) {
                                 <br></br>
                                 <br></br>
 
-                                <TwoMan childData={childData} players={location.state.players}/>
+                                <TwoMan childData={childData} battle={location.state.battle}/>
                             </Col>
                             <Col>
                             
