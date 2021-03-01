@@ -42,12 +42,12 @@ module.exports = {
                         username: shuffledArr[1],
                         music: null
                     },
-                    votesForFighter1: null,              
-                    votesForFighter2: null,               
+                    votesForFighter1: [],              
+                    votesForFighter2: [],               
                     arenaId: null,                
                     pantheonId: null,                
                     status: "In-Progress",
-                    playersWhoVoted: null
+                    playersWhoVoted: []
 
                 });
 
@@ -60,12 +60,12 @@ module.exports = {
                         username: shuffledArr[3],
                         music: null
                     },
-                    votesForFighter1: null,              
-                    votesForFighter2: null,               
+                    votesForFighter1: [],              
+                    votesForFighter2: [],               
                     arenaId: null,                
                     pantheonId: null,                
                     status: "In-Progress",
-                    playersWhoVoted: null
+                    playersWhoVoted: []
 
                 });
 

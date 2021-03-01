@@ -9,6 +9,7 @@ import ActivePantheons from "../components/Pantheon/ActivePantheons";
 import Footer from "../components/Footer/Footer";
 import InProgressPantheons from "../components/Pantheon/InProgressPantheon";
 import VoteBox from "../components/Pantheon/VoteBox";
+import ResultBox from "../components/Pantheon/ResultBox";
 
 
 export default function ActivePantheonPage() {
@@ -27,6 +28,9 @@ export default function ActivePantheonPage() {
                         <br></br>
                         <h3>Cast your vote</h3>
                         <VoteBox />
+                        <br></br>
+                        <h3>Results</h3>
+                        <ResultBox />
                     </Col>
                 </Row>
             </Container>

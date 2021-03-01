@@ -155,6 +155,8 @@ module.exports = {
 
             const response = [];
 
+            const checkResponse = [];
+
             for (let i = 0; i < findUser[0].battles.length; i++) {
                 const checkArenaStatus = await db.Arena.find({ _id: findUser[0].arena[i] })
                 await checkStatus.push(checkArenaStatus[0])
@@ -171,9 +173,17 @@ module.exports = {
                 response.push(foundBattle[0])
             };
 
+            for (let i = 0; i < response.length; i++) {
+                if (response[i].playersWhoVoted.includes(req.params.username)) {
+
+                } else {
+                    checkResponse.push(response[i])
+                }
+            }
+
         
 
-            res.json(response)
+            res.json(checkResponse)
 
         } catch (err) {
             console.log(err)
@@ -186,10 +196,22 @@ module.exports = {
 
             const findBattle = await db.Battle.find({ _id: req.body.state._id });
 
-            if (req.body.username === findBattle[0].fighter1.username) {
-                console.log("fighter1")
-            } else if (req.body.username === findBattle[0].fighter2.username) {
-                console.log("fighter2")
+            if (findBattle[0].playersWhoVoted.includes(req.body.username)) {
+                res.send("You have already voted")
+            } else if (req.body.fighter.username === findBattle[0].fighter1.username) {
+                const updateBattle1 = await db.Battle.findByIdAndUpdate({
+                    _id: findBattle[0]._id
+                }, {
+                    $push: { votesForFighter1: req.body.username, playersWhoVoted: req.body.username}
+                });
+                    res.send("You have voted for" + " " + findBattle[0].fighter1.username)
+            } else if (req.body.fighter.username === findBattle[0].fighter2.username) {
+                const updateBattle2 = await db.Battle.findByIdAndUpdate({
+                    _id: findBattle[0]._id
+                }, {
+                    $push: { votesForFighter2: req.body.username, playersWhoVoted: req.body.username}
+                });
+                res.send("You have voted for" + " " + findBattle[0].fighter2.username)
             }
 
             // const findBattle = await db.Battle.find({ _id: req.body.state._id });
