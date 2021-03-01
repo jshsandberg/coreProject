@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/esm/Col';
 import { GetActivePantheon } from "../Functions/GetActivePantheon";
 import { UserContext } from "../../context/userContext";
-import { StartArena } from "../Functions/StartArena.js";
+import { StartMusic } from "../Functions/StartMusic.js";
 
 export default function ActivePantheons() {
 
@@ -51,10 +51,10 @@ export default function ActivePantheons() {
                         {activePantheons.map((item, i) => {
                             return (
                                 <Col align="center" key={i}>
-                                    <h3>{item.data.category}</h3>
+                                    <h3>{item.category}</h3>
                                     <h4>{item.creator}</h4>
                                     <h2>{item.acceptedPlayers.length} / {item.players.length}</h2>
-                                    {item.acceptedPlayers.length === item.players.length ? <Button onClick={ async () => { await StartArena(item); await setRerender(true)}}>Start</Button> : <Button style={{backgroundColor: "gray"}}>Start</Button>}
+                                    {item.acceptedPlayers.length === item.players.length ? <Button onClick={ async () => { await StartMusic(item); await setRerender(true)}}>Start</Button> : <Button style={{backgroundColor: "gray"}}>Start</Button>}
                                 </Col>
                             )
                         })}

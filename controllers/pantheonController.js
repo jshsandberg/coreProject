@@ -6,15 +6,77 @@ module.exports = {
     register: async (req, res) => {
         try {
 
+            console.log(req.body.players.length)
 
-            if (req.body.players.length === 3) {
+            const playerArr = req.body.players;
+
+            await playerArr.push(req.body.creator);
+
+            if (playerArr.length === 4) {
+
+                const getShuffledArr = arr => {
+                    const newArr = arr.slice()
+                    for (let i = newArr.length - 1; i > 0; i--) {
+                        const rand = Math.floor(Math.random() * (i + 1));
+                        [newArr[i], newArr[rand]] = [newArr[rand], newArr[i]];
+                    }
+                    return newArr
+                };
+
+                const shuffledArr = getShuffledArr(playerArr);
+           
                 const newPantheon = new Pantheon ({
-                    data: req.body.data,
-                    players: req.body.players,
+                    category: req.body.data.category,
+                    players: playerArr,
                     creator: req.body.creator,
-                    status: "Waiting",
+                    acceptedPlayers: [req.body.creator],
                     numOfPlayers: 4,
-                    arenaId: []
+                    battle: {
+                        battleOne: {
+                            fighterOne: {
+                                username: shuffledArr[0],
+                                music: null
+                            },
+                            fighterTwo: {
+                                username: shuffledArr[1],
+                                music: null
+                            },
+                            votesForFighterOne: [],
+                            votesForFighterTwo: [],
+                            playersWhoVoted: []
+                        },
+                        battleTwo: {
+                            fighterOne: {
+                                username: shuffledArr[2],
+                                music: null
+                            },
+                            fighterTwo: {
+                                username: shuffledArr[3],
+                                music: null
+                            },
+                            votesForFighterOne: [],
+                            votesForFighterTwo: [],
+                            playersWhoVoted: []
+                        }
+                    },
+                    finalBattle: {                    
+                        fighterOne: {
+                            username: null,
+                            music: null
+                        },
+                        fighterTwo: {
+                            username: null,
+                            music: null
+                        },
+                        votesForFighterOne: [],
+                        votesForFighterTwo: [],
+                        playersWhoVoted: []
+                    },
+                    accepted: false,
+                    music: false,
+                    vote: false,
+                    final: false,
+                    completed: false
                 });
     
                 const savedPantheon = await newPantheon.save();
@@ -64,15 +126,21 @@ module.exports = {
 
 
             for (let i = 0; i < foundCreatorPantheon.length; i++) {
-                if (foundCreatorPantheon[i].status.includes("In-Progress")) {
-                    // console.log(foundCreatorPantheon[i])
-                } else {
+                if (foundCreatorPantheon[i].accepted === false) {               
                     response.push(foundCreatorPantheon[i]);
                 }
             }
 
             res.json(response);
 
+        } catch (err) {
+            console.log(err)
+        }
+    },
+    
+    startMusic: async (req, res) => {
+        try {
+            console.log("here")
         } catch (err) {
             console.log(err)
         }

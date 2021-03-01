@@ -1,10 +1,10 @@
 import API from "../../utils/API";
 
-export const StartArena = async (item) => {
+export const StartMusic = async (item) => {
     
     try {
         
-        await API.startArena(item).then(res => console.log(res));
+        await API.startMusic(item).then(res => console.log(res));
 
     } catch (err) {
         console.log(err)

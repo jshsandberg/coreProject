@@ -2,8 +2,8 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const pantheonSchema = new Schema({
-  data: {
-    type: Object
+  category: {
+    type: String
     //required:true,
     //unique:true
   },
@@ -16,16 +16,37 @@ const pantheonSchema = new Schema({
   acceptedPlayers: {
     type: Array
   },
-  status: {
-    type: String
-  },
-
   numOfPlayers: {
     type: Number
   },
 
-  arenaId: [{ type: Schema.Types.ObjectId, ref: 'Arena' }]
+  battle: {
+    type: Object
+  },
 
+  finalBattle: {
+    type: Object
+  },
+
+  accepted: {
+    type: Boolean
+  },
+
+  music: {
+    type: Boolean
+  },
+
+  vote: {
+    type: Boolean
+  },
+
+  final: {
+    type: Boolean
+  },
+
+  completed: {
+    type: Boolean
+  }
 });
 
 module.exports = mongoose.model("Pantheon", pantheonSchema);

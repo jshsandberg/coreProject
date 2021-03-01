@@ -38,8 +38,8 @@ export default {
     getActivePantheon: function(id) {
       return axios.post("api/pantheon/creator/" + id);
     },
-    startArena: function (item) {
-      return axios.post("api/arena", item);
+    startMusic: function (item) {
+      return axios.post("api/pantheon/music", item);
     },
     getArena: function (username) {
       return axios.post("api/arena/find/" + username)
