@@ -184,7 +184,13 @@ module.exports = {
 
         try {
 
-            console.log(req.body)
+            const findBattle = await db.Battle.find({ _id: req.body.state._id });
+
+            if (req.body.username === findBattle[0].fighter1.username) {
+                console.log("fighter1")
+            } else if (req.body.username === findBattle[0].fighter2.username) {
+                console.log("fighter2")
+            }
 
             // const findBattle = await db.Battle.find({ _id: req.body.state._id });
 
