@@ -4,6 +4,8 @@ export const SaveVotes = async (fighter, state, username) => {
 
     try {
 
+        console.log("here")
+
         const obj = {
             state: state,
             fighter: fighter,

@@ -1,12 +1,12 @@
 import API from "../../utils/API";
 
-export const GetArena = async (user) => {
+export const GetMusic = async (user) => {
 
     try {
 
         const response = {}
 
-        await API.getArena(user.username).then(res => response["res"] = res.data)
+        await API.getMusic(user.username).then(res => response["res"] = res.data)
 
         return response.res
 

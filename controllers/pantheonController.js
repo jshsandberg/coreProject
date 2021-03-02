@@ -1,3 +1,4 @@
+const { response } = require("express");
 const db = require("../models");
 const { Pantheon } = require("../models");
 
@@ -5,8 +6,6 @@ const { Pantheon } = require("../models");
 module.exports = {
     register: async (req, res) => {
         try {
-
-            console.log(req.body.players.length)
 
             const playerArr = req.body.players;
 
@@ -140,7 +139,231 @@ module.exports = {
     
     startMusic: async (req, res) => {
         try {
-            console.log("here")
+            
+            const updatePantheon = await db.Pantheon.findByIdAndUpdate({
+                _id: req.body._id
+            }, {
+                $set: { accepted: true}
+            });
+
+            const updateCreator = await db.User.findOneAndUpdate({ 
+                username: req.body.creator
+            }, {
+                $push: { pantheon: req.body._id}
+            });
+
+            res.send("Pantheon has started")
+        } catch (err) {
+            console.log(err)
+        }
+    },
+
+    getMusic: async (req, res) => {
+        try {
+
+            const findUser = await db.User.find({ username: req.params.username });
+
+            const pantheonIds = [];
+
+            const foundPantheons = [];
+
+            const response = [];
+
+            findUser[0].pantheon.forEach(async item => {
+                await pantheonIds.push(item);
+            });
+
+            for (let i = 0; i < pantheonIds.length; i++) {
+                const findPantheons = await db.Pantheon.find({_id: pantheonIds[i]})
+                await foundPantheons.push(findPantheons[0])
+            }
+
+      
+            for (let i = 0; i < foundPantheons.length; i++) {
+                if (foundPantheons[i].accepted === true && foundPantheons[i].music === false) {
+                    response.push(foundPantheons[i]);
+                }
+            }
+
+            res.json(response);
+
+
+        } catch (err) {
+            console.log(err) 
+        }
+    },
+
+    submitBattle: async (req, res) => {
+        try {
+
+            const findPantheon = await db.Pantheon.findById(req.body.pantheonId);
+
+           
+
+            if (findPantheon.numOfPlayers === 4) {
+                if (findPantheon.battle.battleOne.fighterOne.username === req.params.username) {
+                    const updatePantheonBattleOneFighterOne = await db.Pantheon.findOneAndUpdate({
+                        _id: req.body.pantheonId
+                    }, {
+                        $set: { "battle.battleOne.fighterOne.music": req.body.item }
+                    });
+
+                    if (findPantheon.battle.battleOne.fighterOne.music !== null && findPantheon.battle.battleOne.fighterTwo.music !== null && findPantheon.battle.battleTwo.fighterOne.music !== null && findPantheon.battle.battleTwo.fighterTwo.music !== null) {
+                        const updatePantheonStatus = await db.Pantheon.findOneAndUpdate({
+                            _id: req.body.pantheonId
+                        }, {
+                            $set: { music: true }
+                        });
+                    }
+
+                    res.send("Updated Fighter One in Battle One");
+                } else if (findPantheon.battle.battleOne.fighterTwo.username === req.params.username) {
+                    const updatePantheonBattleOneFighterTwo = await db.Pantheon.findOneAndUpdate({
+                        _id: req.body.pantheonId
+                    }, {
+                        $set: { "battle.battleOne.fighterTwo.music": req.body.item }
+                    });
+
+                    if (findPantheon.battle.battleOne.fighterOne.music !== null && findPantheon.battle.battleOne.fighterTwo.music !== null && findPantheon.battle.battleTwo.fighterOne.music !== null && findPantheon.battle.battleTwo.fighterTwo.music !== null) {
+                        const updatePantheonStatus = await db.Pantheon.findOneAndUpdate({
+                            _id: req.body.pantheonId
+                        }, {
+                            $set: { music: true }
+                        });
+                    }
+
+                    res.send("Updated Fighter Two in Battle One");
+
+                } else if (findPantheon.battle.battleTwo.fighterOne.username === req.params.username) {
+                    const updatePantheonBattleTwoFighterOne = await db.Pantheon.findOneAndUpdate({
+                        _id: req.body.pantheonId
+                    }, {
+                        $set: { "battle.battleTwo.fighterOne.music": req.body.item }
+                    });
+
+                    if (findPantheon.battle.battleOne.fighterOne.music !== null && findPantheon.battle.battleOne.fighterTwo.music !== null && findPantheon.battle.battleTwo.fighterOne.music !== null && findPantheon.battle.battleTwo.fighterTwo.music !== null) {
+                        const updatePantheonStatus = await db.Pantheon.findOneAndUpdate({
+                            _id: req.body.pantheonId
+                        }, {
+                            $set: { music: true }
+                        });
+                    }
+
+                    res.send("Updated Fighter One in Battle Two");
+
+                } else if (findPantheon.battle.battleTwo.fighterTwo.username === req.params.username) {
+                    const updatePantheonBattleTwoFighterTwo = await db.Pantheon.findOneAndUpdate({
+                        _id: req.body.pantheonId
+                    }, {
+                        $set: { "battle.battleTwo.fighterTwo.music": req.body.item }
+                    });
+
+                    if (findPantheon.battle.battleOne.fighterOne.music !== null && findPantheon.battle.battleOne.fighterTwo.music !== null && findPantheon.battle.battleTwo.fighterOne.music !== null && findPantheon.battle.battleTwo.fighterTwo.music !== null) {
+                        const updatePantheonStatus = await db.Pantheon.findOneAndUpdate({
+                            _id: req.body.pantheonId
+                        }, {
+                            $set: { music: true }
+                        });
+                    }
+
+                    res.send("Updated Fighter Two in Battle Two");
+
+                };
+            };
+
+
+        } catch (err) {
+            console.log(err)
+        }
+    },
+
+    castVote: async (req, res) => {
+        try {
+
+            const foundPantheon = [];
+
+            const response = [];
+
+            const findUser = await db.User.find({ username: req.params.username });
+
+            for (let i = 0; i < findUser[0].pantheon.length; i++) {
+                const findPantheon = await db.Pantheon.find({ _id: findUser[0].pantheon[i]})
+                foundPantheon.push(findPantheon[0])
+            };
+
+            for (let i = 0; i < foundPantheon.length; i++) {
+                if (foundPantheon[i].accepted === true && foundPantheon[i].music === true && foundPantheon[i].vote === false) {
+                    response.push(foundPantheon[i])
+                }
+            }
+
+            res.json(response)
+
+        } catch (err) {
+            console.log(err)
+        }
+    },
+
+    saveVotes: async (req, res) => {
+        try {
+
+            // console.log(req.params, req.body.fighter)
+
+            const findPantheon = await db.Pantheon.find({ _id: req.body.state.pantheon })
+
+            if (findPantheon[0].battle.battleOne.fighterOne.username === req.body.fighter.username) {
+                if (findPantheon[0].battle.battleOne.playersWhoVoted.includes(req.params.username)) {
+                    res.send("You have already voted in this battle")
+                } else {
+                    const updateBattleOneFighterOne = await db.Pantheon.findByIdAndUpdate({
+                        _id: req.body.state.pantheon
+                    }, {
+                        $push: {"battle.battleOne.votesForFighterOne" : req.params.username, "battle.battleOne.playersWhoVoted" : req.params.username}
+                    })
+
+                    res.send("Voted for Battle One Fighter One")
+                }    
+
+            } else if (findPantheon[0].battle.battleOne.fighterTwo.username === req.body.fighter.username) {
+                if (findPantheon[0].battle.battleOne.playersWhoVoted.includes(req.params.username)) {
+                    res.send("You have already voted in this battle")
+                } else {
+                    const updateBattleOneFighterTwo = await db.Pantheon.findByIdAndUpdate({
+                        _id: req.body.state.pantheon
+                    }, {
+                        $push: {"battle.battleOne.votesForFighterTwo" : req.params.username, "battle.battleOne.playersWhoVoted" : req.params.username}
+                    })
+
+                    res.send("Voted for Battle One Fighter Two")
+                }    
+
+            } else if (findPantheon[0].battle.battleTwo.fighterOne.username === req.body.fighter.username) {
+                if (findPantheon[0].battle.battleTwo.playersWhoVoted.includes(req.params.username)) {
+                    res.send("You have already voted in this battle")
+                } else {
+                    const updateBattleTwoFighterOne = await db.Pantheon.findByIdAndUpdate({
+                        _id: req.body.state.pantheon
+                    }, {
+                        $push: {"battle.battleTwo.votesForFighterOne" : req.params.username, "battle.battleTwo.playersWhoVoted" : req.params.username}
+                    })
+
+                    res.send("Voted for Battle Two Fighter One")
+                }    
+            } else if (findPantheon[0].battle.battleTwo.fighterTwo.username === req.body.fighter.username) {
+                if (findPantheon[0].battle.battleTwo.playersWhoVoted.includes(req.params.username)) {
+                    res.send("You have already voted in this battle")
+                } else {
+                    const updateBattleTwoFighterTwo = await db.Pantheon.findByIdAndUpdate({
+                        _id: req.body.state.pantheon
+                    }, {
+                        $push: {"battle.battleTwo.votesForFighterTwo" : req.params.username, "battle.battleTwo.playersWhoVoted" : req.params.username}
+                    })
+
+                    res.send("Voted for Battle Two Fighter Two")
+                }    
+
+            }
+
         } catch (err) {
             console.log(err)
         }

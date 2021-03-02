@@ -5,7 +5,7 @@ import Row from 'react-bootstrap/esm/Row';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/esm/Col';
 import { UserContext } from "../../context/userContext";
-import { GetArena } from "../Functions/GetArena";
+import { GetMusic } from "../Functions/GetMusic";
 
 
 
@@ -14,19 +14,18 @@ export default function InProgressPantheon() {
     const history = useHistory();
 
     const {user, setUser} = useContext(UserContext);
-    const [arenas, setArenas] = useState([]);
+    const [music, setMusic] = useState([]);
     const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
 
-        const findArena = async () => {
-            const foundArena = await GetArena(user);
-            console.log(foundArena)
-            await setArenas(foundArena);
+        const findMusic = async () => {
+            const foundMusic = await GetMusic(user);
+            await setMusic(foundMusic);
             await setIsLoading(false);
         }
 
-        findArena()
+        findMusic()
 
     }, []);
 
@@ -35,11 +34,11 @@ export default function InProgressPantheon() {
             {!isLoading &&
               <Container style={{borderStyle: "solid", boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)", backgroundColor: "white"}}>
                     <Row>
-                        {arenas.map((item, i) => {
+                        {music.map((item, i) => {
                             return (
                                 <Col key={i}>
                                     <h2>{item.category}</h2>
-                                    <Button onClick={() => history.push({pathname: "/arena", state: item})}>Go to Arena</Button>
+                                    <Button onClick={() => history.push({pathname: "/arena", state: item})}>Choose your Song</Button>
                                 </Col>
                             )
                         })}

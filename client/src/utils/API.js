@@ -39,18 +39,19 @@ export default {
       return axios.post("api/pantheon/creator/" + id);
     },
     startMusic: function (item) {
-      return axios.post("api/pantheon/music", item);
+      console.log(item)
+      return axios.post("api/pantheon/music/" + item.id, item);
     },
-    getArena: function (username) {
-      return axios.post("api/arena/find/" + username)
+    getMusic: function (username) {
+      return axios.post("api/pantheon/find/" + username)
     },
     submitBattle: function (obj, username) {
-      return axios.post("api/battle/" + username, obj)
+      return axios.post("api/pantheon/battle/" + username, obj)
     },
-    getVotingArena: function (username) {
-      return axios.post("api/battle/voting/" + username);
+    getVotingPantheon: function (username) {
+      return axios.post("api/pantheon/voting/" + username);
     },
     saveVotes: function (obj) {
-      return axios.post("api/battle/saveVotes/" + obj.username, obj)
+      return axios.post("api/pantheon/saveVotes/" + obj.username, obj)
     }
 };

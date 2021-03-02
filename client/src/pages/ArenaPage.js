@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useContext } from "react";
+import React, { useCallback, useState, useContext, useEffect } from "react";
 import Header from "../components/Header/Header";
 import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/esm/Row';
@@ -11,33 +11,51 @@ import ChallengeSearchBar from "../components/SearchBar/ChallengeSearchBar";
 import SearchMusic from "../components/Arena/SearchMusic";
 import { UserContext } from "../context/userContext";
 import { SubmitBattle } from "../components/Functions/SubmitBattle";
+import { FindBattle } from "../components/Functions/FindBattle";
 
 
 
 export default function ArenaPage({ location }) {
 
-    console.log(location)
 
     const {user, setUser} = useContext(UserContext);
+    const [battle, setBattle] = useState({});
+    const [isLoading, setIsLoading] = useState(true);
     const [childData, setChildData] = useState([]);
+
+    useEffect(() => {
+
+        console.log(location.state)
+
+        const promise = async () => {
+            const check = await FindBattle(user.username, location.state);
+            await setBattle(check);
+            await setIsLoading(false);
+        };
+
+        promise()
+
+    }, [])
 
 
     const getChildData = useCallback(info => {
         setChildData(childData => [...childData, info]);
     }, []);
 
-    const submitBattle = async (item, user, pantheonId, arenaId, battleId) => {
-        const battle = await SubmitBattle(item.slice(-1)[0], user, pantheonId, arenaId, battleId);
+    const submitBattle = async (item, user, pantheonId) => {
+        const battle = await SubmitBattle(item.slice(-1)[0], user, pantheonId);
     }
 
     return (
         <>
-            <Header />
-            <Container fluid style={{backgroundImage: `url(${Charcoal})`}}>
-                <br></br>
+            {!isLoading &&
+                <>
+                    <Header />
+                    <Container fluid style={{backgroundImage: `url(${Charcoal})`}}>
+                        <br></br>
                         <Row>
                             <Col xs={2}>
-                                <Button onClick={() => submitBattle(childData, user, location.state.pantheonId, location.state.arenaId, location.state.battle._id)}>Sumbit Challenger</Button>
+                                <Button onClick={() => submitBattle(childData, user, location.state._id)}>Sumbit Challenger</Button>
                             </Col>
                             <Col align="center">
                                 <Box text={location.state.category}/>
@@ -61,7 +79,7 @@ export default function ArenaPage({ location }) {
                                 <br></br>
                                 <br></br>
 
-                                <TwoMan childData={childData} battle={location.state.battle}/>
+                                <TwoMan childData={childData} battle={battle}/>
                             </Col>
                             <Col>
                             
@@ -74,6 +92,8 @@ export default function ArenaPage({ location }) {
                             </Col>
                         </Row>
                     </Container>
+                </>
+            }
         </>
     )
 };
