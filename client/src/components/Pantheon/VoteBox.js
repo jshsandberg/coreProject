@@ -6,6 +6,7 @@ import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/esm/Col';
 import { GetVotingPantheon } from "../Functions/GetVotingPantheon";
 import { UserContext } from "../../context/userContext";
+import { FilterData } from "../Functions/FilterData";
 
 
 export default function VoteBox() {
@@ -21,13 +22,16 @@ export default function VoteBox() {
         
         const votingPantheon = async () => {
             const foundVotingPantheon = await GetVotingPantheon(user);
-            await setVotingArr(foundVotingPantheon);
-            console.log(foundVotingPantheon)
+            // await setVotingArr(foundVotingPantheon);
+            const filteredData = await FilterData(foundVotingPantheon, user.username);
+            await setVotingArr(filteredData)
             await setIsLoading(false)
         };
 
         votingPantheon();
-    }, [])
+    }, []);
+
+    
 
     return (
         <>
@@ -36,24 +40,14 @@ export default function VoteBox() {
                     <Row>
                         {votingArr.map((item, i) => {
                             console.log(item)
-                            if (item.numOfPlayers === 4) {
                                 return (
                                     <>
                                         <Col align="center" key={i}>
-                                            <h3>{item.battle.battleOne.fighterOne.username} vs {item.battle.battleOne.fighterTwo.username}</h3>
+                                            <h3>{item.battle.fighterOne.username} vs {item.battle.fighterTwo.username}</h3>
                                             <Button onClick={() => {
                                                 const obj = {
-                                                    state: item.battle.battleOne,
-                                                    pantheon: item._id
-                                                }
-                                                history.push({pathname: "/voting", state: obj})}}>Vote</Button>
-                                        </Col>
-                                        <Col align="center" key={i}>
-                                            <h3>{item.battle.battleTwo.fighterOne.username} vs {item.battle.battleTwo.fighterTwo.username}</h3>
-                                            <Button onClick={() => {
-                                                const obj = {
-                                                    state: item.battle.battleTwo,
-                                                    pantheon: item._id
+                                                    state: item.battle,
+                                                    pantheon: item.pantheon
                                                 }
                                                 history.push({pathname: "/voting", state: obj})}}>Vote</Button>
                                         </Col>
@@ -71,7 +65,7 @@ export default function VoteBox() {
                             //         </>
                             //     )
                             // })
-                        })}
+                        )}
                     </Row>
                 </Container>
             }

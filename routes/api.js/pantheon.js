@@ -10,6 +10,8 @@ router.route("/find/:username").post(pantheonController.getMusic);
 router.route("/battle/:username").post(pantheonController.submitBattle);
 router.route("/voting/:username").post(pantheonController.castVote);
 router.route("/saveVotes/:username").post(pantheonController.saveVotes);
+router.route("/results/:username").post(pantheonController.getResults);
+
 
 
 

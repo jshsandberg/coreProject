@@ -10,6 +10,9 @@ import { UserContext } from "../../context/userContext";
 
 export default function ResultBox() {
 
+    const history = useHistory();
+
+
     const {user, setUser} = useContext(UserContext);
     const [resultArr, setResultArr] = useState([]);
     const [isLoading, setIsLoading] = useState([]);
@@ -17,8 +20,13 @@ export default function ResultBox() {
     useEffect(() => {
 
         const checkForResults = async () => {
-            await GetResults(user)
-        }
+            const foundResults = await GetResults(user);
+            await setResultArr(foundResults);
+            await setIsLoading(false)
+            
+        };
+
+        checkForResults()
     }, []);
 
 
@@ -30,7 +38,10 @@ export default function ResultBox() {
                         {resultArr.map((item, i) => {
                             return (
                                 <>
-                             
+                                    <Col key={i} align="center">
+                                        <h3>{item.category}</h3>
+                                        <Button onClick={() => history.push({pathname: "/results", state: item})}>See Results</Button>
+                                    </Col>
                                 </>
                             )
                         })}

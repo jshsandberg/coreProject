@@ -53,5 +53,8 @@ export default {
     },
     saveVotes: function (obj) {
       return axios.post("api/pantheon/saveVotes/" + obj.username, obj)
+    },
+    getResults: function (username) {
+      return axios.post("api/pantheon/results/" + username)
     }
 };

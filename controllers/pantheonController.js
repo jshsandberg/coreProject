@@ -42,7 +42,8 @@ module.exports = {
                             },
                             votesForFighterOne: [],
                             votesForFighterTwo: [],
-                            playersWhoVoted: []
+                            playersWhoVoted: [],
+                            winner: null
                         },
                         battleTwo: {
                             fighterOne: {
@@ -55,7 +56,8 @@ module.exports = {
                             },
                             votesForFighterOne: [],
                             votesForFighterTwo: [],
-                            playersWhoVoted: []
+                            playersWhoVoted: [],
+                            winner: null
                         }
                     },
                     finalBattle: {                    
@@ -297,6 +299,13 @@ module.exports = {
                 }
             }
 
+            for (let i = 0; i < response.length; i++) {
+                if (response[i].battle.battleOne.playersWhoVoted.length === response[i].numOfPlayers.length && response[i].battle.battleTwo.playersWhoVoted.length === response[i].numOfPlayers.length) {
+
+                }
+
+            }
+
             res.json(response)
 
         } catch (err) {
@@ -311,9 +320,21 @@ module.exports = {
 
             const findPantheon = await db.Pantheon.find({ _id: req.body.state.pantheon })
 
+         
+
+
             if (findPantheon[0].battle.battleOne.fighterOne.username === req.body.fighter.username) {
                 if (findPantheon[0].battle.battleOne.playersWhoVoted.includes(req.params.username)) {
-                    res.send("You have already voted in this battle")
+                    if (findPantheon[0].battle.battleOne.playersWhoVoted.length === findPantheon[0].numOfPlayers - 2 && findPantheon[0].battle.battleTwo.playersWhoVoted.length === findPantheon[0].numOfPlayers - 2) {
+                        const updatePantheon = await db.Pantheon.findOneAndUpdate({
+                            _id: req.body.state.pantheon 
+                        }, {
+                            $set: { vote: true }
+                        })
+                        res.send("All the Votes are in")
+                    } else {
+                        res.send("You have already voted in this battle");
+                    }
                 } else {
                     const updateBattleOneFighterOne = await db.Pantheon.findByIdAndUpdate({
                         _id: req.body.state.pantheon
@@ -321,48 +342,187 @@ module.exports = {
                         $push: {"battle.battleOne.votesForFighterOne" : req.params.username, "battle.battleOne.playersWhoVoted" : req.params.username}
                     })
 
+                    if (findPantheon[0].battle.battleOne.playersWhoVoted.length === findPantheon[0].numOfPlayers - 2 && findPantheon[0].battle.battleTwo.playersWhoVoted.length === findPantheon[0].numOfPlayers - 2) {
+                        const updatePantheon = await db.Pantheon.findOneAndUpdate({
+                            _id: req.body.state.pantheon 
+                        }, {
+                            $set: { vote: true }
+                        })
+                        res.send("All the Votes are in")
+                    } 
+
                     res.send("Voted for Battle One Fighter One")
                 }    
 
             } else if (findPantheon[0].battle.battleOne.fighterTwo.username === req.body.fighter.username) {
                 if (findPantheon[0].battle.battleOne.playersWhoVoted.includes(req.params.username)) {
-                    res.send("You have already voted in this battle")
+                   if (findPantheon[0].battle.battleOne.playersWhoVoted.length === findPantheon[0].numOfPlayers - 2 && findPantheon[0].battle.battleTwo.playersWhoVoted.length === findPantheon[0].numOfPlayers - 2) {
+                        const updatePantheon = await db.Pantheon.findOneAndUpdate({
+                            _id: req.body.state.pantheon 
+                        }, {
+                            $set: { vote: true }
+                        })
+                        res.send("All the Votes are in")
+                    } else {
+                        res.send("You have already voted in this battle");
+                    }
                 } else {
                     const updateBattleOneFighterTwo = await db.Pantheon.findByIdAndUpdate({
                         _id: req.body.state.pantheon
                     }, {
                         $push: {"battle.battleOne.votesForFighterTwo" : req.params.username, "battle.battleOne.playersWhoVoted" : req.params.username}
-                    })
+                    });
+
+                    if (findPantheon[0].battle.battleOne.playersWhoVoted.length === findPantheon[0].numOfPlayers - 2 && findPantheon[0].battle.battleTwo.playersWhoVoted.length === findPantheon[0].numOfPlayers - 2) {
+                        const updatePantheon = await db.Pantheon.findOneAndUpdate({
+                            _id: req.body.state.pantheon 
+                        }, {
+                            $set: { vote: true }
+                        })
+                        res.send("All the Votes are in")
+                    }  
 
                     res.send("Voted for Battle One Fighter Two")
                 }    
 
             } else if (findPantheon[0].battle.battleTwo.fighterOne.username === req.body.fighter.username) {
                 if (findPantheon[0].battle.battleTwo.playersWhoVoted.includes(req.params.username)) {
-                    res.send("You have already voted in this battle")
+
+                    if (findPantheon[0].battle.battleOne.playersWhoVoted.length === findPantheon[0].numOfPlayers - 2 && findPantheon[0].battle.battleTwo.playersWhoVoted.length === findPantheon[0].numOfPlayers - 2) {
+                        const updatePantheon = await db.Pantheon.findOneAndUpdate({
+                            _id: req.body.state.pantheon 
+                        }, {
+                            $set: { vote: true }
+                        })
+                        res.send("All the Votes are in")
+                    } else {
+                        console.log(findPantheon[0].battle.battleOne.playersWhoVoted.length)
+                    }
+                    // res.send("You have already voted in this battle")
                 } else {
                     const updateBattleTwoFighterOne = await db.Pantheon.findByIdAndUpdate({
                         _id: req.body.state.pantheon
                     }, {
                         $push: {"battle.battleTwo.votesForFighterOne" : req.params.username, "battle.battleTwo.playersWhoVoted" : req.params.username}
-                    })
+                    });
+
+                    if (findPantheon[0].battle.battleOne.playersWhoVoted.length === findPantheon[0].numOfPlayers - 2 && findPantheon[0].battle.battleTwo.playersWhoVoted.length === findPantheon[0].numOfPlayers - 2) {
+                        const updatePantheon = await db.Pantheon.findOneAndUpdate({
+                            _id: req.body.state.pantheon 
+                        }, {
+                            $set: { vote: true }
+                        })
+                        res.send("All the Votes are in")
+                    } 
 
                     res.send("Voted for Battle Two Fighter One")
                 }    
             } else if (findPantheon[0].battle.battleTwo.fighterTwo.username === req.body.fighter.username) {
                 if (findPantheon[0].battle.battleTwo.playersWhoVoted.includes(req.params.username)) {
+
+                    if (findPantheon[0].battle.battleOne.playersWhoVoted.length === findPantheon[0].numOfPlayers - 2 && findPantheon[0].battle.battleTwo.playersWhoVoted.length === findPantheon[0].numOfPlayers - 2) {
+                        const updatePantheon = await db.Pantheon.findOneAndUpdate({
+                            _id: req.body.state.pantheon 
+                        }, {
+                            $set: { vote: true }
+                        })
+                        res.send("All the Votes are in")
+                    } 
+
                     res.send("You have already voted in this battle")
                 } else {
                     const updateBattleTwoFighterTwo = await db.Pantheon.findByIdAndUpdate({
                         _id: req.body.state.pantheon
                     }, {
                         $push: {"battle.battleTwo.votesForFighterTwo" : req.params.username, "battle.battleTwo.playersWhoVoted" : req.params.username}
-                    })
+                    });
+
+                    if (findPantheon[0].battle.battleOne.playersWhoVoted.length === findPantheon[0].numOfPlayers - 2 && findPantheon[0].battle.battleTwo.playersWhoVoted.length === findPantheon[0].numOfPlayers - 2) {
+                        const updatePantheon = await db.Pantheon.findOneAndUpdate({
+                            _id: req.body.state.pantheon 
+                        }, {
+                            $set: { vote: true }
+                        })
+                        res.send("All the Votes are in")
+                    } 
 
                     res.send("Voted for Battle Two Fighter Two")
                 }    
 
             }
+
+        } catch (err) {
+            console.log(err)
+        }
+    },
+
+    getResults: async (req, res) => {
+
+        try {
+
+            const findUser = await db.User.find({ username: req.params.username });
+
+            const foundPantheon = [];
+
+            const response = [];
+
+            for (let i = 0; i < findUser[0].pantheon.length; i++) {
+                const findPantheon = await db.Pantheon.findById(findUser[0].pantheon[i]);
+                foundPantheon.push(findPantheon)
+            };
+
+            for (let i = 0; i < foundPantheon.length; i++) {
+                if (foundPantheon[i].accepted === true && foundPantheon[i].music === true && foundPantheon[i].vote === true && foundPantheon[i].final === false) {
+                    response.push(foundPantheon[i]);
+                }
+            };
+
+
+            for (let i = 0; i < response.length; i++) {
+                if (response[i].battle.battleOne.votesForFighterOne.length === response[i].battle.battleOne.votesForFighterTwo.length && response[i].battle.battleOne.winner === null) {
+                    const getShuffledArr = arr => {
+                        const newArr = arr.slice()
+                        for (let i = newArr.length - 1; i > 0; i--) {
+                            const rand = Math.floor(Math.random() * (i + 1));
+                            [newArr[i], newArr[rand]] = [newArr[rand], newArr[i]];
+                        }
+                        return newArr
+                    };
+
+                    const arr = [response[i].battle.battleOne.fighterOne.username, response[i].battle.battleOne.fighterTwo.username,]
+
+                    const shuffledArr = getShuffledArr(arr);
+
+                    const chooseWinner = await db.Pantheon.findOneAndUpdate({
+                        _id: response[i]._id
+                    },  {
+                        $set: { "battle.battleOne.winner": shuffledArr[0] }
+                    });
+
+                } else if (response[i].battle.battleTwo.votesForFighterOne.length === response[i].battle.battleTwo.votesForFighterTwo.length && response[i].battle.battleTwo.winner === null) {
+                    const getShuffledArr = arr => {
+                        const newArr = arr.slice()
+                        for (let i = newArr.length - 1; i > 0; i--) {
+                            const rand = Math.floor(Math.random() * (i + 1));
+                            [newArr[i], newArr[rand]] = [newArr[rand], newArr[i]];
+                        }
+                        return newArr
+                    };
+
+                    const arr = [response[i].battle.battleTwo.fighterOne.username, response[i].battle.battleTwo.fighterTwo.username,]
+
+                    const shuffledArr = getShuffledArr(arr);
+
+                    const chooseWinner = await db.Pantheon.findOneAndUpdate({
+                        _id: response[i]._id
+                    },  {
+                        $set: { "battle.battleTwo.winner": shuffledArr[0] }
+                    });
+                }
+            }
+
+            res.json(response)
+
 
         } catch (err) {
             console.log(err)
