@@ -800,9 +800,24 @@ module.exports = {
                 }
             }
 
-            await response.push(checkIfTie);
+            res.json(checkIfTie)
 
-            res.json(response)
+        } catch (err) {
+            console.log(err)
+        }
+    },
+
+    complete: async (req, res) => {
+
+        try {
+
+            const updatePantheon = await db.Pantheon.findOneAndUpdate({
+               _id: req.params.id
+            }, {
+                $set: {"completed" : true}
+            });
+
+            res.send("The Pantheon has been completed")
 
         } catch (err) {
             console.log(err)

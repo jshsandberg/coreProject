@@ -9,6 +9,7 @@ import Footer from "../components/Footer/Footer";
 import SpotifyPlayer from "react-spotify-player";
 import { TallyResults } from "../components/Functions/TallyResults";
 import { UserContext } from "../context/userContext";
+import { CompletePantheon } from "../components/Functions/CompletePantheon"
 
 
 
@@ -47,7 +48,7 @@ export default function FinalResultsPage({ location }) {
 
     const checkForCreator = async (user) => {
         if (location.state.creator === user.username) {
-            const CompletedPantheon = await CompletedPantheon(location.state._id)
+            const CompletedPantheon = await CompletePantheon(location.state._id)
         } else {
             console.log("not the creator")
         }

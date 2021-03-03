@@ -17,7 +17,7 @@ export default function ResultBox() {
     const {user, setUser} = useContext(UserContext);
     const [resultArr, setResultArr] = useState([]);
     const [finalResultArr, setFinalResultArr] = useState([]);
-    const [isLoading, setIsLoading] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
 
@@ -45,8 +45,8 @@ export default function ResultBox() {
                                 <>
                                     <Col key={i} align="center">
                                         <h1>Final</h1>
-                                        <h3>{item[0].category}</h3>
-                                        <Button onClick={() => history.push({pathname: "/finalResults", state: item[0]})}>See Results</Button>
+                                        <h3>{item.category}</h3>
+                                        <Button onClick={() => history.push({pathname: "/finalResults", state: item})}>See Results</Button>
                                     </Col>
                                 </>
                             )

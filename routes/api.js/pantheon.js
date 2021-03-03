@@ -17,6 +17,8 @@ router.route("/finalMusicChoice/:username").post(pantheonController.submitFinalB
 router.route("/finalVoting/:username").post(pantheonController.castFinalVote);
 router.route("/saveFinalVotes/:username").post(pantheonController.saveFinalVotes);
 router.route("/finalResults/:username").post(pantheonController.getFinalResults);
+router.route("/complete/:id").post(pantheonController.complete);
+
 
 
 

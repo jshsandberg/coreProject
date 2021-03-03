@@ -74,5 +74,8 @@ export default {
     },
     getFinalResults: function (username) {
       return axios.post("api/pantheon/finalResults/" + username)
+    },
+    completePantheon: function (pantheonId) {
+      return axios.post("api/pantheon/complete/" + pantheonId)
     }
 };

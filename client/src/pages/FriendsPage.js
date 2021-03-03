@@ -5,6 +5,7 @@ import { AddFriend } from "../components/Functions/AddFriend";
 import { UserContext } from "../context/userContext";
 import { GetFriends } from "../components/Functions/GetFriends";
 import Charcoal from "../utils/Media/Charcoal.jpg";
+import Footer from "../components/Footer/Footer";
 
 
 
@@ -19,6 +20,7 @@ export default function FriendsPage() {
         const foundFriends = async () => {
             // not sure if its user.id or user._id
             const arrFriends = await GetFriends(user.id);
+            console.log(arrFriends)
             await setFriendArr(arrFriends);
             await setIsLoading(false)
         }
@@ -63,7 +65,7 @@ export default function FriendsPage() {
                                             {friendArr.friends.map((item, i) => {
                                                 return (
                                                     <Row>
-                                                        <h3 >{item.friendsUsername[0]}</h3>
+                                                        <h3 >{item}</h3>
                                                     </Row>
                                                 )
                                             })}
@@ -80,6 +82,7 @@ export default function FriendsPage() {
                             </Col>
                         </Row>
                     </Container>
+                    <Footer />
                 </>
             }
         </>
