@@ -71,12 +71,15 @@ module.exports = {
                         },
                         votesForFighterOne: [],
                         votesForFighterTwo: [],
-                        playersWhoVoted: []
+                        playersWhoVoted: [],
+                        winner: null
                     },
                     accepted: false,
                     music: false,
                     vote: false,
                     final: false,
+                    finalMusic: false,
+                    finalVote: false,
                     completed: false
                 });
     
@@ -184,8 +187,8 @@ module.exports = {
             for (let i = 0; i < foundPantheons.length; i++) {
                 if (foundPantheons[i].accepted === true && foundPantheons[i].music === false) {
                     response.push(foundPantheons[i]);
-                }
-            }
+                } 
+            };
 
             res.json(response);
 
@@ -527,17 +530,282 @@ module.exports = {
         } catch (err) {
             console.log(err)
         }
+    },
+
+    createFinalBattle: async (req, res) => {
+        try{
+
+            console.log(req.body)
+
+            const findPantheon = await db.Pantheon.findById(req.params.id);
+
+            if (findPantheon.accepted === true && findPantheon.music === true && findPantheon.vote === true && findPantheon.final === false) {
+                const updatePantheon = await db.Pantheon.findByIdAndUpdate({
+                    _id: req.params.id
+                }, {
+                    $set: { "finalBattle.fighterOne.username" : req.body.battleOne.fighterOne === true ? findPantheon.battle.battleOne.fighterOne.username : findPantheon.battle.battleOne.fighterTwo.username },
+                    $set: { "finalBattle.fighterTwo.username" : req.body.battleTwo.fighterOne === true ? findPantheon.battle.battleTwo.fighterOne.username : findPantheon.battle.battleTwo.fighterTwo.username },
+                    $set: { "final" : true }
+                })
+            };
+
+            res.send("The Final Battle has been created")
+
+        } catch (err) {
+            console.log(err)
+        }
+    },
+
+    getFinalMusic: async (req, res) => {
+        try {
+
+            const findUser = await db.User.find({ username: req.params.username });
+
+            const foundPantheon = [];
+
+            const checkPantheon = [];
+
+            const response = [];
+
+            for (let i = 0; i < findUser[0].pantheon.length; i++) {
+                const findPantheon = await db.Pantheon.findById(findUser[0].pantheon[i])
+                foundPantheon.push(findPantheon)
+            };
+
+            for (let i = 0; i < foundPantheon.length; i++) {
+                if (foundPantheon[i].accepted === true && foundPantheon[i].music === true && foundPantheon[i].vote === true && foundPantheon[i].final === true && foundPantheon[i].finalMusic === false) {
+                    checkPantheon.push(foundPantheon[i])
+                }
+            }
+           
+
+            for (let i = 0; i < checkPantheon.length; i++) {
+                if (checkPantheon[i].finalBattle.fighterOne.username === req.params.username || checkPantheon[i].finalBattle.fighterTwo.username === req.params.username) {
+                    response.push(checkPantheon[i])
+                }
+            };
+
+            res.json(response)
+
+        } catch (err) {
+            console.log(err)
+        }
+    },
+
+    submitFinalBattle: async (req, res) => {
+        try {
+
+
+            const findPantheon = await db.Pantheon.findById(req.body.pantheonId);
+
+            if (findPantheon.finalBattle.fighterOne.username === req.params.username) {
+                if (findPantheon.finalBattle.fighterOne.music === null && findPantheon.finalBattle.fighterTwo.music !== null) {
+                    const updatePantheonStatus = await db.Pantheon.findOneAndUpdate({
+                        _id: findPantheon._id 
+                        }, {
+                            $set: {"finalMusic" : true}
+                        });
+
+                        res.send("Updated Figher One. All choices have been selected")
+                }
+            
+                if (findPantheon.finalBattle.fighterOne.music === null) {
+                    const updatePantheonFighterOne = await db.Pantheon.findOneAndUpdate({
+                    _id: findPantheon._id 
+                    }, {
+                        $set: {"finalBattle.fighterOne.music" : req.body.item}
+                    });
+
+                    res.send("Updated Fighter One")
+                }    
+                 
+
+            } else if (findPantheon.finalBattle.fighterTwo.username === req.params.username) {
+                
+                if (findPantheon.finalBattle.fighterOne.music !== null && findPantheon.finalBattle.fighterTwo.music === null) {
+                    const updatePantheonStatus = await db.Pantheon.findOneAndUpdate({
+                        _id: findPantheon._id 
+                        }, {
+                            $set: {"finalMusic" : true}
+                        });
+
+                        res.send("Updated Figher Two. All choices have been selected")
+
+                } 
+                if (findPantheon.finalBattle.fighterTwo.music === null) {
+                    const updatePantheonFighterOne = await db.Pantheon.findOneAndUpdate({
+                        _id: findPantheon._id 
+                    }, {
+                        $set: {"finalBattle.fighterTwo.music" : req.body.item}
+                    });
+
+                    res.send("Updated Fighter Two")
+
+
+                } else {
+                    res.send("You have already submitted a song")
+                }
+            }
+
+        } catch (err) {
+            console.log(err)
+        }
+    },
+
+    castFinalVote: async (req, res) => {
+        try {
+
+            const foundPantheon = [];
+
+            const response = [];
+
+            const finalResponse = [];
+
+            const findUser = await db.User.find({ username: req.params.username });
+
+            for (let i = 0; i < findUser[0].pantheon.length; i++) {
+                const findPantheon = await db.Pantheon.find({ _id: findUser[0].pantheon[i]})
+                foundPantheon.push(findPantheon[0])
+            };
+
+            for (let i = 0; i < foundPantheon.length; i++) {
+                if (foundPantheon[i].accepted === true && foundPantheon[i].music === true && foundPantheon[i].vote === true && foundPantheon[i].final === true && foundPantheon[i].finalMusic === true && foundPantheon[i].finalVote === false) {
+                    response.push(foundPantheon[i])
+                }
+            }
+
+            for (let i = 0; i < response.length; i++) {
+                if (response[i].finalBattle.fighterOne.username === req.params.username) {
+                } else if (response[i].finalBattle.fighterTwo.username === req.params.username) {
+
+                } else {
+                    finalResponse.push(response[i])
+
+                }
+
+            }
+
+            res.json(finalResponse)
+
+
+        } catch (err) {
+            console.log(err)
+        }
+    },
+
+    saveFinalVotes: async (req, res) => {
+        try {
+
+
+
+            const findPantheon = await db.Pantheon.findById(req.body.pantheonId);
+
+            if (findPantheon.finalBattle.playersWhoVoted.includes(req.params.username)){
+
+                res.send("You already Voted")
+
+            } else if (findPantheon.finalBattle.fighterOne.username === req.body.fighter) {
+                if (findPantheon.finalBattle.playersWhoVoted.length === 1) {
+                    const updatePantheon = await db.Pantheon.findByIdAndUpdate({
+                        _id: req.body.pantheonId
+                    }, {
+                        $push: {"finalBattle.playersWhoVoted" : req.params.username, "finalBattle.votesForFighterOne" : req.params.username},
+                        $set: { "finalVote" : true }
+                    });
+                    
+                    res.send("All the Votes are in!")
+
+                } else {
+                    const updatePantheon = await db.Pantheon.findByIdAndUpdate({
+                        _id: req.body.pantheonId
+                    }, {
+                        $push: {"finalBattle.playersWhoVoted" : req.params.username, "finalBattle.votesForFighterOne" : req.params.username},
+                    });
+                }
+
+                res.send("Voted for Fighter One")
+
+            } else if (findPantheon.finalBattle.fighterTwo.username === req.body.fighter) {
+                if (findPantheon.finalBattle.playersWhoVoted.length === 1) {
+                    const updatePantheon = await db.Pantheon.findByIdAndUpdate({
+                        _id: req.body.pantheonId
+                    }, {
+                        $push: {"finalBattle.playersWhoVoted" : req.params.username, "finalBattle.votesForFighterTwo" : req.params.username},
+                        $set: { "finalVote" : true }
+                    });
+                    
+                    res.send("All the Votes are in!")
+
+                } else {
+                    const updatePantheon = await db.Pantheon.findByIdAndUpdate({
+                        _id: req.body.pantheonId
+                    }, {
+                        $push: {"finalBattle.playersWhoVoted" : req.params.username, "finalBattle.votesForFighterTwo" : req.params.username},
+                      
+                    });
+                }
+
+                res.send("Voted for Fighter Two")
+            }
+            
+        } catch (err) {
+            console.log(err)
+        }
+    },
+
+    getFinalResults: async (req, res) => {
+
+        try {
+
+            const foundPantheon= [];
+
+            const checkIfTie = [];
+
+            const response = [];
+
+            const findUser = await db.User.find({ username: req.params.username });
+
+            for (let i = 0; i < findUser[0].pantheon.length; i++) {
+                const findPantheon = await db.Pantheon.findById(findUser[0].pantheon[i]);
+                foundPantheon.push(findPantheon)
+            };
+
+            for (let i = 0; i < foundPantheon.length; i++) {
+                if (foundPantheon[i].accepted === true && foundPantheon[i].music === true && foundPantheon[i].vote === true && foundPantheon[i].final === true && foundPantheon[i].finalMusic === true && foundPantheon[i].finalVote === true && foundPantheon[i].completed === false) {
+                    checkIfTie.push(foundPantheon[i]);
+                }
+            };
+
+            for (let i = 0; i < checkIfTie.length; i++) {
+                if (checkIfTie[i].finalBattle.votesForFighterOne.length === checkIfTie[i].finalBattle.votesForFighterTwo.length && checkIfTie[i].finalBattle.winner === null) {
+
+                    const getShuffledArr = arr => {
+                        const newArr = arr.slice()
+                        for (let i = newArr.length - 1; i > 0; i--) {
+                            const rand = Math.floor(Math.random() * (i + 1));
+                            [newArr[i], newArr[rand]] = [newArr[rand], newArr[i]];
+                        }
+                        return newArr
+                    };
+
+                    const finalArr = [checkIfTie[i].finalBattle.fighterOne.username, checkIfTie[i].finalBattle.fighterTwo.username];
+
+                    const shuffledArr = getShuffledArr(finalArr);
+
+                    const updatePantheonWinner = await db.Pantheon.findByIdAndUpdate({
+                        _id: checkIfTie[i]._id
+                    }, {
+                        $set: { "finalBattle.winner" : shuffledArr[0] }
+                    })
+                }
+            }
+
+            await response.push(checkIfTie);
+
+            res.json(response)
+
+        } catch (err) {
+            console.log(err)
+        }
     }
-    //  Find with no requirements
-    // find: async (req, res) => {
-    //     try {
-
-    //         const foundPantheon = await db.Pantheon.find({ players: req.params.username });
-
-    //         res.json(foundPantheon)
-
-    //     } catch (err) {
-    //         console.log(err)
-    //     }
-    // }
 }

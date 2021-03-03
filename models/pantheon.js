@@ -44,6 +44,14 @@ const pantheonSchema = new Schema({
     type: Boolean
   },
 
+  finalMusic: {
+    type: Boolean
+  },
+
+  finalVote: {
+    type: Boolean
+  },
+
   completed: {
     type: Boolean
   }

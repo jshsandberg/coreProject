@@ -7,6 +7,7 @@ import Col from 'react-bootstrap/esm/Col';
 import { GetVotingPantheon } from "../Functions/GetVotingPantheon";
 import { UserContext } from "../../context/userContext";
 import { FilterData } from "../Functions/FilterData";
+import { GetFinalVotingPantheon } from "../Functions/GetFinalVotingPantheon";
 
 
 export default function VoteBox() {
@@ -16,13 +17,15 @@ export default function VoteBox() {
     const {user, setUser} = useContext(UserContext);
     const [votingArr, setVotingArr] = useState([]);
     const [isLoading, setIsLoading] = useState([]);
+    const [finalVotingArr, setFinalVotingArr] = useState([]);
 
 
     useEffect(() => {
         
         const votingPantheon = async () => {
             const foundVotingPantheon = await GetVotingPantheon(user);
-            // await setVotingArr(foundVotingPantheon);
+            const foundFinalVotingPantheon = await GetFinalVotingPantheon(user);
+            await setFinalVotingArr(foundFinalVotingPantheon);
             const filteredData = await FilterData(foundVotingPantheon, user.username);
             await setVotingArr(filteredData)
             await setIsLoading(false)
@@ -38,6 +41,25 @@ export default function VoteBox() {
             {!isLoading &&
                 <Container style={{borderStyle: "solid", boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)", backgroundColor: "white"}}>
                     <Row>
+                    {finalVotingArr.map((item, i) => {
+                            console.log(item)
+                                return (
+                                    <>
+                                        <Col align="center" key={i}>
+                                            <h1>Final</h1>
+                                            <h3>{item[0].finalBattle.fighterOne.username} vs {item[0].finalBattle.fighterTwo.username}</h3>
+                                            <Button onClick={() => {
+                                                const obj = {
+                                                    state: item[0].finalBattle,
+                                                    pantheon: item[0]._id,
+                                                    final: true
+                                                }
+                                                history.push({pathname: "/voting", state: obj})}}>Vote</Button>
+                                        </Col>
+                                    </>
+                                )
+                            }
+                        )}
                         {votingArr.map((item, i) => {
                             console.log(item)
                                 return (
@@ -47,24 +69,14 @@ export default function VoteBox() {
                                             <Button onClick={() => {
                                                 const obj = {
                                                     state: item.battle,
-                                                    pantheon: item.pantheon
+                                                    pantheon: item.pantheon,
+                                                    final: false
                                                 }
                                                 history.push({pathname: "/voting", state: obj})}}>Vote</Button>
                                         </Col>
                                     </>
                                 )
                             }
-                        
-                            // item.battle.map((battle, i) => {
-                            //     return (
-                            //         <>
-                            //             <Col key={i} align="center">
-                            //                 <h3>{battle.fighter1.username} vs {battle.fighter2.username}</h3>
-                            //                 <Button onClick={() => history.push({pathname: "/voting", state: item})}>Vote</Button>
-                            //             </Col>
-                            //         </>
-                            //     )
-                            // })
                         )}
                     </Row>
                 </Container>

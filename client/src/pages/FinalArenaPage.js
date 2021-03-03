@@ -10,12 +10,12 @@ import TwoMan from "../components/Tounament/TwoMan";
 import ChallengeSearchBar from "../components/SearchBar/ChallengeSearchBar";
 import SearchMusic from "../components/Arena/SearchMusic";
 import { UserContext } from "../context/userContext";
-import { SubmitBattle } from "../components/Functions/SubmitBattle";
+import { SubmitFinalBattle } from "../components/Functions/SubmitFinalBattle";
 import { FindBattle } from "../components/Functions/FindBattle";
 
 
 
-export default function ArenaPage({ location }) {
+export default function FinalArenaPage({ location }) {
 
 
     const {user, setUser} = useContext(UserContext);
@@ -27,13 +27,16 @@ export default function ArenaPage({ location }) {
 
         console.log(location.state)
 
-        const promise = async () => {
-            const check = await FindBattle(user.username, location.state);
-            await setBattle(check);
-            // await setIsLoading(false);
-        };
+        // const promise = async () => {
+        //     const check = await FindBattle(user.username, location.state);
+        //     await setBattle(check);
+        //     await setIsLoading(false);
+        // };
 
-        promise()
+        // promise()
+
+        setIsLoading(false);
+
 
     }, [])
 
@@ -43,7 +46,7 @@ export default function ArenaPage({ location }) {
     }, []);
 
     const submitBattle = async (item, user, pantheonId) => {
-        const battle = await SubmitBattle(item.slice(-1)[0], user, pantheonId);
+        const battle = await SubmitFinalBattle(item.slice(-1)[0], user, pantheonId);
     }
 
     return (
@@ -79,7 +82,7 @@ export default function ArenaPage({ location }) {
                                 <br></br>
                                 <br></br>
 
-                                <TwoMan childData={childData} battle={battle}/>
+                                <TwoMan childData={childData} battle={location.state.finalBattle}/>
                             </Col>
                             <Col>
                             

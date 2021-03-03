@@ -11,6 +11,18 @@ router.route("/battle/:username").post(pantheonController.submitBattle);
 router.route("/voting/:username").post(pantheonController.castVote);
 router.route("/saveVotes/:username").post(pantheonController.saveVotes);
 router.route("/results/:username").post(pantheonController.getResults);
+router.route("/finalBattle/:id").post(pantheonController.createFinalBattle);
+router.route("/finalMusic/:username").post(pantheonController.getFinalMusic);
+router.route("/finalMusicChoice/:username").post(pantheonController.submitFinalBattle);
+router.route("/finalVoting/:username").post(pantheonController.castFinalVote);
+router.route("/saveFinalVotes/:username").post(pantheonController.saveFinalVotes);
+router.route("/finalResults/:username").post(pantheonController.getFinalResults);
+
+
+
+
+
+
 
 
 

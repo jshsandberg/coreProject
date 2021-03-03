@@ -9,6 +9,7 @@ import SpotifyPlayer from "react-spotify-player";
 import Footer from "../components/Footer/Footer";
 import { SaveVotes } from "../components/Functions/SaveVotes";
 import { UserContext } from "../context/userContext";
+import { SaveFinalVotes } from "../components/Functions/SaveFinalVotes";
 
 
 
@@ -16,9 +17,6 @@ import { UserContext } from "../context/userContext";
 export default function VotingPage({ location }) {
 
     const {user, setUser} = useContext(UserContext);
-
-
-    console.log(location)
 
     return (
         <>
@@ -37,7 +35,7 @@ export default function VotingPage({ location }) {
                             <br></br>
                             <Row>
                                 <Col align="center">
-                                    <Button onClick={() => SaveVotes(location.state.state.fighterOne, location.state, user.username)}>Vote for {location.state.state.fighterOne.username}</Button>
+                                    {location.state.final === true ? <Button onClick={() => SaveFinalVotes(location.state.state.fighterOne.username, location.state.pantheon, user.username)}>Vote for {location.state.state.fighterOne.username}</Button> : <Button onClick={() => SaveVotes(location.state.state.fighterOne, location.state, user.username)}>Vote for {location.state.state.fighterOne.username}</Button>}
                                 </Col>
                             </Row>
                         </Container>
@@ -52,7 +50,7 @@ export default function VotingPage({ location }) {
                             <br></br>
                             <Row>
                                 <Col align="center">
-                                    <Button onClick={() => SaveVotes(location.state.state.fighterTwo, location.state, user.username)}>Vote for {location.state.state.fighterTwo.username}</Button>
+                                {location.state.final === true ? <Button onClick={() => SaveFinalVotes(location.state.state.fighterTwo.username, location.state.pantheon, user.username)}>Vote for {location.state.state.fighterTwo.username}</Button> : <Button onClick={() => SaveVotes(location.state.state.fighterTwo, location.state, user.username)}>Vote for {location.state.state.fighterTwo.username}</Button>}
                                 </Col>
                             </Row>
                         </Container>

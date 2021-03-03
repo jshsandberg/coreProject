@@ -56,5 +56,23 @@ export default {
     },
     getResults: function (username) {
       return axios.post("api/pantheon/results/" + username)
+    },
+    createFinalBattle: function (id, battle) {
+      return axios.post("api/pantheon/finalBattle/" + id, battle)
+    },
+    getFinalMusic: function (username) {
+      return axios.post("api/pantheon/finalMusic/" + username)
+    },
+    submitFinalBattle: function (obj, username) {
+      return axios.post("api/pantheon/finalMusicChoice/" + username, obj)
+    },
+    getFinalVotingPantheon: function (username) {
+      return axios.post("api/pantheon/finalVoting/" + username);
+    },
+    saveFinalVotes: function (obj, username) {
+      return axios.post("api/pantheon/saveFinalVotes/" + username, obj)
+    },
+    getFinalResults: function (username) {
+      return axios.post("api/pantheon/finalResults/" + username)
     }
 };
