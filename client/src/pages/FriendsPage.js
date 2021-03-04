@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import Header from "../components/Header/Header";
 import { AddFriend } from "../components/Functions/AddFriend";
@@ -16,6 +17,9 @@ import Alert from 'react-bootstrap/Alert'
 
 export default function FriendsPage() {
 
+    const history = useHistory();
+
+
     const {user, setUser} = useContext(UserContext);
     const [value, setValue] = useState(null);
     const [friendArr, setFriendArr] = useState({});
@@ -30,7 +34,12 @@ export default function FriendsPage() {
             await setFriendArr(arrFriends);
             await setIsLoading(false)
         }
+
+        if (user === null || user === undefined) {
+            history.push({pathname: "/"})
+        } else {
         foundFriends();
+        }
     }, [rerender])
 
    
@@ -48,7 +57,7 @@ export default function FriendsPage() {
             {!isLoading &&
                 <>
                     <Header />
-                    <Container fluid style={{backgroundImage: `url(${Charcoal})`, position: "fixed", top: "18%", height: "100%"}}>
+                    <Container fluid style={{backgroundImage: `url(${Charcoal})`}}>
                         <Row>
                             <Col>
                             <br></br>

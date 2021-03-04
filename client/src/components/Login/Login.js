@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState, } from "react";
+import React, { useContext, useState, } from "react";
 import { useHistory } from "react-router-dom";
 import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/esm/Container';
@@ -27,13 +27,17 @@ function Login() {
 		setValues({ ...values, [name]: value });
     };
 
-    useEffect(() => {
-        if (user && user.msg === undefined) {
-            history.push({pathname: "/home"})
-        } else if (user && user.msg !== undefined) {
-            setError(user.msg)
+
+    const getUserLogin = async () => {
+        const getUser = await getUserData(values); 
+        if (typeof getUser !== "string") {
+            console.log(getUser)
+            await setUser(getUser.user)
+            await history.push({pathname: "/home"})
+        } else {
+            setError(getUser)
         }
-    }, [user])
+    }
     
 
     return (
@@ -78,7 +82,7 @@ function Login() {
                         <Row>
                             <Col xs={4}></Col>
                             <Col>
-                                <Button style={{background: "#db3d44", borderColor: "#db3d44"}} onClick={async () => { const getUser = await getUserData(values); await setUser(getUser.user) }}>Login</Button>
+                                <Button style={{background: "#db3d44", borderColor: "#db3d44"}} onClick={async () => getUserLogin()}>Login</Button>
                             </Col>
                             <Col xs={4}></Col>
                         </Row>

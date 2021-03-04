@@ -1,4 +1,5 @@
 import React, { useCallback, useState, useContext, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import Header from "../components/Header/Header";
 import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/esm/Row';
@@ -20,6 +21,9 @@ import Alert from 'react-bootstrap/Alert';
 
 export default function ArenaPage({ location }) {
 
+    const history = useHistory();
+
+
 
     const {user, setUser} = useContext(UserContext);
     const [battle, setBattle] = useState({});
@@ -29,7 +33,6 @@ export default function ArenaPage({ location }) {
 
     useEffect(() => {
 
-        console.log(location.state)
 
         const promise = async () => {
             const check = await FindBattle(user.username, location.state);
@@ -37,7 +40,12 @@ export default function ArenaPage({ location }) {
             await setIsLoading(false);
         };
 
-        promise()
+        if (user === null || user === undefined) {
+            history.push({pathname: "/"})
+        } else {
+
+            promise()
+        }
 
     }, [])
 

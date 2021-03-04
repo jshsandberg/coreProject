@@ -61,11 +61,11 @@ export default function VoteBox() {
                                     <>
                                         <Col align="center" key={i}>
                                             <h1>Final</h1>
-                                            <h3>{item[0].finalBattle.fighterOne.username} vs {item[0].finalBattle.fighterTwo.username}</h3>
+                                            <h3>{item.finalBattle.fighterOne.username} vs {item.finalBattle.fighterTwo.username}</h3>
                                             <Button onClick={() => {
                                                 const obj = {
-                                                    state: item[0].finalBattle,
-                                                    pantheon: item[0]._id,
+                                                    state: item.finalBattle,
+                                                    pantheon: item._id,
                                                     final: true
                                                 }
                                                 history.push({pathname: "/voting", state: obj})}}>Vote</Button>

@@ -15,25 +15,6 @@ function LoginPage() {
             <Container fluid style={{backgroundImage: `url(${Charcoal})`, paddingRight: "0px", paddingLeft: "0px"}}>
                 <Header />
                 <Login />
-                <br></br>
-                <br></br>
-                <br></br>
-                <br></br>
-                <br></br>
-                <br></br>
-                <br></br>
-                <br></br>
-                <br></br>
-                <br></br>
-                <br></br>
-                <br></br>
-                <br></br>
-                <br></br>
-                <br></br>
-                <br></br>
-                <br></br>
-                <br></br>
-                <br></br>
                 <Footer />
             </Container>
        

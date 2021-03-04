@@ -1,4 +1,5 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 import SideNavBar from "../components/NavBar/SideNav";
 import SearchBar from "../components/SearchBar/SearchBar";
@@ -21,7 +22,23 @@ import Footer from "../components/Footer/Footer";
 
 function MediaPage(props) {
 
+    const history = useHistory();
+
+
     const {user, setUser} = useContext(UserContext);
+
+    const [isLoading, setIsLoading] = useState(true);
+
+    
+    useEffect(() => {
+
+            if (user === null || user === undefined) {
+                history.push({pathname: "/"})
+            } else {
+                setIsLoading(false)
+            }
+      
+    }, []);
 
     const buttonStyle = {
         float: "right", 
@@ -32,6 +49,8 @@ function MediaPage(props) {
 
     return (
         <>
+        {!isLoading &&
+            <>
             <Header />
             <Container fluid style={{backgroundImage: `url(${Charcoal})`}}>
                 <Container fluid>
@@ -46,10 +65,14 @@ function MediaPage(props) {
                         </Col>
                         <Col>
                             <br></br>
-                            {user === undefined &&
+                            {user === undefined ?
                                 <>
                                     <Link to="/login"><Button style={buttonStyle}>Login</Button></Link>
                                     <Link to="/signup"><Button style={buttonStyle}>Sign Up</Button></Link>
+                                </>
+                                :
+                                <>
+                                    <h3>{user.username}</h3>
                                 </>
                             }
                         </Col>
@@ -65,6 +88,8 @@ function MediaPage(props) {
                 <br></br>
             </Container>
             <Footer />
+        </>
+}
         </>
     )
 };

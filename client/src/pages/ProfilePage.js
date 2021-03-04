@@ -1,4 +1,5 @@
-import React, {useContext} from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { useHistory } from "react-router-dom";
 import { Col, Container, Row } from "react-bootstrap";
 import Header from "../components/Header/Header";
 import { UserContext } from "../context/userContext";
@@ -8,13 +9,28 @@ import Charcoal from "../utils/Media/Charcoal.jpg";
 
 export default function ProfilePage() {
 
+    const history = useHistory();
+
+
     const {user, setUser} = useContext(UserContext);
 
-    console.log(user)
+    const [isLoading, setIsLoading] = useState(true);
+
+
+    useEffect(() => {
+            if (user === null || user === undefined) {
+                history.push({pathname: "/"})
+            } else {
+            
+           setIsLoading(false)
+            };
+    }, []);
 
 
     return (
         <>
+          {!isLoading &&
+            <>
             <Header />
             <Container fluid style={{backgroundImage: `url(${Charcoal})`}}>
                 <Row>
@@ -53,5 +69,7 @@ export default function ProfilePage() {
                 </Row>
             </Container>
         </>
+}
+</>
     )
 }

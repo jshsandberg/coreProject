@@ -1,4 +1,5 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 // import SideNavBar from "../components/NavBar/SideNav";
 import Container from 'react-bootstrap/esm/Container';
@@ -22,13 +23,8 @@ import "./WelcomePage.css";
 
 function WelcomePage() {
 
-    // const [spotifySelector, setSpotifySelector] = useState("new-releases");
-    // const [spotifySearchTitle, setSpotifySearchTitle] = useState("New Releases")
-
-    // const bottomBorder = {
-    //     borderBottom: "double",
-    //     borderColor: "#db3d44"
-    // }
+ 
+    const history = useHistory();
 
 
     const buttonStyle = {
@@ -69,7 +65,7 @@ function WelcomePage() {
                             <h1 style={{color: "white"}}>Head to Head competitions to see which songs are good and which suck</h1>
                         </div>
                         <br></br>
-                            <Button style={{background: "#db3d44", borderColor: "#db3d44"}}>Get Started</Button>
+                            <Button onClick={() => history.push({pathname: "/signup"})} style={{background: "#db3d44", borderColor: "#db3d44"}}>Get Started</Button>
                     </Col>
                     <Col xs={6}>
                         <ReactPlayer 

@@ -9,8 +9,8 @@ export const getUserData = async (values) => {
         const foundUser = {}
 
         if (values === null) {
-            foundUser["user"] =  { msg: "Not all fields have been entered" };
-            console.log("ere")
+            foundUser["user"] =  "Not all fields have been entered";
+            console.log("values")
             return foundUser.user 
         } else {
 
@@ -26,8 +26,6 @@ export const getUserData = async (values) => {
                 foundUser["user"] = res.data;
                 localStorage.setItem("auth-token", res.data.token)
             });
-
-            console.log(foundUser)
 
             return foundUser.user;
         }

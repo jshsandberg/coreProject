@@ -24,11 +24,15 @@ export default function PantheonPage() {
         category: null
     });
     const [arenaArr, setArenaArr] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+
 
     useEffect(() => {
-        if (user === null) {
+        if (user === null || user === undefined) {
             history.push({pathname: "/"})
-        };
+        } else {
+            setIsLoading(false);
+        }
 
     }, [arenaInfo, arenaArr])
 
@@ -50,6 +54,8 @@ export default function PantheonPage() {
     
     return (
         <>
+            {!isLoading &&
+            <>
             <Header />
             <Container fluid style={{backgroundImage: `url(${Charcoal})`, position: "fixed", top: "12%", height: "100%"}}>
                 <br></br>
@@ -72,5 +78,7 @@ export default function PantheonPage() {
             </Container>
             <Footer />
         </>
+}
+</>
     )
 };

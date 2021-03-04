@@ -31,7 +31,8 @@ function HomePage() {
         const checkPantheon = async () => {
 
             if (user === null || user === undefined) {
-                history.push({pathname: "/"})
+                console.log(user)
+                // history.push({pathname: "/"})
             } else {
                 const gotPantheon = await GetPantheon(user.username);
                 await setPantheonData(gotPantheon)
@@ -119,7 +120,7 @@ function HomePage() {
                     </Container>
                 }
             </Container>
-            {/* <Footer /> */}
+            <Footer />
             </Container>
             </>
             }

@@ -5,12 +5,24 @@ export const SubmitFinalBattle = async (item, user, pantheonId) => {
 
     try {
 
-        const obj = {
-            pantheonId: pantheonId,
-            item: item
-        }
+        const response = {};
 
-        await API.submitFinalBattle(obj, user.username).then(res => console.log(res))
+        if (item !== undefined) {
+            const obj = {
+                pantheonId: pantheonId,
+                item: item
+            }
+    
+            await API.submitFinalBattle(obj, user.username).then(res => {
+                response["res"] = res.data;
+            });
+
+            return response.res
+
+        } else {
+            response["res"] = "You much choose a song";
+            return response.res
+        }
 
     } catch (err) {
         console.log(err)

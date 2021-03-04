@@ -815,7 +815,19 @@ module.exports = {
             };
 
             for (let i = 0; i < checkIfTie.length; i++) {
-                if (checkIfTie[i].finalBattle.votesForFighterOne.length === checkIfTie[i].finalBattle.votesForFighterTwo.length && checkIfTie[i].finalBattle.winner === null) {
+                if (checkIfTie[i].finalBattle.votesForFighterOne.length > checkIfTie[i].finalBattle.votesForFighterTwo.length) {
+                    const updatePantheonWinner = await db.Pantheon.findByIdAndUpdate({
+                        _id: checkIfTie[i]._id
+                    }, {
+                        $set: { "finalBattle.winner" : checkIfTie[i].finalBattle.fighterOne.username }
+                    })
+                } else if (checkIfTie[i].finalBattle.votesForFighterOne.length < checkIfTie[i].finalBattle.votesForFighterTwo.length) {
+                    const updatePantheonWinner = await db.Pantheon.findByIdAndUpdate({
+                        _id: checkIfTie[i]._id
+                    }, {
+                        $set: { "finalBattle.winner" : checkIfTie[i].finalBattle.fighterTwo.username }
+                    })
+                } else if (checkIfTie[i].finalBattle.votesForFighterOne.length === checkIfTie[i].finalBattle.votesForFighterTwo.length && checkIfTie[i].finalBattle.winner === null) {
 
                     const getShuffledArr = arr => {
                         const newArr = arr.slice()

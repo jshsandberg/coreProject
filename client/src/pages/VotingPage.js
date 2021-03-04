@@ -1,4 +1,5 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import Header from "../components/Header/Header";
 import Charcoal from "../utils/Media/Charcoal.jpg";
 import Container from 'react-bootstrap/esm/Container';
@@ -18,12 +19,28 @@ import Alert from 'react-bootstrap/Alert';
 
 export default function VotingPage({ location }) {
 
+    const history = useHistory();
+
+
     const {user, setUser} = useContext(UserContext);
 
-    const [alert, setAlert] = useState(null)
+    const [alert, setAlert] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
+
+
+    useEffect(() => {
+
+            if (user === null || user === undefined) {
+                history.push({pathname: "/"})
+            } else {
+                setIsLoading(false)
+            }
+    }, []);
 
     return (
         <>
+         {!isLoading &&
+            <>
             <Header />
             <Container fluid style={{backgroundImage: `url(${Charcoal})`}}>
                 <br></br>
@@ -74,5 +91,7 @@ export default function VotingPage({ location }) {
             </Container>
             <Footer />
         </>
+}
+</>
     )
 }

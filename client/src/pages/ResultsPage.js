@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { useHistory } from "react-router-dom";
 import Header from "../components/Header/Header";
 import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/esm/Row';
@@ -9,26 +10,38 @@ import Footer from "../components/Footer/Footer";
 import SpotifyPlayer from "react-spotify-player";
 import { TallyResults } from "../components/Functions/TallyResults";
 import { CreateFinalBattle } from "../components/Functions/CreateFinalBattle";
+import { UserContext } from "../context/userContext";
+
 
 
 export default function ResultsPage({ location }) {
 
+    const history = useHistory();
+
+
+    const {user, setUser} = useContext(UserContext);
+    const [isLoading, setIsLoading] = useState(true);
 
 
     useEffect(() => {
 
         const findResults = async () => {
-
             await CreateFinalBattle(location.state._id)
-
+            await setIsLoading(false)
         };
 
-        findResults()
+        if (user === null || user === undefined) {
+            history.push({pathname: "/"})
+        } else {
+            findResults()
+        }
 
     }, []);
 
     return (
         <>
+         {!isLoading &&
+            <>
                   <Header />
             <Container fluid style={{backgroundImage: `url(${Charcoal})`}}>
                 <br></br>
@@ -109,5 +122,7 @@ export default function ResultsPage({ location }) {
             </Container>
             <Footer />
         </>
+}
+</>
     )
 }

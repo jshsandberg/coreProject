@@ -4,7 +4,11 @@ export const CompletePantheon = async (pantheonId) => {
 
     try {
 
-        await API.completePantheon(pantheonId).then(res => console.log(res))
+        const response = {}
+
+        await API.completePantheon(pantheonId).then(res => response["res"] = res.data)
+
+        return response.res
 
     } catch (err) {
         console.log(err)

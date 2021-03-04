@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 // import Header from "../components/Header/Header";
 // import HomeNavBar from "../components/NavBar/HomeNavBar";
 import Review from "../components/Review/Review";
@@ -13,9 +14,25 @@ import Footer from "../components/Footer/Footer";
 
 function ReviewPage(props) {
 
+    const history = useHistory();
+
+    const [isLoading, setIsLoading] = useState(true);
+
+    console.log(props)
+
+    useEffect(() => {
+        if (props.location.state === null || props.location.state === undefined) {
+            history.push({pathname: "/"})
+        } else {
+            setIsLoading(false)
+        }
+    }, []);
+
 
     return (
         <>
+         {!isLoading &&
+            <>
             <Header />
             <Container fluid style={{backgroundImage: `url(${Charcoal})`}}>
                 <Review item={props.location.state} />
@@ -24,7 +41,8 @@ function ReviewPage(props) {
                 <br></br>
             </Container>
             <Footer />
-       
+       </>
+}
           
     
         </>

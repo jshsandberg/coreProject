@@ -1,4 +1,5 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import Header from "../components/Header/Header";
 import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/esm/Row';
@@ -7,50 +8,42 @@ import Col from 'react-bootstrap/esm/Col';
 import Charcoal from "../utils/Media/Charcoal.jpg";
 import Footer from "../components/Footer/Footer";
 import SpotifyPlayer from "react-spotify-player";
-import { TallyResults } from "../components/Functions/TallyResults";
 import { UserContext } from "../context/userContext";
-import { CompletePantheon } from "../components/Functions/CompletePantheon"
+import { CompletePantheon } from "../components/Functions/CompletePantheon";
+import Alert from 'react-bootstrap/Alert';
+
 
 
 
 export default function FinalResultsPage({ location }) {
 
+    const history = useHistory();
+
+
     const {user, setUser} = useContext(UserContext);
 
+    const [alert, setAlert] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
 
-    const [battleOne, setBattleOne] = useState({
-        fighterOne: null,
-        fighterTwo: null
-    });
-
-    const [battleTwo, setBattleTwo] = useState({
-        fighterOne: null,
-        fighterTwo: null
-    });
 
     useEffect(() => {
 
-        const findResults = async () => {
+        if (user === null || user === undefined) {
+            history.push({pathname: "/"})
+        } else { 
+            setIsLoading(false)
+        }
+
+    }, [])
 
 
-            const talliedResultsOne = await TallyResults(location.state.battle.battleOne);
-            const talliedResultsTwo = await TallyResults(location.state.battle.battleTwo);
-
-
-            await setBattleOne(talliedResultsOne);
-
-            await setBattleTwo(talliedResultsTwo)
-        };
-
-        findResults()
-
-    }, []);
 
     const checkForCreator = async (user) => {
         if (location.state.creator === user.username) {
-            const CompletedPantheon = await CompletePantheon(location.state._id)
+            const CompletedPantheon = await CompletePantheon(location.state._id);
+            await setAlert(CompletedPantheon)
         } else {
-            console.log("not the creator")
+            setAlert("Only the creator of the Pantheon can complete it")
         }
     } 
 
@@ -59,8 +52,10 @@ export default function FinalResultsPage({ location }) {
 
     return (
         <>
+         {!isLoading &&
+            <>
             <Header />
-            <Container fluid style={{backgroundImage: `url(${Charcoal})`, position: "fixed", top: "18%", height: "100%"}}>
+            <Container fluid style={{backgroundImage: `url(${Charcoal})`}}>
                 <br></br>
                 <Row>
                   <Col align="center" xs={4}>
@@ -72,7 +67,7 @@ export default function FinalResultsPage({ location }) {
                             <Col>
                                 <h3>{location.state.battle.battleOne.fighterOne.username}</h3>
                                 <br></br>
-                                {battleOne.fighterOne === true ? <h3>WINNER</h3> : <h3>Loser</h3>}
+                                {location.state.battle.battleOne.winner === location.state.battle.battleOne.fighterOne.username ? <h3>WINNER</h3> : <h3>Loser</h3>}
                             </Col>
                         </Row>
                         <br></br>
@@ -83,7 +78,7 @@ export default function FinalResultsPage({ location }) {
                             <Col>
                                 <h3>{location.state.battle.battleOne.fighterTwo.username}</h3>
                                 <br></br>
-                                {battleOne.fighterOne === false ? <h3>WINNER</h3> : <h3>Loser</h3>}
+                                {location.state.battle.battleOne.winner === location.state.battle.battleOne.fighterTwo.username ? <h3>WINNER</h3> : <h3>Loser</h3>}
                             </Col>
                         </Row>
                         <br></br>
@@ -91,16 +86,19 @@ export default function FinalResultsPage({ location }) {
                         <br></br>
                         <br></br>
                         <br></br>
-                        <Button onClick={() => checkForCreator(user)}>Complete Pantheon</Button>
                     </Container>
                   </Col>
                   <Col align="center" xs={4}>
                       <Row>
                           <Col>
-                            {location.state.battle.battleOne.winner !== null ? <h3>There was a tie in the First Battle</h3> : null}
-                            {location.state.battle.battleTwo.winner !== null ? <h3>There was a tie in the Second Battle</h3> : null}
-                            {location.state.finalBattle.winner !== null ? <h3>There was a tie in the Final Battle</h3> : null}
-
+                            <Button onClick={() => checkForCreator(user)}>Complete Pantheon</Button>
+                            {alert && (
+                                    <>
+                                        <Alert variant="danger" onClick={() => setAlert(null)} dismissible>
+                                            <Alert.Heading>{alert}</Alert.Heading>             
+                                        </Alert>
+                                    </>
+                                )}
                           </Col>
                       </Row>
                       <br></br>
@@ -113,13 +111,13 @@ export default function FinalResultsPage({ location }) {
                             <br></br>
                             <br></br>
                             <br></br>
-                            {battleOne.fighterOne === true ? <h3>{location.state.battle.battleOne.fighterOne.username}</h3> : <h3>{location.state.battle.battleOne.fighterTwo.username}</h3>}
-                            {battleOne.fighterOne === true ? <SpotifyPlayer uri={location.state.battle.battleOne.fighterOne.music.uri} /> : <SpotifyPlayer uri={location.state.battle.battleOne.fighterTwo.music.uri}/>}
+                            <h3>{location.state.battle.battleOne.winner}</h3>
+                            {/* {battleOne.fighterOne === true ? <SpotifyPlayer uri={location.state.battle.battleOne.fighterOne.music.uri} /> : <SpotifyPlayer uri={location.state.battle.battleOne.fighterTwo.music.uri}/>} */}
                             <br></br>
                             <h2>VS</h2>
                             <br></br>
-                            {battleTwo.fighterOne === true ? <h3>{location.state.battle.battleTwo.fighterOne.username}</h3> : <h3>{location.state.battle.battleTwo.fighterOne.username}</h3>}
-                            {battleTwo.fighterOne === true ? <SpotifyPlayer uri={location.state.battle.battleTwo.fighterOne.music.uri} /> : <SpotifyPlayer uri={location.state.battle.battleTwo.fighterTwo.music.uri}/>}
+                            <h3>{location.state.battle.battleTwo.winner}</h3>
+                            {/* {battleTwo.fighterOne === true ? <SpotifyPlayer uri={location.state.battle.battleTwo.fighterOne.music.uri} /> : <SpotifyPlayer uri={location.state.battle.battleTwo.fighterTwo.music.uri}/>} */}
                         </Col>
                       </Row>
                   
@@ -130,7 +128,7 @@ export default function FinalResultsPage({ location }) {
                             <Col>
                                 <h3>{location.state.battle.battleTwo.fighterOne.username}</h3>
                                 <br></br>
-                                {battleTwo.fighterOne === true ? <h3>WINNER</h3> : <h3>Loser</h3>}
+                                {location.state.battle.battleTwo.winner === location.state.battle.battleTwo.fighterOne.username ? <h3>WINNER</h3> : <h3>Loser</h3>}
                             </Col>
                             <Col>
                                 <SpotifyPlayer uri={location.state.battle.battleTwo.fighterOne.music.uri} />
@@ -141,7 +139,7 @@ export default function FinalResultsPage({ location }) {
                             <Col>
                                 <h3>{location.state.battle.battleTwo.fighterTwo.username}</h3>
                                 <br></br>
-                                {battleTwo.fighterOne === false ? <h3>WINNER</h3> : <h3>Loser</h3>}
+                                {location.state.battle.battleTwo.winner === location.state.battle.battleTwo.fighterTwo.username ? <h3>WINNER</h3> : <h3>Loser</h3>}
                             </Col>
                             <Col>
                                 <SpotifyPlayer uri={location.state.battle.battleTwo.fighterTwo.music.uri} />
@@ -152,6 +150,8 @@ export default function FinalResultsPage({ location }) {
                 </Row>
             </Container>
             <Footer />
+        </>
+}
         </>
     )
 }
