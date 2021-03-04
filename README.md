@@ -23,24 +23,45 @@ Goals of the application:
 
 List of people I will send the application out. I am doing this so that way users will have plenty of options to create Pantheons with, the application has a friend list; however, it uses usernames to connect with friends. Will be keeping a list of the user and their usernames so that way everyone can hopefully be friends with each other and get multiple Pantheons going:
 	Robby :
+
 	David:
+
 	Kristen:
+
 	Jake Sandberg:
+
 	David Lasezkay:
+
 	Jacob Borno:
+
 	Jane:
+
 	Jenny:
+
 	Kim:
+
 	Scott:
+
 	Sean:
+
 	Elaine:
+
 	Josh Shier:
+
 	Cayman:
+
 	Grayson:
+
 	Christian:
+
 	Anne:
+
+    Corey: 
+
 	Discord: {
+
 	}
+
 	
 Will be updating this frequently so that way people can see each others username and if there are more people I have invited.
 
