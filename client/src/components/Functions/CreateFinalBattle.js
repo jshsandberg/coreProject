@@ -1,13 +1,10 @@
 import API from "../../utils/API";
 
-export const CreateFinalBattle = async (id, battleOne, battleTwo) => {
+export const CreateFinalBattle = async (id) => {
     try {
-        const battle = {
-            battleOne: battleOne,
-            battleTwo: battleTwo
-        }
+   
 
-        await API.createFinalBattle(id, battle).then(res => console.log(res))
+        await API.createFinalBattle(id).then(res => console.log(res))
 
     } catch (err) {
         console.log(err)

@@ -485,7 +485,19 @@ module.exports = {
 
 
             for (let i = 0; i < response.length; i++) {
-                if (response[i].battle.battleOne.votesForFighterOne.length === response[i].battle.battleOne.votesForFighterTwo.length && response[i].battle.battleOne.winner === null) {
+                if (response[i].battle.battleOne.votesForFighterOne.length > response[i].battle.battleOne.votesForFighterTwo.length) {
+                    const updateBattleOneFighterOneWinner = await db.Pantheon.findOneAndUpdate({
+                        _id: response[i]._id
+                    }, {
+                        $set: { "battle.battleOne.winner" : response[i].battle.battleOne.fighterOne.username}
+                    })
+                } else if (response[i].battle.battleOne.votesForFighterOne.length < response[i].battle.battleOne.votesForFighterTwo.length) {
+                    const updateBattleOneFighterTwoWinner = await db.Pantheon.findOneAndUpdate({
+                        _id: response[i]._id
+                    }, {
+                        $set: { "battle.battleOne.winner" : response[i].battle.battleOne.fighterTwo.username}
+                    })
+                } else if (response[i].battle.battleOne.votesForFighterOne.length === response[i].battle.battleOne.votesForFighterTwo.length && response[i].battle.battleOne.winner === null) {
                     const getShuffledArr = arr => {
                         const newArr = arr.slice()
                         for (let i = newArr.length - 1; i > 0; i--) {
@@ -507,7 +519,19 @@ module.exports = {
 
                 }
                 
-                if (response[i].battle.battleTwo.votesForFighterOne.length === response[i].battle.battleTwo.votesForFighterTwo.length && response[i].battle.battleTwo.winner === null) {
+                if (response[i].battle.battleTwo.votesForFighterOne.length > response[i].battle.battleTwo.votesForFighterTwo.length) {
+                    const updateBattleTwoFighterOneWinner = await db.Pantheon.findOneAndUpdate({
+                        _id: response[i]._id
+                    }, {
+                        $set: { "battle.battleTwo.winner" : response[i].battle.battleTwo.fighterOne.username}
+                    })
+                } else if (response[i].battle.battleTwo.votesForFighterOne.length < response[i].battle.battleTwo.votesForFighterTwo.length) {
+                    const updateBattleTwoFighterTwoWinner = await db.Pantheon.findOneAndUpdate({
+                        _id: response[i]._id
+                    }, {
+                        $set: { "battle.battleTwo.winner" : response[i].battle.battleTwo.fighterTwo.username}
+                    })
+                } else if (response[i].battle.battleTwo.votesForFighterOne.length === response[i].battle.battleTwo.votesForFighterTwo.length && response[i].battle.battleTwo.winner === null) {
                     const getShuffledArr = arr => {
                         const newArr = arr.slice()
                         for (let i = newArr.length - 1; i > 0; i--) {
@@ -526,6 +550,7 @@ module.exports = {
                     },  {
                         $set: { "battle.battleTwo.winner": shuffledArr[0] }
                     });
+
                 }
             }
 
@@ -540,7 +565,7 @@ module.exports = {
     createFinalBattle: async (req, res) => {
         try{
 
-            console.log(req.body)
+            console.log(req.params)
 
             // RESULTS FRONT END IS NOT SHOWING THE CORRECT WINNER, AND I THINK IT WOULD BE EASIER TO DO THE USE EFFECT TO CREATE THE WINNERS FOR THE FINAL BATTLE
 
@@ -550,14 +575,14 @@ module.exports = {
 
             const findPantheon = await db.Pantheon.findById(req.params.id);
 
+            console.log(findPantheon)
+
             if (findPantheon.accepted === true && findPantheon.music === true && findPantheon.vote === true && findPantheon.final === false) {
                 const updatePantheon = await db.Pantheon.findByIdAndUpdate({
                     _id: req.params.id
                 }, {
-                    $set: { "finalBattle.fighterOne.username" : req.body.battleOne.fighterOne === true ? findPantheon.battle.battleOne.fighterOne.username : findPantheon.battle.battleOne.fighterTwo.username },
-                    $set: { "finalBattle.fighterTwo.username" : req.body.battleTwo.fighterOne === true ? findPantheon.battle.battleTwo.fighterOne.username : findPantheon.battle.battleTwo.fighterTwo.username },
-                    $set: { "final" : true }
-                })
+                    $set: { "finalBattle.fighterOne.username" : findPantheon.battle.battleOne.winner, "finalBattle.fighterTwo.username" : findPantheon.battle.battleTwo.winner, "final" : true },
+                });
             };
 
             res.send("The Final Battle has been created")
@@ -568,6 +593,8 @@ module.exports = {
     },
 
     getFinalMusic: async (req, res) => {
+
+        // I AM HERER FOR DEBUGGIN
         try {
 
             const findUser = await db.User.find({ username: req.params.username });

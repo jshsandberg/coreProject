@@ -57,8 +57,8 @@ export default {
     getResults: function (username) {
       return axios.post("api/pantheon/results/" + username)
     },
-    createFinalBattle: function (id, battle) {
-      return axios.post("api/pantheon/finalBattle/" + id, battle)
+    createFinalBattle: function (id) {
+      return axios.post("api/pantheon/finalBattle/" + id)
     },
     getFinalMusic: function (username) {
       return axios.post("api/pantheon/finalMusic/" + username)

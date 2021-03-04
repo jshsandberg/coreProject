@@ -13,30 +13,14 @@ import { CreateFinalBattle } from "../components/Functions/CreateFinalBattle";
 
 export default function ResultsPage({ location }) {
 
-    const [battleOne, setBattleOne] = useState({
-        fighterOne: null,
-        fighterTwo: null
-    });
 
-    const [battleTwo, setBattleTwo] = useState({
-        fighterOne: null,
-        fighterTwo: null
-    });
 
     useEffect(() => {
 
         const findResults = async () => {
 
+            await CreateFinalBattle(location.state._id)
 
-            const talliedResultsOne = await TallyResults(location.state.battle.battleOne);
-            const talliedResultsTwo = await TallyResults(location.state.battle.battleTwo);
-
-            await CreateFinalBattle(location.state._id, talliedResultsOne, talliedResultsTwo)
-
-
-            await setBattleOne(talliedResultsOne);
-
-            await setBattleTwo(talliedResultsTwo)
         };
 
         findResults()
@@ -58,7 +42,7 @@ export default function ResultsPage({ location }) {
                             <Col>
                                 <h3>{location.state.battle.battleOne.fighterOne.username}</h3>
                                 <br></br>
-                                {battleOne.fighterOne === true ? <h3>WINNER</h3> : <h3>Loser</h3>}
+                                {location.state.battle.battleOne.winner === location.state.battle.battleOne.fighterOne.username ? <h3>WINNER</h3> : <h3>Loser</h3>}
                             </Col>
                         </Row>
                         <br></br>
@@ -69,7 +53,7 @@ export default function ResultsPage({ location }) {
                             <Col>
                                 <h3>{location.state.battle.battleOne.fighterTwo.username}</h3>
                                 <br></br>
-                                {battleOne.fighterOne === false ? <h3>WINNER</h3> : <h3>Loser</h3>}
+                                {location.state.battle.battleOne.winner === location.state.battle.battleOne.fighterTwo.username ? <h3>WINNER</h3> : <h3>Loser</h3>}
                             </Col>
                         </Row>
                     </Container>
@@ -85,13 +69,13 @@ export default function ResultsPage({ location }) {
                       <br></br>
                       <Row>
                         <Col>
-                            {battleOne.fighterOne === true ? <h3>{location.state.battle.battleOne.fighterOne.username}</h3> : <h3>{location.state.battle.battleOne.fighterTwo.username}</h3>}
-                            {battleOne.fighterOne === true ? <SpotifyPlayer uri={location.state.battle.battleOne.fighterOne.music.uri} /> : <SpotifyPlayer uri={location.state.battle.battleOne.fighterTwo.music.uri}/>}
+                            <h3>{location.state.battle.battleOne.winner}</h3>
+                            {/* {battleOne.fighterOne === true ? <SpotifyPlayer uri={location.state.battle.battleOne.fighterOne.music.uri} /> : <SpotifyPlayer uri={location.state.battle.battleOne.fighterTwo.music.uri}/>} */}
                             <br></br>
                             <h2>VS</h2>
                             <br></br>
-                            {battleTwo.fighterOne === true ? <h3>{location.state.battle.battleTwo.fighterOne.username}</h3> : <h3>{location.state.battle.battleTwo.fighterOne.username}</h3>}
-                            {battleTwo.fighterOne === true ? <SpotifyPlayer uri={location.state.battle.battleTwo.fighterOne.music.uri} /> : <SpotifyPlayer uri={location.state.battle.battleTwo.fighterTwo.music.uri}/>}
+                            <h3>{location.state.battle.battleTwo.winner}</h3>
+                            {/* {battleTwo.fighterOne === true ? <SpotifyPlayer uri={location.state.battle.battleTwo.fighterOne.music.uri} /> : <SpotifyPlayer uri={location.state.battle.battleTwo.fighterTwo.music.uri}/>} */}
                         </Col>
                       </Row>
                   
@@ -102,7 +86,7 @@ export default function ResultsPage({ location }) {
                             <Col>
                                 <h3>{location.state.battle.battleTwo.fighterOne.username}</h3>
                                 <br></br>
-                                {battleTwo.fighterOne === true ? <h3>WINNER</h3> : <h3>Loser</h3>}
+                                {location.state.battle.battleTwo.winner === location.state.battle.battleTwo.fighterOne.username ? <h3>WINNER</h3> : <h3>Loser</h3>}
                             </Col>
                             <Col>
                                 <SpotifyPlayer uri={location.state.battle.battleTwo.fighterOne.music.uri} />
@@ -113,7 +97,7 @@ export default function ResultsPage({ location }) {
                             <Col>
                                 <h3>{location.state.battle.battleTwo.fighterTwo.username}</h3>
                                 <br></br>
-                                {battleTwo.fighterOne === false ? <h3>WINNER</h3> : <h3>Loser</h3>}
+                                {location.state.battle.battleTwo.winner === location.state.battle.battleTwo.fighterTwo.username ? <h3>WINNER</h3> : <h3>Loser</h3>}
                             </Col>
                             <Col>
                                 <SpotifyPlayer uri={location.state.battle.battleTwo.fighterTwo.music.uri} />
