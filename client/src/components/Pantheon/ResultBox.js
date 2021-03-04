@@ -36,7 +36,21 @@ export default function ResultBox() {
 
     return (
         <>
-            {!isLoading &&
+              {isLoading ? 
+                <>
+                
+                </>
+            :
+            finalResultArr.length === 0 && resultArr.length === 0 ?
+            
+                <Container style={{borderStyle: "solid", boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)", backgroundColor: "white"}}>
+                    <Row>
+                        <Col align="center">
+                            <h1>There are no Pantheon for you to see the results.</h1>
+                        </Col>
+                    </Row>
+                </Container>
+            :
                 <Container style={{borderStyle: "solid", boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)", backgroundColor: "white"}}>
                     <Row>
                     {finalResultArr.map((item, i) => {

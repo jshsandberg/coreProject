@@ -20,7 +20,6 @@ export default function AddingFriends({ getArenaArr }) {
 
         const foundFriends = async () => {
             const arrFriends = await GetFriends(user.id);
-            console.log(arrFriends)
             await setFriendArr(arrFriends);
             await setIsLoading(false)
         };
@@ -37,26 +36,28 @@ export default function AddingFriends({ getArenaArr }) {
                     <Form>
                         <Row>
                             <Col>
-                                <Form.Control placeholder="Search for User with Username" />
-                                <Button>Submit</Button>
-                            </Col>
-                            <Col>
                                 <Container>
                                     <Row>
-                                        <Col style={{backgroundColor: "white"}}>
-                                        {friendArr.friends.map((item, i) => {
+                                        <Col>
+                                            <Container style={{borderStyle: "solid", boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)", backgroundColor: "white"}}>
+                                                <br></br>
+                                                <Row>
+                                                    {friendArr.friends.map((item, i) => {
                                                         return (
-                                                            <Row>
+                                                
+                                                            <>
                                                                 <Col>
-                                                                    <h3 >{item}</h3>
+                                                                    <h3 style={{float: "right"}}>{item}</h3>
                                                                 </Col>
                                                                 <Col>
                                                                     <Button onClick={() => getArenaArr(item)}>Add Friends</Button>
                                                                 </Col>
-                                                            </Row>
+                                                            </>
                                                         )
                                                     })}
-                                            
+                                                </Row>
+                                                <br></br>
+                                            </Container>
                                         </Col>
                                     </Row>
                                 </Container>

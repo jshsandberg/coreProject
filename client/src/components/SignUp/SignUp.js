@@ -1,5 +1,4 @@
 import React, { useState, useContext } from "react";
-import API from "../../utils/API";
 import { useHistory } from "react-router-dom";
 import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/esm/Container';
@@ -29,8 +28,8 @@ function SignUp() {
 
     const saveUser = async (values) => {
             const savedUser = await saveUserData(values);
-            if (typeof user === "string") {
-                setError(user);
+            if (typeof savedUser === "string") {
+                setError(savedUser);
             } else {
                 await setUser(savedUser);
                 await history.push({pathname: "/home"});

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/esm/Row';
 import Col from 'react-bootstrap/esm/Col';
@@ -6,11 +6,13 @@ import { AcceptPantheon } from "../Functions/AcceptPantheon";
 import Button from 'react-bootstrap/Button';
 
 
-export default function WhiteBox({ data, user }) {
 
+export default function WhiteBox({ data, user, rerender }) {
 
-console.log(data, user)
-
+    const confirmAcceptedPantheon = async (item) => {
+        await AcceptPantheon(item, user.username);
+        await rerender()
+    }
 
     return (
         <>
@@ -23,16 +25,15 @@ console.log(data, user)
                                     <Col key ={i} align="center">
                                         <h2>{item.creator}</h2>
                                         <h3>{item.category}</h3>
-                                        <Button onClick={() => AcceptPantheon(item, user.username) }>Accept Challenge</Button>
+                                        <Button onClick={() => confirmAcceptedPantheon(item)}>Accept Challenge</Button>
                                     </Col>
                                 )
                             })}
                         </Row>
                     </Container>
+                    <br></br>
                 </>
-                
             }
-       
         </>
     )
 }

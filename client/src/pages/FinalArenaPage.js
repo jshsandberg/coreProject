@@ -5,7 +5,7 @@ import Row from 'react-bootstrap/esm/Row';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/esm/Col';
 import Charcoal from "../utils/Media/Charcoal.jpg";
-import Box from "../components/Box/Box";
+import RedBox from "../components/Box/RedBox";
 import TwoMan from "../components/Tounament/TwoMan";
 import ChallengeSearchBar from "../components/SearchBar/ChallengeSearchBar";
 import SearchMusic from "../components/Arena/SearchMusic";
@@ -54,20 +54,20 @@ export default function FinalArenaPage({ location }) {
             {!isLoading &&
                 <>
                     <Header />
-                    <Container fluid style={{backgroundImage: `url(${Charcoal})`}}>
+                    <Container fluid style={{backgroundImage: `url(${Charcoal})`, position: "fixed", top: "18%", height: "100%"}}>
                         <br></br>
                         <Row>
                             <Col xs={2}>
                                 <Button onClick={() => submitBattle(childData, user, location.state._id)}>Sumbit Challenger</Button>
                             </Col>
                             <Col align="center">
-                                <Box text={location.state.category}/>
+                                <RedBox text={location.state.category}/>
                             </Col>
                             <Col xs={2}>
                             
                             </Col>
                             <Col xs={4}>
-                                <Box text={"Choose your song!"} />
+                                <RedBox text={"Choose your song!"} />
                             </Col>
                             <Col xs={2}>
                             

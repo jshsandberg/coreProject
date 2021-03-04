@@ -16,25 +16,35 @@ export default function ActivePantheonPage() {
 
     return (
         <>
+     
             <Header />
             <Container fluid style={{backgroundImage: `url(${Charcoal})`}}>
+                <br></br>
                 <Row>
                     <Col>
                         <h3>Created Pantheons</h3>
                         <ActivePantheons />
-                        <br></br>
+                    </Col>
+                    <Col>
                         <h3>Choose your music</h3>
                         <InProgressPantheons />
-                        <br></br>
+                    </Col>    
+                </Row>
+                <br></br>
+                <Row>
+                    <Col>
                         <h3>Cast your vote</h3>
                         <VoteBox />
-                        <br></br>
+                    </Col>
+                    <Col>
                         <h3>Results</h3>
                         <ResultBox />
                     </Col>
                 </Row>
             </Container>
             <Footer />
+
+          
         </>
     )
 };

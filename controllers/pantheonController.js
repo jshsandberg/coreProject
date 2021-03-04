@@ -203,6 +203,8 @@ module.exports = {
 
             const findPantheon = await db.Pantheon.findById(req.body.pantheonId);
 
+
+            // YOU CAN UPDATE THE SONGS AS MANY TIMES AS YOU LIKE BUT ONCE EVERYONE HAS SUBMITTED, IT IS DONE // KINDA BUGGY, TRY TO FIGURE IT OUT
            
 
             if (findPantheon.numOfPlayers === 4) {
@@ -321,6 +323,8 @@ module.exports = {
 
             // console.log(req.params, req.body.fighter)
 
+            // NEED TO DO A CHECK TO SEE IF ALL VOTES ARE IN RATHER THAN CHECK ON VOTE BUTTON CLIKC, NEED TO MAKE ANOTHER API CALL WITH A USEEFFFECT IN THE PATNEHON PAGE
+
             const findPantheon = await db.Pantheon.find({ _id: req.body.state.pantheon })
 
          
@@ -399,9 +403,8 @@ module.exports = {
                         })
                         res.send("All the Votes are in")
                     } else {
-                        console.log(findPantheon[0].battle.battleOne.playersWhoVoted.length)
+                        res.send("You have already voted in this battle")
                     }
-                    // res.send("You have already voted in this battle")
                 } else {
                     const updateBattleTwoFighterOne = await db.Pantheon.findByIdAndUpdate({
                         _id: req.body.state.pantheon
@@ -502,7 +505,9 @@ module.exports = {
                         $set: { "battle.battleOne.winner": shuffledArr[0] }
                     });
 
-                } else if (response[i].battle.battleTwo.votesForFighterOne.length === response[i].battle.battleTwo.votesForFighterTwo.length && response[i].battle.battleTwo.winner === null) {
+                }
+                
+                if (response[i].battle.battleTwo.votesForFighterOne.length === response[i].battle.battleTwo.votesForFighterTwo.length && response[i].battle.battleTwo.winner === null) {
                     const getShuffledArr = arr => {
                         const newArr = arr.slice()
                         for (let i = newArr.length - 1; i > 0; i--) {
@@ -536,6 +541,12 @@ module.exports = {
         try{
 
             console.log(req.body)
+
+            // RESULTS FRONT END IS NOT SHOWING THE CORRECT WINNER, AND I THINK IT WOULD BE EASIER TO DO THE USE EFFECT TO CREATE THE WINNERS FOR THE FINAL BATTLE
+
+            // FINAL BATTLE IS NOT UPDATING PROPERLY
+
+            console.log("here")
 
             const findPantheon = await db.Pantheon.findById(req.params.id);
 

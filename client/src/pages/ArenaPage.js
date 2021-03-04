@@ -5,13 +5,16 @@ import Row from 'react-bootstrap/esm/Row';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/esm/Col';
 import Charcoal from "../utils/Media/Charcoal.jpg";
-import Box from "../components/Box/Box";
+import RedBox from "../components/Box/RedBox";
 import TwoMan from "../components/Tounament/TwoMan";
 import ChallengeSearchBar from "../components/SearchBar/ChallengeSearchBar";
 import SearchMusic from "../components/Arena/SearchMusic";
 import { UserContext } from "../context/userContext";
 import { SubmitBattle } from "../components/Functions/SubmitBattle";
 import { FindBattle } from "../components/Functions/FindBattle";
+import Footer from "../components/Footer/Footer";
+import Alert from 'react-bootstrap/Alert';
+
 
 
 
@@ -22,6 +25,7 @@ export default function ArenaPage({ location }) {
     const [battle, setBattle] = useState({});
     const [isLoading, setIsLoading] = useState(true);
     const [childData, setChildData] = useState([]);
+    const [alert, setAlert] = useState(null)
 
     useEffect(() => {
 
@@ -30,7 +34,7 @@ export default function ArenaPage({ location }) {
         const promise = async () => {
             const check = await FindBattle(user.username, location.state);
             await setBattle(check);
-            // await setIsLoading(false);
+            await setIsLoading(false);
         };
 
         promise()
@@ -44,6 +48,7 @@ export default function ArenaPage({ location }) {
 
     const submitBattle = async (item, user, pantheonId) => {
         const battle = await SubmitBattle(item.slice(-1)[0], user, pantheonId);
+        await setAlert(battle)
     }
 
     return (
@@ -54,17 +59,29 @@ export default function ArenaPage({ location }) {
                     <Container fluid style={{backgroundImage: `url(${Charcoal})`}}>
                         <br></br>
                         <Row>
+                            <Col>
+                            {alert && (
+                                <>
+                                    <Alert variant="danger" onClick={() => setAlert(null)} dismissible>
+                                        <Alert.Heading>{alert}</Alert.Heading>             
+                                    </Alert>
+                                </>
+                            )}
+                            </Col>
+                        </Row>
+                        <br></br>
+                        <Row>
                             <Col xs={2}>
                                 <Button onClick={() => submitBattle(childData, user, location.state._id)}>Sumbit Challenger</Button>
                             </Col>
                             <Col align="center">
-                                <Box text={location.state.category}/>
+                                <RedBox text={location.state.category}/>
                             </Col>
                             <Col xs={2}>
                             
                             </Col>
                             <Col xs={4}>
-                                <Box text={"Choose your song!"} />
+                                <RedBox text={"Choose your song!"} />
                             </Col>
                             <Col xs={2}>
                             
@@ -92,6 +109,7 @@ export default function ArenaPage({ location }) {
                             </Col>
                         </Row>
                     </Container>
+                    <Footer />
                 </>
             }
         </>

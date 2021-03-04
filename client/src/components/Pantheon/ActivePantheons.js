@@ -6,13 +6,17 @@ import Col from 'react-bootstrap/esm/Col';
 import { GetActivePantheon } from "../Functions/GetActivePantheon";
 import { UserContext } from "../../context/userContext";
 import { StartMusic } from "../Functions/StartMusic.js";
+import Alert from 'react-bootstrap/Alert'
+
 
 export default function ActivePantheons() {
 
     const {user, setUser} = useContext(UserContext);
     const [activePantheons, setActivePantheons] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [rerender, setRerender] = useState(false)
+    const [rerender, setRerender] = useState(0);
+    const [alert, setAlert] = useState(null);
+
 
     
 
@@ -54,10 +58,22 @@ export default function ActivePantheons() {
                                     <h3>{item.category}</h3>
                                     <h4>{item.creator}</h4>
                                     <h2>{item.acceptedPlayers.length} / {item.players.length}</h2>
-                                    {item.acceptedPlayers.length === item.players.length ? <Button onClick={ async () => { await StartMusic(item); await setRerender(true)}}>Start</Button> : <Button style={{backgroundColor: "gray"}}>Start</Button>}
+                                    {item.acceptedPlayers.length === item.players.length ? <Button onClick={ async () => { await StartMusic(item); await setRerender(Math.random())}}>Start</Button> : <Button onClick={() => setAlert("Everyone must have accepted the invite")} style={{backgroundColor: "gray", borderColor: "gray"}}>Start</Button>}
                                 </Col>
                             )
                         })}
+                    </Row>
+                    <br></br>
+                    <Row>
+                        <Col align="center">
+                            {alert && (
+                                <>
+                                    <Alert variant="danger" onClick={() => setAlert(null)} dismissible>
+                                        <Alert.Heading>{alert}</Alert.Heading>
+                                    </Alert>
+                                </>
+                            )}
+                        </Col>
                     </Row>
                 </Container>
             }

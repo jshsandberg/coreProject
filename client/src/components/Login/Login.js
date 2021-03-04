@@ -9,6 +9,8 @@ import Charcoal from "../../utils/Media/Charcoal.jpg";
 import SpotifyAuthModal from "../Modal/SpotifyAuthModal";
 import { UserContext } from "../../context/userContext";
 import { getUserData } from "../Functions/GetUser";
+import Alert from 'react-bootstrap/Alert'
+
 
 function Login() {
 
@@ -16,8 +18,8 @@ function Login() {
 
     const {user, setUser} = useContext(UserContext);
 
-    const [values, setValues] = useState();
-    const [modalShow, setModalShow] = useState(false);
+    const [values, setValues] = useState(null);
+    const [error, setError] = useState(null);
 
     function handleChange(event) {
 		event.persist();
@@ -26,8 +28,10 @@ function Login() {
     };
 
     useEffect(() => {
-        if (user) {
+        if (user && user.msg === undefined) {
             history.push({pathname: "/home"})
+        } else if (user && user.msg !== undefined) {
+            setError(user.msg)
         }
     }, [user])
     
@@ -41,6 +45,16 @@ function Login() {
                             
                             </Col>
                             <Col>
+                            {error && (
+                                <>
+                                    <Alert variant="danger" onClick={() => setError(null)} dismissible>
+                                        <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
+                                            <p>
+                                                {error}
+                                            </p>
+                                    </Alert>
+                                </>
+                            )}
                                 <h3 style={{float: "left", color: "white"}}>Login</h3>
                                 <br></br>
                                 <hr style={{height: "3px", backgroundColor: "#db3d44"}}></hr>
@@ -64,7 +78,7 @@ function Login() {
                         <Row>
                             <Col xs={4}></Col>
                             <Col>
-                                <Button style={{background: "#db3d44", borderColor: "#db3d44"}} onClick={async () => setUser(await getUserData(values))}>Login</Button>
+                                <Button style={{background: "#db3d44", borderColor: "#db3d44"}} onClick={async () => { const getUser = await getUserData(values); await setUser(getUser.user) }}>Login</Button>
                             </Col>
                             <Col xs={4}></Col>
                         </Row>

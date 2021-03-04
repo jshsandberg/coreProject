@@ -60,7 +60,7 @@ export default function FinalResultsPage({ location }) {
     return (
         <>
             <Header />
-            <Container fluid style={{backgroundImage: `url(${Charcoal})`}}>
+            <Container fluid style={{backgroundImage: `url(${Charcoal})`, position: "fixed", top: "18%", height: "100%"}}>
                 <br></br>
                 <Row>
                   <Col align="center" xs={4}>

@@ -23,8 +23,8 @@ export default function InProgressPantheon() {
 
         const findMusic = async () => {
             const foundMusic = await GetMusic(user);
-
             const foundFinalBattleMusic = await GetFinalMusic(user);
+            console.log(foundMusic)
             await setFinal(foundFinalBattleMusic);
             await setMusic(foundMusic);
             await setIsLoading(false);
@@ -36,7 +36,21 @@ export default function InProgressPantheon() {
 
     return (
         <>
-            {!isLoading &&
+            {isLoading ? 
+                <>
+                
+                </>
+            :
+            final.length === 0 && music.length === 0 ?
+            
+                <Container style={{borderStyle: "solid", boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)", backgroundColor: "white"}}>
+                    <Row>
+                        <Col align="center">
+                            <h1>You have no Pantheons to choose music for.</h1>
+                        </Col>
+                    </Row>
+                </Container>
+            :
               <Container style={{borderStyle: "solid", boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)", backgroundColor: "white"}}>
                     <Row>
                         {final.map((item, i) => {

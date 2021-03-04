@@ -64,22 +64,32 @@ module.exports = {
     },
     login: async (req, res) => {
 		try {
+
+			const error = {};
+
 			const { username, password } = req.body;
 
 			if (!req.body.username || !req.body.password) {
 				return res
-					.status(400)
-					.json({ msg: "Not all fields have been entered." });
+					.json({ 
+						msg: "Not all fields have been entered." 
+					});
 			}
 
 			const user = await db.User.findOne({ username });
 			if (!user) {
-				return res.status(400).json({ msg: "Username does not exist!" });
+				return res
+					.json({ 
+						msg: "User could not be found." 
+					});
 			}
 
 			const isMatch = await bcrypt.compare(password, user.password);
 			if (!isMatch) {
-				return res.status(400).json({ msg: "Invalid password!" });
+				return res
+					.json({ 
+						msg: "Invalid password." 
+					});
 			}
 
 			const token = jwt.sign(
@@ -106,8 +116,8 @@ module.exports = {
 					friend: [null]
 					}
 				});
-		} catch (err) {
-			res.status(500).json({ error: err.message });
+		} catch (error) {
+			res.json(error)
         }
 	},
 	findById: async (req, res) => {
@@ -161,30 +171,30 @@ module.exports = {
 			const value = (Object.keys(req.body));
 			const params = req.params.username;
 
-			const foundUser = await db.User.find({
-				username: value
-			})
+			const checkUserHasFriend = await db.User.findOne({ username: params });
 
-			if (foundUser.length === 0) {
-				return res.send("No username was found with the given username")
-			} 
-			// else if (foundUser.friends) { Can add friends multiple times, gonna need to make an algorith to stop this
+			if (checkUserHasFriend.friend.includes(value)) {
+				return res.send("User is already friends with this user")
+			} else {
+				const foundUser = await db.User.find({
+					username: value
+				})
+	
+	
+				if (foundUser.length === 0) {
+					return res.send("No username was found with the given username")
+				} else {
+					await User.findOneAndUpdate({
+						username: params
+					}, {
+						$push: {
+							friend: value
+						}
+					});
+					return res.send("Friend Added")
+				}
 
-			// } 
-			else {
-				await User.findOneAndUpdate({
-					username: params
-				}, {
-					$push: {
-						friend: value
-					}
-				});
-				return res.send("Friend Added")
 			}
-
-
-			
-
 
 		} catch (err) {
 			console.log("we messed up")

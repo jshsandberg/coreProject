@@ -21,7 +21,6 @@ export default function PantheonPage() {
 
 
     const [arenaInfo, setArenaInfo] = useState({
-        numberPlayers: 1,
         category: null
     });
     const [arenaArr, setArenaArr] = useState([]);
@@ -29,13 +28,15 @@ export default function PantheonPage() {
     useEffect(() => {
         if (user === null) {
             history.push({pathname: "/"})
-        }
+        };
+
     }, [arenaInfo, arenaArr])
 
     const getArenaArr = useCallback((data) => {
-        setArenaArr(arenaInfo => ([
+       
+        setArenaArr(arenaInfo => ( arenaInfo.includes(data) ? arenaInfo : [
             ...arenaInfo, data
-        ]))
+        ]));
     }, []);
 
     const getArenaData = useCallback((name, data) => {
@@ -44,12 +45,13 @@ export default function PantheonPage() {
         }))
     }, []);
 
+    
 
     
     return (
         <>
             <Header />
-            <Container fluid style={{backgroundImage: `url(${Charcoal})`}}>
+            <Container fluid style={{backgroundImage: `url(${Charcoal})`, position: "fixed", top: "12%", height: "100%"}}>
                 <br></br>
                 <Container fluid>
                     <Row>

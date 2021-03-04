@@ -4,14 +4,16 @@ export const SaveVotes = async (fighter, state, username) => {
 
     try {
 
-        console.log("here")
+        const response = {};
 
         const obj = {
             state: state,
             fighter: fighter,
             username: username
         }    
-        await API.saveVotes(obj).then(res => console.log(res))
+        await API.saveVotes(obj).then(res => response["res"] = res.data);
+
+        return response.res
 
     } catch (err) {
         console.log(err)

@@ -1,33 +1,20 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useCallback } from "react";
 import { useHistory } from "react-router-dom";
 import Header from "../components/Header/Header";
-import HomeNavbar from "../components/NavBar/HomeNavBar";
-import VideoGame from "../components/VideoGame/VideoGame";
-import NoAccessModal from "../components/Modal/NoAccessModal";
 import SearchBar from "../components/SearchBar/SearchBar";
 import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/esm/Row';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/esm/Col';
-import axios from "axios";
-import API from "../utils/API";
 import { UserContext } from "../context/userContext";
-import Box from "../components/Box/Box";
+import RedBox from "../components/Box/RedBox";
 import Charcoal from "../utils/Media/Charcoal.jpg";
 import WhiteBox from "../components/Box/WhiteBox";
 import Footer from "../components/Footer/Footer";
 import { GetPantheon } from "../components/Functions/GetPantheon";
 import PantheonBox from "../components/Box/PantheonBox";
 
-// import Alert from 'react-bootstrap/Alert'
-// import Button from 'react-bootstrap/Button'
-
-
-
-  
-  
-
-function HomePage(props) {
+function HomePage() {
 
     const history = useHistory();
 
@@ -36,10 +23,13 @@ function HomePage(props) {
     const [pantheonShow, setPantheonShow] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [pantheonData, setPantheonData] = useState([]);
+    const [rerender, setRerender] = useState(0)
+
 
     useEffect(() => {
 
         const checkPantheon = async () => {
+
             if (user === null || user === undefined) {
                 history.push({pathname: "/"})
             } else {
@@ -49,17 +39,21 @@ function HomePage(props) {
             }
         }
         checkPantheon();
-    }, []);
+    }, [rerender]);
 
-    const jwt = require("jsonwebtoken");
 
     const black = {
         backgroundColor: "#464646", 
         borderColor: "#464646"
-    }
+    };
+
+    const rerenderPage = useCallback(info => {
+        setRerender(Math.random());
+    }, []);
 
     const signOut = () => {
         window.localStorage.removeItem("auth-token");
+        setUser(null)
         history.push({pathname: "/"})
     }
 
@@ -67,6 +61,8 @@ function HomePage(props) {
         <>
             {!isLoading &&
             <>
+            <Container fluid style={{backgroundImage: `url(${Charcoal})`, position: "fixed", top: "0px", height: "100%"}}>
+
             <Header />
             <Container fluid style={{backgroundImage: `url(${Charcoal})`}}>
                 <Row>
@@ -96,19 +92,19 @@ function HomePage(props) {
                 <Container>
                     <Row>
                         <Col onClick={() => history.push({pathname: "/pantheon"})}>
-                            <Box text="Create Pantheon" />
+                            <RedBox text="Create Pantheon" />
                         </Col>
                         <Col onClick={() => history.push({pathname: "/profile"})}>
-                            <Box text="Profile Settings" />
+                            <RedBox text="Profile Settings" />
                         </Col>
                     </Row>
                     <br></br>
                     <Row>
                         <Col onClick={() => history.push({pathname: "/friends"})}>
-                            <Box text="Friends" />
+                            <RedBox text="Friends" />
                         </Col>
                         <Col onClick={() => pantheonShow ? setPantheonShow(false) : setPantheonShow(true)}>
-                            <Box text="Pantheon Invites" number={pantheonData.length} />
+                            <RedBox text="Pantheon Invites" number={pantheonData.length} />
                         </Col>
                     </Row>
                 </Container>
@@ -117,13 +113,14 @@ function HomePage(props) {
                     <Container fluid>
                         <Row>
                             <Col>
-                                <WhiteBox data={pantheonData} user={user} />
+                                <WhiteBox data={pantheonData} user={user} rerender={rerenderPage} />
                             </Col>
                         </Row>
                     </Container>
                 }
             </Container>
-            <Footer />
+            {/* <Footer /> */}
+            </Container>
             </>
             }
         </>
