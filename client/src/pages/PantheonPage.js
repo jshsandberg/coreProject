@@ -57,7 +57,7 @@ export default function PantheonPage() {
             {!isLoading &&
             <>
             <Header />
-            <Container fluid style={{backgroundImage: `url(${Charcoal})`, position: "fixed", top: "12%", height: "100%"}}>
+            <Container fluid style={{backgroundImage: `url(${Charcoal})`}}>
                 <br></br>
                 <Container fluid>
                     <Row>
