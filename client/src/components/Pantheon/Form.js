@@ -15,8 +15,11 @@ export default function FormComponent({ getArenaData }) {
         <>
             <Form>
                 <Row>
-                    <Col xs={1}>
+                    <Col xs={2}>
                     
+                    </Col>
+                    <Col>
+                        <h3 style={{color: "white"}}>Category for the Competition:</h3>
                     </Col>
                     <Col>
                         <Form.Control name="category" onChange={(e) => getArenaData(e.target.name, e.target.value)} placeholder="Category for Competition" />
@@ -25,6 +28,13 @@ export default function FormComponent({ getArenaData }) {
                     
                     </Col>
                 </Row>
+         
+                
+                        
+                 
+               
+                  
+               
             </Form>
         </>
     )

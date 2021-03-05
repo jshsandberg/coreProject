@@ -34,6 +34,31 @@ export default function AddingFriends({ getArenaArr }) {
             {!isLoading &&
                 <>
                     <Form>
+                    <Container style={{borderStyle: "solid", boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)", backgroundColor: "white"}}>
+                                                <br></br>
+                                          
+                                                    {friendArr.friends.map((item, i) => {
+                                                        return (
+                                                
+                                                            <>
+                                                                <Row>
+                                                                <Col>
+                                                                    <h3 style={{float: "right"}}>{item}</h3>
+                                                                </Col>
+                                                                <Col>
+                                                                    <Button onClick={() => getArenaArr(item)}>Add Friends</Button>
+                                                                </Col>
+
+                                                                </Row>
+                                                        
+                                                            </>
+                                                        )
+                                                    })}
+                                       
+                                                <br></br>
+                                            </Container>
+                    </Form>
+                    {/* <Form>
                         <Row>
                             <Col>
                                 <Container>
@@ -63,7 +88,7 @@ export default function AddingFriends({ getArenaArr }) {
                                 </Container>
                             </Col>
                         </Row>
-                    </Form>
+                    </Form> */}
                 </>
             }
         </>

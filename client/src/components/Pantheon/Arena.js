@@ -14,7 +14,7 @@ export default function Arena({ data, arr }) {
 
     const checkForNull = async () => {
         if (data.category === null || arr.length !== 3 ) {
-            setAlert("There was an error. Please make sure all input are filled and you have 4 players, including yourself, invited.")
+            setAlert("There was an error. Please make sure category is filled and you have 4 players, including yourself, invited.")
         } else {
            const savedPantheon = await SavePatheon({data: data, creator: user.username, players: arr});
            await setAlert(savedPantheon)
@@ -37,20 +37,27 @@ export default function Arena({ data, arr }) {
                     <Col xs={2}>
                         <h3>Invites:</h3>
                     </Col>
+               
                     <Col xs={1}>
                         <h3>{user.username}</h3>
                     </Col>
-                    {arr.map((item, i) => {
-                        return (
-                            <Col xs={1}>
-                                <h3>{item}</h3>
-                            </Col>
-                        )
-                    })}
                     <Col align="center">
                         <Button onClick={ async () => checkForNull()}>Start</Button>
                     </Col>
+                 
                 </Row>
+                    {arr.map((item, i) => {
+                        return (
+                            <Row>
+                                <Col xs={2}>
+                                
+                                </Col>
+                                <Col xs={1}>
+                                    <h3>{item}</h3>
+                                </Col>
+                            </Row>
+                        )
+                    })}
             </Container>
             <br></br>
             <Container>

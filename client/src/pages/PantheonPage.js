@@ -62,6 +62,22 @@ export default function PantheonPage() {
                 <Container fluid>
                     <Row>
                         <Col>
+                            <Row>
+                                <Col>
+                                    <FormComponent getArenaData={getArenaData} />
+                                </Col>
+                            </Row>
+                            <br></br>
+                            <Row>
+                                <Arena data={arenaInfo} arr={arenaArr} />
+                            </Row>
+                        </Col>
+                        <Col xs={4}>
+                            <AddingFriends getArenaArr={getArenaArr} />
+                        </Col>
+                    </Row>
+                    {/* <Row>
+                        <Col>
                             <FormComponent getArenaData={getArenaData} />
                         </Col>
                         <Col>
@@ -73,8 +89,28 @@ export default function PantheonPage() {
                         <Col>
                             <Arena data={arenaInfo} arr={arenaArr} />
                         </Col>
-                    </Row>
+                    </Row> */}
                 </Container>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
             </Container>
             <Footer />
         </>

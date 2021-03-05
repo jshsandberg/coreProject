@@ -81,9 +81,9 @@ export default function FriendsPage() {
                                         <Col>
                                             <Container style={{borderStyle: "solid", boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)", backgroundColor: "white"}}>
                                                 <Row>
-                                                    {friendArr.friends.map((item, i) => {
+                                                {friendArr.friends.map((item, i) => {
                                                         return (
-                                                            <Col>
+                                                            <Col xs={6}>
                                                                 <h3 >{item}</h3>
                                                             </Col>
                                                         )
@@ -102,7 +102,7 @@ export default function FriendsPage() {
                                     <br></br>
                                     <Row>
                                         <Col>
-                                            <Form.Control  onChange={(e) => setValue(e.target.value)} type="text" />
+                                            <Form.Control  onChange={(e) => setValue(e.target.value)} placeholder="Friends Username" type="text" />
                                         </Col>
                                         <Col>
                                             <Button onClick={() => saveFriend(user.username, value)}>Add a Friend</Button>

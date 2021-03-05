@@ -62,8 +62,6 @@ function HomePage() {
         <>
             {!isLoading &&
             <>
-            <Container fluid style={{backgroundImage: `url(${Charcoal})`, position: "fixed", top: "0px", height: "100%"}}>
-
             <Header />
             <Container fluid style={{backgroundImage: `url(${Charcoal})`}}>
                 <Row>
@@ -119,9 +117,23 @@ function HomePage() {
                         </Row>
                     </Container>
                 }
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
             </Container>
             <Footer />
-            </Container>
+     
             </>
             }
         </>
