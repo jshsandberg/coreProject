@@ -37,16 +37,16 @@ function Header() {
                         <Button onClick={() => history.push({pathname: "/home"})}>Home</Button>
                     </Col>
                     <Col>
-                        <Button onClick={() => history.push({pathname: "/"})}>Create Pantheon</Button>
+                        <Button onClick={() => history.push({pathname: "/pantheon"})}>Create Pantheon</Button>
                     </Col>
                     <Col>
-                        <Button onClick={() => history.push({pathname: "/"})}>Friends</Button>
+                        <Button onClick={() => history.push({pathname: "/friends"})}>Friends</Button>
                     </Col>
                     <Col>
-                        <Button onClick={() => history.push({pathname: "/"})}>Profile</Button>
+                        <Button onClick={() => history.push({pathname: "/profile"})}>Profile</Button>
                     </Col>
                     <Col>
-                        <Button onClick={() => history.push({pathname: "/"})}>Pantheons</Button>
+                        <Button onClick={() => history.push({pathname: "/activePantheon"})}>Pantheons</Button>
                     </Col>
                 </Row>
             </Container>
