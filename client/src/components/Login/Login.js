@@ -31,9 +31,8 @@ function Login() {
     const getUserLogin = async () => {
         const getUser = await getUserData(values); 
         if (typeof getUser !== "string") {
-            console.log(getUser)
-            await setUser(getUser.user)
-            await history.push({pathname: "/home"})
+            setUser(getUser.user)
+            history.push({pathname: "/home"})
         } else {
             setError(getUser)
         }

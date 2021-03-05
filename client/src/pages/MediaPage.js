@@ -27,18 +27,8 @@ function MediaPage(props) {
 
     const {user, setUser} = useContext(UserContext);
 
-    const [isLoading, setIsLoading] = useState(true);
 
     
-    useEffect(() => {
-
-            if (user === null || user === undefined) {
-                history.push({pathname: "/"})
-            } else {
-                setIsLoading(false)
-            }
-      
-    }, []);
 
     const buttonStyle = {
         float: "right", 
@@ -49,8 +39,8 @@ function MediaPage(props) {
 
     return (
         <>
-        {!isLoading &&
-            <>
+  
+
             <Header />
             <Container fluid style={{backgroundImage: `url(${Charcoal})`}}>
                 <Container fluid>
@@ -65,7 +55,7 @@ function MediaPage(props) {
                         </Col>
                         <Col>
                             <br></br>
-                            {user === undefined ?
+                            {user === undefined || user === null ?
                                 <>
                                     <Link to="/login"><Button style={buttonStyle}>Login</Button></Link>
                                     <Link to="/signup"><Button style={buttonStyle}>Sign Up</Button></Link>
@@ -89,8 +79,7 @@ function MediaPage(props) {
             </Container>
             <Footer />
         </>
-}
-        </>
+
     )
 };
 

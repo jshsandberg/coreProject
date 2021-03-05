@@ -97,9 +97,6 @@ function App() {
               <Route exact path="/results" component={ResultsPage} />
               <Route exact path="/finalArena" component={FinalArenaPage} />
               <Route exact path="/finalResults" component={FinalResultsPage} />
-
-
-              <button onClick={() => console.log(user)}></button>
               </UserContext.Provider>
           </Router>
         </>

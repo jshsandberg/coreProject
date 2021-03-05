@@ -10,7 +10,6 @@ export const getUserData = async (values) => {
 
         if (values === null) {
             foundUser["user"] =  "Not all fields have been entered";
-            console.log("values")
             return foundUser.user 
         } else {
 

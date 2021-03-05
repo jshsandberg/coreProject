@@ -32,7 +32,7 @@ function HomePage() {
 
             if (user === null || user === undefined) {
                 console.log(user)
-                // history.push({pathname: "/"})
+                history.push({pathname: "/"})
             } else {
                 const gotPantheon = await GetPantheon(user.username);
                 await setPantheonData(gotPantheon)

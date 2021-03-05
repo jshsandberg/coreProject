@@ -41,11 +41,11 @@ function Review({ item }) {
     }, [])
 
     const writeReview = () => {
-       if (user !== undefined) {
-           history.push({pathname: `/writereview/:${item.name}`, state: item})
-       } else {
-           console.log("hello")
-       }
+    //    if (user !== undefined) {
+    //        history.push({pathname: `/writereview/:${item.name}`, state: item})
+    //    } else {
+    //        console.log("hello")
+    //    }
     }
 
 
@@ -71,8 +71,8 @@ function Review({ item }) {
                             />
                         </Col>
                         <Col xs={4}>
-                            <h3>Reviews</h3>
-                            <Button onClick={() => writeReview()}>Write Review</Button>
+                            <h3>Reviews (Feature will be implemented when launched</h3>
+                            <Button style={{backgroundColor: "gray", borderColor: "gray"}} onClick={() => writeReview()}>Write Review</Button>
                         </Col>
                     </Row>
                     <br></br>

@@ -7,7 +7,7 @@ export default function Footer() {
 
     return (
         <>
-            <Container style={{backgroundColor: "#db3d44", paddingTop: "2%", paddingBottom: "2%", position: "absolute", bottom: "0"}} fluid>
+            <Container style={{backgroundColor: "#db3d44", paddingTop: "2%", paddingBottom: "2%", position: "sticky", bottom: "0"}} fluid>
                 <Row>
                     <Col align="center">
                         <h3>(c) Pantheon. Creator: Josh Sandberg</h3>

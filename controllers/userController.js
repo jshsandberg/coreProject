@@ -70,26 +70,19 @@ module.exports = {
 			const { username, password } = req.body;
 
 			if (!req.body.username || !req.body.password) {
-				return res
-					.json({ 
-						msg: "Not all fields have been entered." 
-					});
+				return res.send("Not all fields have been entered." )
 			}
 
 			const user = await db.User.findOne({ username });
 			if (!user) {
-				return res
-					.json({ 
-						msg: "User could not be found." 
-					});
+				return res.send("User could not be found" )
+
 			}
 
 			const isMatch = await bcrypt.compare(password, user.password);
 			if (!isMatch) {
-				return res
-					.json({ 
-						msg: "Invalid password." 
-					});
+				return res.send("Invalid password")
+
 			}
 
 			const token = jwt.sign(

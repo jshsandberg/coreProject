@@ -97,13 +97,13 @@ function WelcomePage() {
             </Container>
             <br></br>
             <br></br>
-            <Container fluid>
+            {/* <Container fluid>
                 <Row>
                     <Col>
                         <HighestRateMedia />
                     </Col>
                 </Row>
-            </Container>
+            </Container> */}
             <br></br>
             <br></br>
             <Footer />
